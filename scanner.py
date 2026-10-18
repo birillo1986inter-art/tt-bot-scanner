@@ -20,7 +20,7 @@ def send_telegram(message):
         print(f"Errore Telegram: {e}")
 
 def run():
-    print("Avvio scansione automatica cloud...")
+    print("Avvio scansione automatica senza filtri...")
     try:
         response = requests.get(URL_BETMONITOR, headers=HEADERS, timeout=15)
         if response.status_code != 200:
@@ -41,7 +41,7 @@ def run():
                     for j in range(i + 1, min(i + 12, len(lines))):
                         try:
                             num = float(lines[j].split('/')[0])
-                            if 1.30 <= num <= 3.50:
+                            if 1.01 <= num <= 10.00:
                                 if not odds1:
                                     odds1 = num
                                 elif not odds2 and num != odds1:
@@ -52,16 +52,16 @@ def run():
                         matches.append({"match": players, "odds1": odds1, "odds2": odds2})
             i += 1
             
+        # Invia TUTTE le partite trovate senza alcun filtro su quote/differenziale
         for m in matches:
             diff = abs(m["odds1"] - m["odds2"])
-            if diff <= 0.30 and (1.65 <= m["odds1"] <= 2.15) and (1.65 <= m["odds2"] <= 2.15):
-                msg = (
-                    f"🏓 **PRONOSTICO OVER 18.5 SET** 🏓\n\n"
-                    f"⚔️ **Match:** {m['match']}\n"
-                    f"📊 **Quote:** 1: `{m['odds1']:.2f}` | 2: `{m['odds2']:.2f}` (Diff: `{diff:.2f}`)\n"
-                    f"🎯 **Strategia:** Alta probabilità di set tirati (es. 11-8, 11-9, vantaggi)."
-                )
-                send_telegram(msg)
+            msg = (
+                f"🏓 **MATCH TT CUP** 🏓\n\n"
+                f"⚔️ **Match:** {m['match']}\n"
+                f"📊 **Quote:** 1: `{m['odds1']:.2f}` | 2: `{m['odds2']:.2f}` (Diff: `{diff:.2f}`)\n"
+                f"🎯 **Info:** Notifica inviata senza filtri di quota."
+            )
+            send_telegram(msg)
     except Exception as e:
         print(f"Errore: {e}")
 
