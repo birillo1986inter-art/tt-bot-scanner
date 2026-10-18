@@ -20,7 +20,7 @@ def send_telegram(message):
         print(f"Errore invio Telegram: {e}")
 
 def run():
-    print("Avvio ricerca pronostici Over 18.5...")
+    print("Avvio scansione di controllo...")
     matches = []
 
     try:
@@ -44,67 +44,77 @@ def run():
 
         lines = [line.strip() for line in content_text.split('\n') if line.strip()]
         
-        # Parole da ignorare categoricamente
         ignore_list = [
             "english", "čeština", "rights", "reserved", "version", "cookie", "privacy", 
             "about", "menu", "home", "away", "login", "register", "all", "terms"
         ]
 
-        i = 0
-        while i < len(lines) - 2:
-            line = lines[i]
-            # Identifica gli orari del match (es. 14:30)
-            if re.match(r'^\d{2}:\d{2}$', line):
-                p1 = lines[i+1]
-                p2 = lines[i+2]
-                
-                combined = (p1 + " " + p2).lower()
-                if not any(ig in combined for ig in ignore_list) and len(p1) >= 3 and len(p2) >= 3:
-                    # Estrae le quote adiacenti
-                    chunk = " ".join(lines[max(0, i-1):min(len(lines), i+8)])
-                    odds = re.findall(r'\b[12]\.\d{2}\b', chunk)
-                    
-                    if len(odds) >= 2:
-                        o1 = float(odds[0])
-                        o2 = float(odds[1])
-                        
-                        m_data = {
-                            "time": line,
-                            "match": f"{p1} - {p2}",
-                            "odds1": o1,
-                            "odds2": o2
-                        }
-                        
-                        if not any(m["match"] == m_data["match"] for m in matches):
-                            matches.append(m_data)
-            i += 1
+        # Cerchiamo qualsiasi riga che contenga un trattino o i nomi dei giocatori vicino alle quote
+        for i, line in enumerate(lines):
+            # Cerca pattern di quote decimali nella riga o nelle immediate vicinanze
+            odds = re.findall(r'\b[12]\.\d{2}\b', line)
+            if odds and i > 0:
+                # Esaminiamo le righe sopra per trovare i nomi dei giocatori
+                for j in range(max(0, i-3), i):
+                    candidate = lines[j]
+                    if " - " in candidate or " vs " in candidate.lower():
+                        parts = re.split(r'\s+-\s+|\s+vs\s+', candidate, flags=re.IGNORECASE)
+                        if len(parts) == 2:
+                            p1, p2 = parts[0].strip(), parts[1].strip()
+                            combined = (p1 + " " + p2).lower()
+                            
+                            if not any(ig in combined for ig in ignore_list) and len(p1) >= 3 and len(p2) >= 3:
+                                match_name = f"{p1} - {p2}"
+                                
+                                # Preleviamo le prime due quote trovate nel blocco
+                                all_odds_near = re.findall(r'\b[12]\.\d{2}\b', " ".join(lines[max(0, j-1):min(len(lines), j+6)]))
+                                if len(all_odds_near) >= 2:
+                                    try:
+                                        o1 = float(all_odds_near[0])
+                                        o2 = float(all_odds_near[1])
+                                        
+                                        m_data = {
+                                            "match": match_name,
+                                            "odds1": o1,
+                                            "odds2": o2
+                                        }
+                                        
+                                        if not any(m["match"] == m_data["match"] for m in matches):
+                                            matches.append(m_data)
+                                    except ValueError:
+                                        pass
 
         signals_found = 0
+        signal_messages = []
 
         for m in matches:
             o1, o2 = m["odds1"], m["odds2"]
             diff = abs(o1 - o2)
             
-            # Condizione vincolante per l'OVER 18.5
+            # Condizione rigorosa Over 18.5
             is_over = (diff <= 0.30) and (1.65 <= o1 <= 2.15) and (1.65 <= o2 <= 2.15)
 
-            # INVIA IL MESSAGGIO SOLO SE È UN PRONOSTICO OVER 18.5 VALIDO
             if is_over:
                 signals_found += 1
                 msg = (
                     f"🟢 **SEGNALE OVER 18.5 PUNTI**\n\n"
-                    f"🕒 **Orario:** {m['time']}\n"
                     f"⚔️ **Match:** {m['match']}\n"
                     f"📊 **Quote:** 1: `{o1:.2f}` | 2: `{o2:.2f}` (Diff: `{diff:.2f}`)\n\n"
-                    f"🎯 **Consiglio:** GIOCA OVER 18.5 PUNTI"
+                    f"🎯 **Consiglio:** GIOCA OVER 18.5"
                 )
-                send_telegram(msg)
+                signal_messages.append(msg)
 
-        if signals_found == 0:
-            print("Nessun match al momento rispetta i criteri dell'Over 18.5.")
+        # Invio dei segnali trovati
+        if signal_messages:
+            for sm in signal_messages:
+                send_telegram(sm)
+        else:
+            # Mandiamo un singolo messaggio di test per confermare che lo script gira
+            # (Lo puoi rimuovere in seguito quando sei sicuro che arrivano i segnali)
+            send_telegram("🤖 **Scanner 24live attivo**: Controllo eseguito. Nessun match rispetta i criteri Over 18.5 in questo istante.")
 
     except Exception as e:
-        print(f"Errore nello scanner: {e}")
+        send_telegram(f"❌ Errore nello scanner: `{e}`")
 
 if __name__ == "__main__":
     run()
