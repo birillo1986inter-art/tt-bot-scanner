@@ -21,12 +21,15 @@ def send_telegram(message):
         print(f"Errore invio Telegram: {e}")
 
 def run():
-    print(f"Avvio estrazione pronostici da 24live...")
+    print(f"Avvio scansione strutturata su 24live...")
     matches = []
 
     try:
         with sync_playwright() as p:
-            browser = p.chromium.launch(headless=True)
+            browser = p.chromium.launch(
+                headless=True,
+                args=['--no-sandbox', '--disable-setuid-sandbox', '--window-size=1920,1080']
+            )
             context = browser.new_context(
                 user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36",
                 viewport={'width': 1920, 'height': 1080},
@@ -35,43 +38,57 @@ def run():
             page = context.new_page()
             
             page.goto(URL_TARGET, timeout=50000, wait_until="domcontentloaded")
-            page.wait_for_timeout(6000) # Attesa caricamento elementi JS e quote
+            page.wait_for_timeout(8000) # Attesa caricamento elementi dinamici di 24live
             
             html_content = page.content()
             browser.close()
             
         soup = BeautifulSoup(html_content, 'html.parser')
+        full_text = soup.get_text(separator="\n")
+        lines = [line.strip() for line in full_text.split('\n') if line.strip()]
         
-        # Estrazione delle righe o dei blocchi dedicati agli incontri
-        elements = soup.find_all(['tr', 'div', 'li'])
-        for el in elements:
-            text = el.get_text(separator=" ", strip=True)
+        # Analisi sequenziale del testo per intercettare i match di 24live
+        i = 0
+        while i < len(lines) - 2:
+            current_line = lines[i]
             
-            # Identifichiamo i match basandoci sulla presenza dei nomi e dei trattini/vs
-            if (" - " in text or " vs " in text or " v " in text) and len(text) > 8 and len(text) < 120:
-                clean_text = " ".join(text.split())
-                
-                if not any(kw in clean_text.lower() for kw in ["menu", "cookie", "privacy", "table tennis", "home", "results"]):
-                    # Ricerca delle quote decimali associate al match
-                    odds = re.findall(r'\b[1-9]\.\d{2}\b', clean_text)
-                    o1 = float(odds[0]) if len(odds) >= 1 else None
-                    o2 = float(odds[1]) if len(odds) >= 2 else None
+            # Individua l'inizio di un match programmato ("Not started" o orario)
+            if "Not started" in current_line or re.search(r'\d{2}/\d{2}', current_line) or ":" in current_line:
+                if i + 2 < len(lines):
+                    p1 = lines[i+1]
+                    p2 = lines[i+2]
                     
-                    m_data = {
-                        "match": clean_text[:90],
-                        "odds1": o1,
-                        "odds2": o2,
-                        "has_odds": (o1 is not None and o2 is not None)
-                    }
-                    
-                    if not any(m["match"] == m_data["match"] for m in matches):
-                        matches.append(m_data)
+                    # Filtro di validità sui nomi dei giocatori
+                    if (len(p1) > 2 and len(p2) > 2 and 
+                        not any(kw in p1.lower() for kw in ["menu", "table", "cookie", "privacy", "home", "sport", "all", "live"])):
+                        
+                        match_name = f"{p1} - {p2}"
+                        
+                        # Cerca quote decimali nelle righe immediatamente successive
+                        nearby_odds = []
+                        for k in range(i, min(i + 10, len(lines))):
+                            found = re.findall(r'\b[1-9]\.\d{2}\b', lines[k])
+                            nearby_odds.extend(found)
+                        
+                        o1 = float(nearby_odds[0]) if len(nearby_odds) >= 1 else None
+                        o2 = float(nearby_odds[1]) if len(nearby_odds) >= 2 else None
+                        
+                        m_data = {
+                            "match": match_name,
+                            "odds1": o1,
+                            "odds2": o2,
+                            "has_odds": (o1 is not None and o2 is not None)
+                        }
+                        
+                        if not any(m["match"] == m_data["match"] for m in matches):
+                            matches.append(m_data)
+            i += 1
 
         if not matches:
-            send_telegram("ℹ️ **24live Prono**: Pagina aperta con successo, ma nessuna quota o match attivo estratto al momento.")
+            send_telegram("ℹ️ **24live Prono**: Nessun match rilevato con il parser attuale in questo momento.")
             return
 
-        send_telegram(f"🔍 **24live Prono**: Analizzati **{len(matches)}** match dal palinsesto.")
+        send_telegram(f"🔍 **24live Prono**: Trovati **{len(matches)}** match nel palinsesto!")
 
         for m in matches[:12]:
             if m["has_odds"]:
@@ -80,7 +97,7 @@ def run():
                 odds_str = f"1: `{m['odds1']:.2f}` | 2: `{m['odds2']:.2f}` (Diff: `{diff:.2f}`)"
             else:
                 is_over = False
-                odds_str = "In attesa di quote ufficiali"
+                odds_str = "Pre-match (Quote in attesa)"
 
             if is_over:
                 signal_header = "🟢 **CONSIGLIATO: OVER 18.5 PUNTI**"
