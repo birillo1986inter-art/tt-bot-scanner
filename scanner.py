@@ -6,68 +6,65 @@ from bs4 import BeautifulSoup
 TELEGRAM_BOT_TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN')
 TELEGRAM_CHAT_ID = os.environ.get('TELEGRAM_CHAT_ID')
 
-URL_24LIVE = "https://24live.com/page/sport/match-list/table-tennis-22"
+URL_TARGET = "https://24live.com/page/sport/match-list/table-tennis-22"
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
-    "Accept-Language": "it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7",
-    "Referer": "https://24live.com/"
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
 }
 
 def send_telegram(message):
     if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
-        print("ATTENZIONE: Credenziali Telegram mancanti!")
+        print("Credenziali Telegram mancanti.")
         return
     url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
     payload = {"chat_id": TELEGRAM_CHAT_ID, "text": message, "parse_mode": "Markdown"}
     try:
         requests.post(url, json=payload, timeout=10)
     except Exception as e:
-        print(f"Errore Telegram: {e}")
+        print(f"Errore invio Telegram: {e}")
 
 def run():
-    print("Avvio scansione 24live per Tennistavolo...")
+    print("Avvio scansione...")
     try:
-        response = requests.get(URL_24LIVE, headers=HEADERS, timeout=15)
+        response = requests.get(URL_TARGET, headers=HEADERS, timeout=15)
         if response.status_code != 200:
-            send_telegram(f"⚠️ **Attenzione**: 24live ha risposto con codice HTTP `{response.status_code}`.")
+            send_telegram(f"⚠️ Errore di connessione al sito (Codice: {response.status_code})")
             return
         
         soup = BeautifulSoup(response.text, 'html.parser')
-        
-        # Estraiamo tutti i testi possibili dai blocchi della pagina
-        elements = soup.find_all(['div', 'span', 'a', 'p'])
-        texts = [el.get_text(strip=True) for el in elements if el.get_text(strip=True)]
+        text_content = soup.get_text(separator="\n")
+        lines = [line.strip() for line in text_content.split('\n') if line.strip()]
         
         matches = []
-        
-        # Cerchiamo riferimenti alla TT Cup e ai match
-        for i, text in enumerate(texts):
-            if "tt cup" in text.lower() or "ukraine" in text.lower() or "-" in text or "—" in text:
-                # Vediamo se nelle vicinanze ci sono quote o nomi di giocatori
-                if len(text) > 6 and len(text) < 100:
-                    # Cerchiamo numeri decimali che assomigliano a quote
-                    nearby_text = " ".join(texts[max(0, i-3):min(len(texts), i+4)])
-                    odds = re.findall(r'\b[1-9]\.\d{2}\b', nearby_text)
+        i = 0
+        while i < len(lines):
+            line = lines[i]
+            # Cerca righe che sembrano match (es. presenza di trattini o indicatori)
+            if "-" in line or "—" in line:
+                if len(line) > 6 and "24live" not in line.lower():
+                    # Cerca quote nei dintorni
+                    nearby_odds = []
+                    for j in range(max(0, i-2), min(len(lines), i+8)):
+                        found = re.findall(r'\b[1-9]\.\d{2}\b', lines[j])
+                        nearby_odds.extend(found)
                     
-                    if len(odds) >= 2:
+                    if len(nearby_odds) >= 2:
                         try:
-                            o1 = float(odds[0])
-                            o2 = float(odds[1])
-                            match_name = text.replace("—", "vs").replace("-", "vs")
-                            
-                            match_data = {"match": match_name, "odds1": o1, "odds2": o2}
-                            if match_data not in matches:
-                                matches.append(match_data)
+                            o1 = float(nearby_odds[0])
+                            o2 = float(nearby_odds[1])
+                            match_name = line.replace("—", "vs").replace("-", "vs")
+                            m_data = {"match": match_name, "odds1": o1, "odds2": o2}
+                            if m_data not in matches:
+                                matches.append(m_data)
                         except ValueError:
                             pass
+            i += 1
 
         if not matches:
-            # Fallback: inviamo un messaggio di stato se non trova match specifici con quote
-            send_telegram("ℹ️ **Scansione 24live completata**: Nessun match con quote attive rilevato in questo momento.")
+            send_telegram("ℹ️ **Scansione completata**: Connessione riuscita, ma nessun match con quote attive trovato in questo momento nel palinsesto.")
             return
 
-        # Invia tutte le partite trovate
         for m in matches:
             diff = abs(m["odds1"] - m["odds2"])
             is_over_recommended = (diff <= 0.30) and (1.65 <= m["odds1"] <= 2.15) and (1.65 <= m["odds2"] <= 2.15)
@@ -88,7 +85,7 @@ def run():
             send_telegram(msg)
 
     except Exception as e:
-        send_telegram(f"❌ **Errore durante lo script 24live**: `{e}`")
+        send_telegram(f"❌ Errore critico nello script: `{e}`")
 
 if __name__ == "__main__":
     run()
