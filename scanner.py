@@ -8,9 +8,18 @@ TELEGRAM_CHAT_ID = os.environ.get('TELEGRAM_CHAT_ID')
 
 URL_BSPORTSFAN = "https://it.bsportsfan.com/table-tennis/l/22534/tt-cup-ukraine"
 
+# Header avanzati per simulare un browser reale ed evitare il blocco 403
 HEADERS = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
-    "Accept-Language": "it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7"
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
+    "Accept-Language": "it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Connection": "keep-alive",
+    "Upgrade-Insecure-Requests": "1",
+    "Sec-Fetch-Dest": "document",
+    "Sec-Fetch-Mode": "navigate",
+    "Sec-Fetch-Site": "none",
+    "Sec-Fetch-User": "?1"
 }
 
 def send_telegram(message):
@@ -25,16 +34,16 @@ def send_telegram(message):
         print(f"Errore invio Telegram: {e}")
 
 def run():
-    print("Avvio scansione BsportsFan TT Cup Ukraine...")
+    print("Avvio scansione BsportsFan con header avanzati...")
     try:
-        response = requests.get(URL_BSPORTSFAN, headers=HEADERS, timeout=15)
+        session = requests.Session()
+        response = session.get(URL_BSPORTSFAN, headers=HEADERS, timeout=15)
+        
         if response.status_code != 200:
-            send_telegram(f"⚠️ Errore di connessione a BsportsFan (Codice: {response.status_code})")
+            send_telegram(f"⚠️ Errore 403/Blocco: Il sito ha risposto con codice `{response.status_code}`.")
             return
         
         soup = BeautifulSoup(response.text, 'html.parser')
-        
-        # Estraiamo tutte le righe o i blocchi testuali della pagina
         text_content = soup.get_text(separator="\n")
         lines = [line.strip() for line in text_content.split('\n') if line.strip()]
         
@@ -42,10 +51,8 @@ def run():
         i = 0
         while i < len(lines):
             line = lines[i]
-            # Cerchiamo righe che contengono i nomi dei giocatori (es. con " v " o "-")
             if " v " in line.lower() or " - " in line:
                 if len(line) > 5 and "bsportsfan" not in line.lower():
-                    # Cerchiamo le quote nei dintorni (numeri decimali)
                     nearby_odds = []
                     for j in range(max(0, i-3), min(len(lines), i+6)):
                         found = re.findall(r'\b[1-9]\.\d{2}\b', lines[j])
@@ -64,10 +71,9 @@ def run():
             i += 1
 
         if not matches:
-            send_telegram("ℹ️ **BsportsFan Scanner**: Connessione riuscita. Al momento non ci sono match attivi con quote in chiaro sul palinsesto di BsportsFan.")
+            send_telegram("ℹ️ **BsportsFan Scanner**: Connessione OK (Accesso sbloccato!). Nessun match con quote attive trovato in questo momento.")
             return
 
-        # Invio di tutte le partite trovate
         for m in matches:
             diff = abs(m["odds1"] - m["odds2"])
             is_over_recommended = (diff <= 0.30) and (1.65 <= m["odds1"] <= 2.15) and (1.65 <= m["odds2"] <= 2.15)
@@ -88,7 +94,7 @@ def run():
             send_telegram(msg)
 
     except Exception as e:
-        send_telegram(f"❌ Errore nello script BsportsFan: `{e}`")
+        send_telegram(f"❌ Errore nello script: `{e}`")
 
 if __name__ == "__main__":
     run()
