@@ -21,7 +21,7 @@ def send_telegram(message):
         print(f"Errore invio Telegram: {e}")
 
 def run():
-    print(f"Avvio scansione con filtri rigorosi su 24live...")
+    print(f"Avvio scansione con blocco menu e filtri rigidi...")
     matches = []
 
     try:
@@ -47,36 +47,39 @@ def run():
         full_text = soup.get_text(separator="\n")
         lines = [line.strip() for line in full_text.split('\n') if line.strip()]
         
-        # Parole chiave e sezioni da ignorare categoricamente
-        blacklist = [
-            "3inn", "home", "away", "menu", "table", "cookie", "privacy", 
-            "sport", "all", "live", "schedule", "results", "login", "register",
-            "search", "odds", "not started", "finished", "cancelled"
+        # Lista nera tassativa per cancellare ogni voce di menu o interfaccia di 24live
+        forbidden = [
+            "about us", "notification", "center", "menu", "home", "away", "table", 
+            "cookie", "privacy", "sport", "all", "live", "schedule", "results", 
+            "login", "register", "search", "odds", "settings", "terms", "contact",
+            "download", "app", "help", "support", "statistics", "standings"
         ]
 
         i = 0
         while i < len(lines) - 2:
             current_line = lines[i]
             
-            # Cerca indicazioni di eventi o orari
+            # Individua l'inizio di un match (orari es. 12:30 o "Not started")
             if "Not started" in current_line or re.search(r'\d{2}:\d{2}', current_line):
                 if i + 2 < len(lines):
                     p1 = lines[i+1]
                     p2 = lines[i+2]
                     
-                    # Filtro severo: scarta se contiene parole della blacklist o se è troppo corto/strano
                     p1_low, p2_low = p1.lower(), p2.lower()
-                    if any(bad in p1_low for bad in blacklist) or any(bad in p2_low for bad in blacklist):
+                    
+                    # Se anche solo uno dei due nomi contiene parole di menu, scartalo subito
+                    if any(bad in p1_low for bad in forbidden) or any(bad in p2_low for bad in forbidden):
                         i += 1
                         continue
-                        
-                    if len(p1) < 3 or len(p2) < 3:
+                    
+                    # Un nome di tennistavolo ha una lunghezza sensata e non è un comando di sistema
+                    if len(p1) < 4 or len(p2) < 4 or len(p1) > 35 or len(p2) > 35:
                         i += 1
                         continue
                         
                     match_name = f"{p1} - {p2}"
                     
-                    # Estrazione quote nelle vicinanze
+                    # Cerca quote decimali valide (es. 1.85) nelle vicinanze
                     nearby_odds = []
                     for k in range(i, min(i + 10, len(lines))):
                         found = re.findall(r'\b[1-9]\.\d{2}\b', lines[k])
@@ -97,7 +100,8 @@ def run():
             i += 1
 
         if not matches:
-            send_telegram("ℹ️ **24live Prono**: Nessun match con nomi validi rilevato in questo momento.")
+            # Se non ci sono match puliti, non intasiamo Telegram con falsi positivi
+            print("Nessun match valido trovato in questo ciclo.")
             return
 
         send_telegram(f"🔍 **24live Prono**: Trovati **{len(matches)}** match reali!")
