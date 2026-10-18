@@ -2,25 +2,12 @@ import os
 import re
 import requests
 from bs4 import BeautifulSoup
+from playwright.sync_api import sync_playwright
 
 TELEGRAM_BOT_TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN')
 TELEGRAM_CHAT_ID = os.environ.get('TELEGRAM_CHAT_ID')
 
-URL_BSPORTSFAN = "https://it.bsportsfan.com/table-tennis/l/22534/tt-cup-ukraine"
-
-# Header avanzati per simulare un browser reale ed evitare il blocco 403
-HEADERS = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36",
-    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
-    "Accept-Language": "it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7",
-    "Accept-Encoding": "gzip, deflate, br",
-    "Connection": "keep-alive",
-    "Upgrade-Insecure-Requests": "1",
-    "Sec-Fetch-Dest": "document",
-    "Sec-Fetch-Mode": "navigate",
-    "Sec-Fetch-Site": "none",
-    "Sec-Fetch-User": "?1"
-}
+URL_TARGET = "https://it.bsportsfan.com/table-tennis/l/22534/tt-cup-ukraine"
 
 def send_telegram(message):
     if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
@@ -34,16 +21,25 @@ def send_telegram(message):
         print(f"Errore invio Telegram: {e}")
 
 def run():
-    print("Avvio scansione BsportsFan con header avanzati...")
+    print("Avvio scansione con Playwright (Browser Virtuale)...")
     try:
-        session = requests.Session()
-        response = session.get(URL_BSPORTSFAN, headers=HEADERS, timeout=15)
-        
-        if response.status_code != 200:
-            send_telegram(f"⚠️ Errore 403/Blocco: Il sito ha risposto con codice `{response.status_code}`.")
-            return
-        
-        soup = BeautifulSoup(response.text, 'html.parser')
+        with sync_playwright() as p:
+            # Avviamo un browser in modalità headless (invisibile ma completo)
+            browser = p.chromium.launch(headless=True)
+            context = browser.new_context(
+                user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36",
+                locale="it-IT"
+            )
+            page = context.new_page()
+            
+            # Navighiamo sulla pagina attendendo il caricamento completo degli elementi dinamici
+            page.goto(URL_TARGET, timeout=30000, wait_until="domcontentloaded")
+            page.wait_timeout(5000) # Attendiamo qualche secondo per stabilizzare gli script della pagina
+            
+            html_content = page.content()
+            browser.close()
+            
+        soup = BeautifulSoup(html_content, 'html.parser')
         text_content = soup.get_text(separator="\n")
         lines = [line.strip() for line in text_content.split('\n') if line.strip()]
         
@@ -71,7 +67,7 @@ def run():
             i += 1
 
         if not matches:
-            send_telegram("ℹ️ **BsportsFan Scanner**: Connessione OK (Accesso sbloccato!). Nessun match con quote attive trovato in questo momento.")
+            send_telegram("ℹ️ **Scanner Playwright**: Connessione e caricamento pagina completati con successo. Nessun match con quote attive trovato in questo momento.")
             return
 
         for m in matches:
@@ -94,7 +90,7 @@ def run():
             send_telegram(msg)
 
     except Exception as e:
-        send_telegram(f"❌ Errore nello script: `{e}`")
+        send_telegram(f"❌ Errore critico con Playwright: `{e}`")
 
 if __name__ == "__main__":
     run()
