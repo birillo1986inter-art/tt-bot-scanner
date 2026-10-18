@@ -21,7 +21,7 @@ def send_telegram(message):
         print(f"Errore invio Telegram: {e}")
 
 def run():
-    print("Avvio scansione con Playwright (Browser Virtuale)...")
+    print("Avvio scansione avanzata tabelle BsportsFan...")
     try:
         with sync_playwright() as p:
             browser = p.chromium.launch(headless=True)
@@ -31,41 +31,60 @@ def run():
             )
             page = context.new_page()
             
-            page.goto(URL_TARGET, timeout=30000, wait_until="domcontentloaded")
+            page.goto(URL_TARGET, timeout=30000, wait_until="networkidle")
             page.wait_for_timeout(5000)
             
             html_content = page.content()
             browser.close()
             
         soup = BeautifulSoup(html_content, 'html.parser')
-        text_content = soup.get_text(separator="\n")
-        lines = [line.strip() for line in text_content.split('\n') if line.strip()]
         
         matches = []
-        i = 0
-        while i < len(lines):
-            line = lines[i]
-            if " v " in line.lower() or " - " in line:
-                if len(line) > 5 and "bsportsfan" not in line.lower():
+        
+        # Cerca tutte le righe delle tabelle della pagina
+        rows = soup.find_all('tr')
+        for row in rows:
+            text = row.get_text(separator=" ", strip=True)
+            
+            # Identifica righe che contengono sfide (es. "v", "vs", "-")
+            if re.search(r'\b(v|vs|-)\b', text, re.IGNORECASE) and len(text) > 8:
+                # Estrai quote decimali presenti nella riga (es. 1.85, 2.10)
+                odds = re.findall(r'\b[1-9]\.\d{2}\b', text)
+                
+                # Se troviamo almeno 2 quote, parliamo di una partita con quota
+                if len(odds) >= 2:
+                    try:
+                        o1 = float(odds[0])
+                        o2 = float(odds[1])
+                        
+                        # Clean del nome della partita
+                        clean_text = " ".join(text.split())
+                        m_data = {"match": clean_text[:80], "odds1": o1, "odds2": o2}
+                        if m_data not in matches:
+                            matches.append(m_data)
+                    except ValueError:
+                        pass
+
+        # Fallback generico sul testo se le tabelle non bastano
+        if not matches:
+            text_lines = [l.strip() for l in soup.get_text(separator="\n").split('\n') if l.strip()]
+            for i, line in enumerate(text_lines):
+                if (" v " in line.lower() or " vs " in line.lower()) and len(line) < 70:
                     nearby_odds = []
-                    for j in range(max(0, i-3), min(len(lines), i+6)):
-                        found = re.findall(r'\b[1-9]\.\d{2}\b', lines[j])
+                    for j in range(max(0, i-2), min(len(text_lines), i+5)):
+                        found = re.findall(r'\b[1-9]\.\d{2}\b', text_lines[j])
                         nearby_odds.extend(found)
-                    
                     if len(nearby_odds) >= 2:
                         try:
-                            o1 = float(nearby_odds[0])
-                            o2 = float(nearby_odds[1])
-                            match_name = line.replace(" v ", " vs ").replace(" - ", " vs ")
-                            m_data = {"match": match_name, "odds1": o1, "odds2": o2}
+                            o1, o2 = float(nearby_odds[0]), float(nearby_odds[1])
+                            m_data = {"match": line, "odds1": o1, "odds2": o2}
                             if m_data not in matches:
                                 matches.append(m_data)
                         except ValueError:
                             pass
-            i += 1
 
         if not matches:
-            send_telegram("ℹ️ **Scanner Playwright**: Connessione e caricamento completati con successo. Nessun match con quote attive trovato in questo momento.")
+            send_telegram("ℹ️ **Scanner Playwright**: Connessione OK, ma nessun match attivo rilevato nelle tabelle BsportsFan in questo momento.")
             return
 
         for m in matches:
