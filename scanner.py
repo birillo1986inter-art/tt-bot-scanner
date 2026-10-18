@@ -20,7 +20,7 @@ def send_telegram(message):
         print(f"Errore invio Telegram: {e}")
 
 def run():
-    print("Avvio scansione di controllo...")
+    print("Avvio scansione totale di tutti i match e quote...")
     matches = []
 
     try:
@@ -49,12 +49,10 @@ def run():
             "about", "menu", "home", "away", "login", "register", "all", "terms"
         ]
 
-        # Cerchiamo qualsiasi riga che contenga un trattino o i nomi dei giocatori vicino alle quote
+        # Cerchiamo le righe con le quote e risaliamo ai nomi dei giocatori
         for i, line in enumerate(lines):
-            # Cerca pattern di quote decimali nella riga o nelle immediate vicinanze
             odds = re.findall(r'\b[12]\.\d{2}\b', line)
             if odds and i > 0:
-                # Esaminiamo le righe sopra per trovare i nomi dei giocatori
                 for j in range(max(0, i-3), i):
                     candidate = lines[j]
                     if " - " in candidate or " vs " in candidate.lower():
@@ -66,52 +64,35 @@ def run():
                             if not any(ig in combined for ig in ignore_list) and len(p1) >= 3 and len(p2) >= 3:
                                 match_name = f"{p1} - {p2}"
                                 
-                                # Preleviamo le prime due quote trovate nel blocco
                                 all_odds_near = re.findall(r'\b[12]\.\d{2}\b', " ".join(lines[max(0, j-1):min(len(lines), j+6)]))
-                                if len(all_odds_near) >= 2:
-                                    try:
-                                        o1 = float(all_odds_near[0])
-                                        o2 = float(all_odds_near[1])
-                                        
-                                        m_data = {
-                                            "match": match_name,
-                                            "odds1": o1,
-                                            "odds2": o2
-                                        }
-                                        
-                                        if not any(m["match"] == m_data["match"] for m in matches):
-                                            matches.append(m_data)
-                                    except ValueError:
-                                        pass
+                                
+                                o1 = float(all_odds_near[0]) if len(all_odds_near) >= 1 else None
+                                o2 = float(all_odds_near[1]) if len(all_odds_near) >= 2 else None
+                                
+                                m_data = {
+                                    "match": match_name,
+                                    "odds1": o1,
+                                    "odds2": o2
+                                }
+                                
+                                if not any(m["match"] == m_data["match"] for m in matches):
+                                    matches.append(m_data)
 
-        signals_found = 0
-        signal_messages = []
+        if not matches:
+            send_telegram("ℹ️ **Scanner Totale**: Nessun match rilevato in questo momento.")
+            return
 
-        for m in matches:
-            o1, o2 = m["odds1"], m["odds2"]
-            diff = abs(o1 - o2)
+        # Inviamo i primi 5 match trovati con qualsiasi quota
+        for m in matches[:5]:
+            o1_str = f"`{m['odds1']:.2f}`" if m['odds1'] else "N/D"
+            o2_str = f"`{m['odds2']:.2f}`" if m['odds2'] else "N/D"
             
-            # Condizione rigorosa Over 18.5
-            is_over = (diff <= 0.30) and (1.65 <= o1 <= 2.15) and (1.65 <= o2 <= 2.15)
-
-            if is_over:
-                signals_found += 1
-                msg = (
-                    f"🟢 **SEGNALE OVER 18.5 PUNTI**\n\n"
-                    f"⚔️ **Match:** {m['match']}\n"
-                    f"📊 **Quote:** 1: `{o1:.2f}` | 2: `{o2:.2f}` (Diff: `{diff:.2f}`)\n\n"
-                    f"🎯 **Consiglio:** GIOCA OVER 18.5"
-                )
-                signal_messages.append(msg)
-
-        # Invio dei segnali trovati
-        if signal_messages:
-            for sm in signal_messages:
-                send_telegram(sm)
-        else:
-            # Mandiamo un singolo messaggio di test per confermare che lo script gira
-            # (Lo puoi rimuovere in seguito quando sei sicuro che arrivano i segnali)
-            send_telegram("🤖 **Scanner 24live attivo**: Controllo eseguito. Nessun match rispetta i criteri Over 18.5 in questo istante.")
+            msg = (
+                f"📊 **MATCH RILEVATO (Tutte le quote)**\n\n"
+                f"⚔️ **Match:** {m['match']}\n"
+                f"📈 **Quote:** 1: {o1_str} | 2: {o2_str}"
+            )
+            send_telegram(msg)
 
     except Exception as e:
         send_telegram(f"❌ Errore nello scanner: `{e}`")
