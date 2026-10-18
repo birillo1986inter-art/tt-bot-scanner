@@ -21,7 +21,7 @@ def send_telegram(message):
         print(f"Errore invio Telegram: {e}")
 
 def run():
-    print("Avvio scansione avanzata tabelle BsportsFan...")
+    print("Avvio scansione profonda BsportsFan...")
     try:
         with sync_playwright() as p:
             browser = p.chromium.launch(headless=True)
@@ -31,9 +31,8 @@ def run():
             )
             page = context.new_page()
             
-            # Usiamo domcontentloaded per evitare blocchi dovuti al traffico continuo in background
             page.goto(URL_TARGET, timeout=45000, wait_until="domcontentloaded")
-            page.wait_for_timeout(5000)  # Pausa per dare tempo agli script di popolare la pagina
+            page.wait_for_timeout(6000) # Attendiamo il rendering completo
             
             html_content = page.content()
             browser.close()
@@ -42,12 +41,14 @@ def run():
         
         matches = []
         
-        # Cerca tutte le righe delle tabelle della pagina
-        rows = soup.find_all('tr')
-        for row in rows:
-            text = row.get_text(separator=" ", strip=True)
+        # Estraiamo tutti i blocchi potenziali (righe, div, elementi di lista)
+        elements = soup.find_all(['tr', 'div', 'li'])
+        for el in elements:
+            text = el.get_text(separator=" ", strip=True)
             
-            if re.search(r'\b(v|vs|-)\b', text, re.IGNORECASE) and len(text) > 8:
+            # Cerchiamo pattern che indicano un match (presenza di trattini o "vs")
+            if ((" - " in text or " vs " in text or " v " in text) and len(text) > 6 and len(text) < 150):
+                # Cerchiamo se ci sono quote decimali (es. 1.85, 2.10) nello stesso blocco o vicine
                 odds = re.findall(r'\b[1-9]\.\d{2}\b', text)
                 
                 if len(odds) >= 2:
@@ -55,33 +56,17 @@ def run():
                         o1 = float(odds[0])
                         o2 = float(odds[1])
                         
-                        clean_text = " ".join(text.split())
-                        m_data = {"match": clean_text[:80], "odds1": o1, "odds2": o2}
-                        if m_data not in matches:
-                            matches.append(m_data)
+                        clean_match = " ".join(text.split())
+                        # Filtriamo eventuali stringhe spazzatura del menu o intestazioni
+                        if "cookie" not in clean_match.lower() and "privacy" not in clean_match.lower():
+                            m_data = {"match": clean_match[:80], "odds1": o1, "odds2": o2}
+                            if m_data not in matches:
+                                matches.append(m_data)
                     except ValueError:
                         pass
 
-        # Fallback generico sul testo se le tabelle non bastano
         if not matches:
-            text_lines = [l.strip() for l in soup.get_text(separator="\n").split('\n') if l.strip()]
-            for i, line in enumerate(text_lines):
-                if (" v " in line.lower() or " vs " in line.lower()) and len(line) < 70:
-                    nearby_odds = []
-                    for j in range(max(0, i-2), min(len(text_lines), i+5)):
-                        found = re.findall(r'\b[1-9]\.\d{2}\b', text_lines[j])
-                        nearby_odds.extend(found)
-                    if len(nearby_odds) >= 2:
-                        try:
-                            o1, o2 = float(nearby_odds[0]), float(nearby_odds[1])
-                            m_data = {"match": line, "odds1": o1, "odds2": o2}
-                            if m_data not in matches:
-                                matches.append(m_data)
-                        except ValueError:
-                            pass
-
-        if not matches:
-            send_telegram("ℹ️ **Scanner Playwright**: Connessione OK, ma nessun match attivo rilevato nelle tabelle BsportsFan in questo momento.")
+            send_telegram("ℹ️ **Scanner Playwright**: Pagina caricata correttamente. Nessun match attivo con quote rilevato in questo momento.")
             return
 
         for m in matches:
