@@ -19,7 +19,7 @@ jobs:
 
       - name: Installa dipendenze
         run: |
-          pip install playwright beautifulsoup4 requests
+          pip install playwright beautifulsoup4 requests playwright-stealth
           playwright install chromium
 
       - name: Esegui Scanner
