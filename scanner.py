@@ -21,7 +21,7 @@ def send_telegram(message):
         print(f"Errore invio Telegram: {e}")
 
 def run():
-    print("Avvio scansione con filtro rigoroso sui nomi...")
+    print("Avvio scansione basata sulle quote dei match...")
     matches = []
 
     try:
@@ -45,59 +45,57 @@ def run():
             
         soup = BeautifulSoup(html_content, 'html.parser')
         
-        # Estraiamo tutti i testi possibili dai tag di testo dei match (spans, divs)
-        elements = soup.find_all(['div', 'span', 'a', 'p'])
-        texts = [el.get_text().strip() for el in elements if el.get_text().strip()]
-
-        # Parole bloccate tassativamente (footer, menu, interfaccia)
-        blocklist = [
-            "rights", "reserved", "version", "cookie", "privacy", "about", "home", 
-            "menu", "sport", "live", "schedule", "results", "login", "register", 
-            "search", "odds", "settings", "terms", "contact", "download", "app"
+        # Cerchiamo tutti i blocchi che contengono potenziali quote (numeri con la virgola/punto tipo 1.xx o 2.xx)
+        elements = soup.find_all(True)
+        
+        # Parole da scartare tassativamente se compaiono nei nomi
+        ignore_words = [
+            "english", "čeština", "rights", "reserved", "version", "cookie", "privacy", 
+            "about", "home", "menu", "sport", "live", "schedule", "results", "login", 
+            "register", "search", "odds", "settings", "terms", "contact", "download", "app"
         ]
 
-        # Cerchiamo coppie di stringhe che sembrano nomi di giocatori (es. Cognome N. o Nome Cognome)
-        i = 0
-        while i < len(texts) - 1:
-            t1 = texts[i]
-            t2 = texts[i+1]
-            
-            t1_l, t2_l = t1.lower(), t2.lower()
-            
-            # Condizioni rigide: devono sembrare due atleti distinti senza parole di sistema
-            is_garbage = any(b in t1_l or b in t2_l for b in blocklist)
-            is_valid_length = (3 <= len(t1) <= 30) and (3 <= len(t2) <= 30)
-            has_letters = any(c.isalpha() for c in t1) and any(c.isalpha() for c in t2)
-            
-            if not is_garbage and is_valid_length and has_letters and t1 != t2:
-                # Se la struttura somiglia a un match
-                match_name = f"{t1} - {t2}"
+        for el in elements:
+            txt = el.get_text(separator=" ", strip=True)
+            # Se un blocco contiene quote e sembra una riga di match
+            if re.search(r'\b[12]\.\d{2}\b', txt):
+                lines = [l.strip() for l in txt.split('\n') if l.strip()]
                 
-                # Cerchiamo se ci sono quote decimali vicine nel raggio di 5 elementi
-                nearby_text = " ".join(texts[max(0, i-2):min(len(texts), i+6)])
-                odds = re.findall(r'\b[1-9]\.\d{2}\b', nearby_text)
-                
-                o1 = float(odds[0]) if len(odds) >= 1 else None
-                o2 = float(odds[1]) if len(odds) >= 2 else None
-                
-                m_data = {
-                    "match": match_name,
-                    "odds1": o1,
-                    "odds2": o2,
-                    "has_odds": (o1 is not None and o2 is not None)
-                }
-                
-                # Evitiamo duplicati evidenti
-                if not any(m["match"] == m_data["match"] for m in matches):
-                    matches.append(m_data)
-            i += 1
+                # Cerchiamo righe che contengono nomi di atleti o trattini/vs
+                for idx, line in enumerate(lines):
+                    if " - " in line or " vs " in line.lower():
+                        parts = re.split(r'\s+-\s+|\s+vs\s+', line, flags=re.IGNORECASE)
+                        if len(parts) == 2:
+                            p1, p2 = parts[0].strip(), parts[1].strip()
+                            
+                            # Filtriamo via le stringhe di sistema
+                            combined = (p1 + " " + p2).lower()
+                            if any(w in combined for w in ignore_words):
+                                continue
+                                
+                            if len(p1) > 2 and len(p2) > 2:
+                                match_name = f"{p1} - {p2}"
+                                
+                                # Estraiamo le quote vicine
+                                odds = re.findall(r'\b[12]\.\d{2}\b', txt)
+                                o1 = float(odds[0]) if len(odds) >= 1 else None
+                                o2 = float(odds[1]) if len(odds) >= 2 else None
+                                
+                                m_data = {
+                                    "match": match_name,
+                                    "odds1": o1,
+                                    "odds2": o2,
+                                    "has_odds": (o1 is not None and o2 is not None)
+                                }
+                                
+                                if not any(m["match"] == m_data["match"] for m in matches):
+                                    matches.append(m_data)
 
         if not matches:
-            print("Nessun match valido trovato in questo ciclo.")
+            print("Nessun match con quote trovato in questo ciclo.")
             return
 
-        # Limitiamo l'invio ai primi 5 match reali trovati per evitare spam
-        for m in matches[:5]:
+        for m in matches[:6]:
             if m["has_odds"]:
                 diff = abs(m["odds1"] - m["odds2"])
                 is_over = (diff <= 0.30) and (1.65 <= m["odds1"] <= 2.15) and (1.65 <= m["odds2"] <= 2.15)
