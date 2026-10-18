@@ -20,7 +20,7 @@ def send_telegram(message):
         print(f"Errore Telegram: {e}")
 
 def run():
-    print("Avvio scansione automatica senza filtri...")
+    print("Avvio scansione automatica...")
     try:
         response = requests.get(URL_BETMONITOR, headers=HEADERS, timeout=15)
         if response.status_code != 200:
@@ -52,14 +52,25 @@ def run():
                         matches.append({"match": players, "odds1": odds1, "odds2": odds2})
             i += 1
             
-        # Invia TUTTE le partite trovate senza alcun filtro su quote/differenziale
+        # Invia tutte le partite evidenziando dove giocare l'Over 18.5
         for m in matches:
             diff = abs(m["odds1"] - m["odds2"])
+            
+            # Condizione per consigliare l'Over 18.5 (quote bilanciate)
+            is_over_recommended = (diff <= 0.30) and (1.65 <= m["odds1"] <= 2.15) and (1.65 <= m["odds2"] <= 2.15)
+            
+            if is_over_recommended:
+                signal_header = "🟢 **CONSIGLIATO: OVER 18.5 PUNTI**"
+                advice = "🎯 **Suggerimento:** GIOCA OVER 18.5 SET (Partita molto equilibrata)"
+            else:
+                signal_header = "⚪ **INFO MATCH (NO OVER 18.5)**"
+                advice = "⚠️ **Suggerimento:** PASS (Match sbilanciato)"
+
             msg = (
-                f"🏓 **MATCH TT CUP** 🏓\n\n"
+                f"{signal_header}\n\n"
                 f"⚔️ **Match:** {m['match']}\n"
                 f"📊 **Quote:** 1: `{m['odds1']:.2f}` | 2: `{m['odds2']:.2f}` (Diff: `{diff:.2f}`)\n"
-                f"🎯 **Info:** Notifica inviata senza filtri di quota."
+                f"{advice}"
             )
             send_telegram(msg)
     except Exception as e:
