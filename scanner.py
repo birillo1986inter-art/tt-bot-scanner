@@ -1,80 +1,27 @@
-import os
-import requests
-from bs4 import BeautifulSoup
+name: TT Cup Scanner Automatico
 
-TELEGRAM_BOT_TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN')
-TELEGRAM_CHAT_ID = os.environ.get('TELEGRAM_CHAT_ID')
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
 
-URL_BETMONITOR = "https://www.betmonitor.com/mobile/odds-comparison/table-tennis/ukraine-tt-cup/10007095"
+jobs:
+  scansione:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout codice
+        uses: actions/checkout@v3
 
-HEADERS = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
-}
+      - name: Configura Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
 
-def send_telegram(message):
-    url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
-    payload = {"chat_id": TELEGRAM_CHAT_ID, "text": message, "parse_mode": "Markdown"}
-    try:
-        requests.post(url, json=payload, timeout=10)
-    except Exception as e:
-        print(f"Errore Telegram: {e}")
+      - name: Installa dipendenze
+        run: pip install requests beautifulsoup4
 
-def run():
-    print("Avvio scansione automatica...")
-    try:
-        response = requests.get(URL_BETMONITOR, headers=HEADERS, timeout=15)
-        if response.status_code != 200:
-            return
-        
-        soup = BeautifulSoup(response.text, 'html.parser')
-        content_text = soup.get_text()
-        lines = [line.strip() for line in content_text.split('\n') if line.strip()]
-        
-        matches = []
-        i = 0
-        while i < len(lines):
-            line = lines[i]
-            if "—" in line or "-" in line or " - " in line:
-                if len(line) > 5 and "Betmonitor" not in line:
-                    players = line.replace("—", "vs").replace("-", "vs")
-                    odds1, odds2 = None, None
-                    for j in range(i + 1, min(i + 12, len(lines))):
-                        try:
-                            num = float(lines[j].split('/')[0])
-                            if 1.01 <= num <= 10.00:
-                                if not odds1:
-                                    odds1 = num
-                                elif not odds2 and num != odds1:
-                                    odds2 = num
-                        except ValueError:
-                            pass
-                    if odds1 and odds2:
-                        matches.append({"match": players, "odds1": odds1, "odds2": odds2})
-            i += 1
-            
-        # Invia tutte le partite evidenziando dove giocare l'Over 18.5
-        for m in matches:
-            diff = abs(m["odds1"] - m["odds2"])
-            
-            # Condizione per consigliare l'Over 18.5 (quote bilanciate)
-            is_over_recommended = (diff <= 0.30) and (1.65 <= m["odds1"] <= 2.15) and (1.65 <= m["odds2"] <= 2.15)
-            
-            if is_over_recommended:
-                signal_header = "🟢 **CONSIGLIATO: OVER 18.5 PUNTI**"
-                advice = "🎯 **Suggerimento:** GIOCA OVER 18.5 SET (Partita molto equilibrata)"
-            else:
-                signal_header = "⚪ **INFO MATCH (NO OVER 18.5)**"
-                advice = "⚠️ **Suggerimento:** PASS (Match sbilanciato)"
-
-            msg = (
-                f"{signal_header}\n\n"
-                f"⚔️ **Match:** {m['match']}\n"
-                f"📊 **Quote:** 1: `{m['odds1']:.2f}` | 2: `{m['odds2']:.2f}` (Diff: `{diff:.2f}`)\n"
-                f"{advice}"
-            )
-            send_telegram(msg)
-    except Exception as e:
-        print(f"Errore: {e}")
-
-if __name__ == "__main__":
-    run()
+      - name: Esegui Scanner
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python scanner.py
