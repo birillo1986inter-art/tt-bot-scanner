@@ -31,8 +31,9 @@ def run():
             )
             page = context.new_page()
             
-            page.goto(URL_TARGET, timeout=30000, wait_until="networkidle")
-            page.wait_for_timeout(5000)
+            # Usiamo domcontentloaded per evitare blocchi dovuti al traffico continuo in background
+            page.goto(URL_TARGET, timeout=45000, wait_until="domcontentloaded")
+            page.wait_for_timeout(5000)  # Pausa per dare tempo agli script di popolare la pagina
             
             html_content = page.content()
             browser.close()
@@ -46,18 +47,14 @@ def run():
         for row in rows:
             text = row.get_text(separator=" ", strip=True)
             
-            # Identifica righe che contengono sfide (es. "v", "vs", "-")
             if re.search(r'\b(v|vs|-)\b', text, re.IGNORECASE) and len(text) > 8:
-                # Estrai quote decimali presenti nella riga (es. 1.85, 2.10)
                 odds = re.findall(r'\b[1-9]\.\d{2}\b', text)
                 
-                # Se troviamo almeno 2 quote, parliamo di una partita con quota
                 if len(odds) >= 2:
                     try:
                         o1 = float(odds[0])
                         o2 = float(odds[1])
                         
-                        # Clean del nome della partita
                         clean_text = " ".join(text.split())
                         m_data = {"match": clean_text[:80], "odds1": o1, "odds2": o2}
                         if m_data not in matches:
