@@ -22,7 +22,9 @@ def send_telegram(message):
         print(f"Errore invio Telegram: {e}")
 
 def run():
-    print("Avvio scansione profonda TT Cup...")
+    print("Avvio scansione approfondita Pre-Match TT Cup Ukraine...")
+    matches = []
+    
     try:
         with sync_playwright() as p:
             browser = p.chromium.launch(headless=True)
@@ -32,81 +34,99 @@ def run():
             )
             page = context.new_page()
             
-            # Step 1: Apri la pagina della lega
+            # Apertura pagina principale della lega
             page.goto(URL_TARGET, timeout=45000, wait_until="domcontentloaded")
-            page.wait_for_timeout(4000)
+            page.wait_for_timeout(5000)
             
             soup = BeautifulSoup(page.content(), 'html.parser')
             
-            # Cerca tutti i link dei match della TT Cup (/r/XXXXX)
-            links = soup.find_all('a', href=re.compile(r'/r/\d+'))
-            match_list = []
+            # Cerca tutte le righe della tabella o blocchi contenenti gli incontri pre-match
+            rows = soup.find_all('tr') + soup.find_all('div', class_=re.compile(r'match|event|row', re.I))
             
-            for link in links:
-                text = link.get_text(strip=True)
-                href = link.get('href')
-                if (" v " in text.lower() or " vs " in text.lower()) and href:
-                    full_url = URL_BASE + href if href.startswith('/') else href
-                    if not any(m['url'] == full_url for m in match_list):
-                        match_list.append({"match": text, "url": full_url})
+            for row in rows:
+                text = row.get_text(separator=" ", strip=True)
+                
+                # Identifica se la riga contiene una partita (presenza di " v ", " vs " o "-")
+                if re.search(r'\b(v|vs|-)\b', text, re.IGNORECASE) and len(text) > 8:
+                    # Estrai quote decimali presenti nella riga (es. 1.85, 1.90)
+                    odds = re.findall(r'\b[1-9]\.\d{2}\b', text)
+                    
+                    # Pulizia nome partita
+                    clean_text = " ".join(text.split())
+                    
+                    # Escludi parole chiave non inerenti
+                    if not any(kw in clean_text.lower() for kw in ["bsportsfan", "privacy", "cookie", "terms", "league"]):
+                        o1 = float(odds[0]) if len(odds) >= 1 else None
+                        o2 = float(odds[1]) if len(odds) >= 2 else None
+                        
+                        m_data = {
+                            "match": clean_text[:90],
+                            "odds1": o1,
+                            "odds2": o2,
+                            "has_odds": (o1 is not None and o2 is not None)
+                        }
+                        
+                        if not any(m["match"] == m_data["match"] for m in matches):
+                            matches.append(m_data)
 
-            if not match_list:
-                send_telegram("ℹ️ **TT Cup Scanner**: Nessun match programmato o in corso trovato al momento nel palinsesto.")
-                browser.close()
-                return
+            # Se con il primo metodo trova pochi elementi, cerca tutti i link dei match (/r/XXXXX)
+            if len(matches) < 2:
+                links = soup.find_all('a', href=re.compile(r'/r/\d+'))
+                for link in links:
+                    t = link.get_text(strip=True)
+                    if re.search(r'\b(v|vs|-)\b', t, re.IGNORECASE):
+                        parent = link.find_parent(['tr', 'div', 'td'])
+                        p_text = parent.get_text(separator=" ", strip=True) if parent else t
+                        odds = re.findall(r'\b[1-9]\.\d{2}\b', p_text)
+                        
+                        o1 = float(odds[0]) if len(odds) >= 1 else None
+                        o2 = float(odds[1]) if len(odds) >= 2 else None
+                        
+                        m_data = {
+                            "match": t,
+                            "odds1": o1,
+                            "odds2": o2,
+                            "has_odds": (o1 is not None and o2 is not None)
+                        }
+                        if not any(m["match"] == m_data["match"] for m in matches):
+                            matches.append(m_data)
 
-            results = []
-            # Step 2: Apri i primi 5 match per estrarre le quote reali dalla scheda interna
-            for item in match_list[:5]:
-                try:
-                    page.goto(item['url'], timeout=20000, wait_until="domcontentloaded")
-                    page.wait_for_timeout(2000)
-                    detail_soup = BeautifulSoup(page.content(), 'html.parser')
-                    
-                    # Estrai quote decimali presenti nella scheda del match
-                    text_detail = detail_soup.get_text(separator=" ")
-                    odds = re.findall(r'\b[1-9]\.\d{2}\b', text_detail)
-                    
-                    if len(odds) >= 2:
-                        o1, o2 = float(odds[0]), float(odds[1])
-                    else:
-                        o1, o2 = 1.85, 1.85  # Quota neutra standard se non visibili
-                    
-                    results.append({
-                        "match": item['match'],
-                        "odds1": o1,
-                        "odds2": o2,
-                        "has_odds": len(odds) >= 2
-                    })
-                except Exception as inner_e:
-                    print(f"Errore lettura match {item['match']}: {inner_e}")
-            
             browser.close()
 
-        # Step 3: Elabora i dati e invia i segnali Telegram
-        for m in results:
-            diff = abs(m["odds1"] - m["odds2"])
-            is_over = m["has_odds"] and (diff <= 0.30) and (1.65 <= m["odds1"] <= 2.15) and (1.65 <= m["odds2"] <= 2.15)
-            
-            if is_over:
-                signal_header = "🟢 **CONSIGLIATO: OVER 18.5 PUNTI**"
-                advice = "🎯 **Suggerimento:** GIOCA OVER 18.5 (Match equilibrato)"
-            else:
-                signal_header = "⚪ **MATCH IN PALINSESTO**"
-                advice = "⚠️ **Suggerimento:** PASS (Quote non bilanciate o standard)"
-
-            odds_str = f"1: `{m['odds1']:.2f}` | 2: `{m['odds2']:.2f}` (Diff: `{diff:.2f}`)" if m["has_odds"] else "Quote in aggiornamento"
-
-            msg = (
-                f"{signal_header}\n\n"
-                f"⚔️ **Match:** {m['match']}\n"
-                f"📊 **Quote:** {odds_str}\n"
-                f"{advice}"
-            )
-            send_telegram(msg)
-
     except Exception as e:
-        send_telegram(f"❌ Errore nello scanner: `{e}`")
+        print(f"Errore durante l'esecuzione del browser: {e}")
+
+    if not matches:
+        send_telegram("ℹ️ **TT Cup Scanner**: Nessuna partita pre-match trovata nella pagina. Verifica che la struttura della pagina non sia cambiata.")
+        return
+
+    # Notifica quanti match pre-match sono stati rilevati
+    send_telegram(f"🔍 **TT Cup Scanner**: Trovate **{len(matches)}** partite Pre-Match in palinsesto.")
+
+    # Invia dettagli per ciascuna partita trovata (max 15 per evitare limiti Telegram)
+    for m in matches[:15]:
+        if m["has_odds"]:
+            diff = abs(m["odds1"] - m["odds2"])
+            is_over = (diff <= 0.30) and (1.65 <= m["odds1"] <= 2.15) and (1.65 <= m["odds2"] <= 2.15)
+            odds_str = f"1: `{m['odds1']:.2f}` | 2: `{m['odds2']:.2f}` (Diff: `{diff:.2f}`)"
+        else:
+            is_over = False
+            odds_str = "Quote Pre-Match in aggiornamento"
+
+        if is_over:
+            signal_header = "🟢 **CONSIGLIATO: OVER 18.5 PUNTI**"
+            advice = "🎯 **Suggerimento:** GIOCA OVER 18.5 (Match equilibrato)"
+        else:
+            signal_header = "⚪ **PRE-MATCH IN PALINSESTO**"
+            advice = "⚠️ **Suggerimento:** PASS (Quote non bilanciate o standard)"
+
+        msg = (
+            f"{signal_header}\n\n"
+            f"⚔️ **Match:** {m['match']}\n"
+            f"📊 **Quote:** {odds_str}\n"
+            f"{advice}"
+        )
+        send_telegram(msg)
 
 if __name__ == "__main__":
     run()
