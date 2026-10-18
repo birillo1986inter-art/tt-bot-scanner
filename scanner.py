@@ -1,6 +1,7 @@
 import os
 import re
 import requests
+from bs4 import BeautifulSoup
 from playwright.sync_api import sync_playwright
 
 TELEGRAM_BOT_TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN')
@@ -20,7 +21,7 @@ def send_telegram(message):
         print(f"Errore invio Telegram: {e}")
 
 def run():
-    print("Avvio scansione mirata degli elementi match su 24live...")
+    print("Avvio scansione con filtro rigoroso sui nomi...")
     matches = []
 
     try:
@@ -39,53 +40,64 @@ def run():
             page.goto(URL_TARGET, timeout=60000, wait_until="networkidle")
             page.wait_for_timeout(8000)
             
-            # Estraiamo direttamente i blocchi o le righe che contengono i match
-            row_elements = page.query_selector_all("div, tr, li")
-            
-            for el in row_elements:
-                try:
-                    text = el.inner_text().strip()
-                    lines = [l.strip() for l in text.split('\n') if l.strip()]
-                    
-                    # Un blocco match valido contiene solitamente orario/stato, due nomi e quote
-                    if len(lines) >= 3 and any(char.isdigit() for char in lines[0]):
-                        # Cerchiamo due righe consecutive che sembrano nomi di persone (es: Nome Cognome)
-                        p1, p2 = lines[1], lines[2]
-                        
-                        # Escludiamo parole trasversali dei menu
-                        words_check = (p1 + " " + p2).lower()
-                        if any(kw in words_check for kw in ["about", "center", "menu", "cookie", "privacy", "home", "terms", "live"]):
-                            continue
-                            
-                        if len(p1) > 3 and len(p2) > 3 and " - " not in p1:
-                            match_name = f"{p1} - {p2}"
-                            
-                            # Cerca quote decimali nel testo della riga
-                            odds = re.findall(r'\b[1-9]\.\d{2}\b', text)
-                            o1 = float(odds[0]) if len(odds) >= 1 else None
-                            o2 = float(odds[1]) if len(odds) >= 2 else None
-                            
-                            m_data = {
-                                "match": match_name,
-                                "odds1": o1,
-                                "odds2": o2,
-                                "has_odds": (o1 is not None and o2 is not None)
-                            }
-                            
-                            if not any(m["match"] == m_data["match"] for m in matches):
-                                matches.append(m_data)
-                except Exception:
-                    continue
-
+            html_content = page.content()
             browser.close()
+            
+        soup = BeautifulSoup(html_content, 'html.parser')
+        
+        # Estraiamo tutti i testi possibili dai tag di testo dei match (spans, divs)
+        elements = soup.find_all(['div', 'span', 'a', 'p'])
+        texts = [el.get_text().strip() for el in elements if el.get_text().strip()]
+
+        # Parole bloccate tassativamente (footer, menu, interfaccia)
+        blocklist = [
+            "rights", "reserved", "version", "cookie", "privacy", "about", "home", 
+            "menu", "sport", "live", "schedule", "results", "login", "register", 
+            "search", "odds", "settings", "terms", "contact", "download", "app"
+        ]
+
+        # Cerchiamo coppie di stringhe che sembrano nomi di giocatori (es. Cognome N. o Nome Cognome)
+        i = 0
+        while i < len(texts) - 1:
+            t1 = texts[i]
+            t2 = texts[i+1]
+            
+            t1_l, t2_l = t1.lower(), t2.lower()
+            
+            # Condizioni rigide: devono sembrare due atleti distinti senza parole di sistema
+            is_garbage = any(b in t1_l or b in t2_l for b in blocklist)
+            is_valid_length = (3 <= len(t1) <= 30) and (3 <= len(t2) <= 30)
+            has_letters = any(c.isalpha() for c in t1) and any(c.isalpha() for c in t2)
+            
+            if not is_garbage and is_valid_length and has_letters and t1 != t2:
+                # Se la struttura somiglia a un match
+                match_name = f"{t1} - {t2}"
+                
+                # Cerchiamo se ci sono quote decimali vicine nel raggio di 5 elementi
+                nearby_text = " ".join(texts[max(0, i-2):min(len(texts), i+6)])
+                odds = re.findall(r'\b[1-9]\.\d{2}\b', nearby_text)
+                
+                o1 = float(odds[0]) if len(odds) >= 1 else None
+                o2 = float(odds[1]) if len(odds) >= 2 else None
+                
+                m_data = {
+                    "match": match_name,
+                    "odds1": o1,
+                    "odds2": o2,
+                    "has_odds": (o1 is not None and o2 is not None)
+                }
+                
+                # Evitiamo duplicati evidenti
+                if not any(m["match"] == m_data["match"] for m in matches):
+                    matches.append(m_data)
+            i += 1
 
         if not matches:
-            send_telegram("ℹ️ **24live Prono**: Nessun match attivo o in palinsesto trovato in questo momento su 24live.")
+            print("Nessun match valido trovato in questo ciclo.")
             return
 
-        send_telegram(f"🔍 **24live Prono**: Trovati **{len(matches)}** match reali!")
-
-        for m in matches[:10]:
+        # Limitiamo l'invio ai primi 5 match reali trovati per evitare spam
+        for m in matches[:5]:
             if m["has_odds"]:
                 diff = abs(m["odds1"] - m["odds2"])
                 is_over = (diff <= 0.30) and (1.65 <= m["odds1"] <= 2.15) and (1.65 <= m["odds2"] <= 2.15)
