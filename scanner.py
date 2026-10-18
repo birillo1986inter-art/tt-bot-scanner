@@ -24,7 +24,6 @@ def run():
     print("Avvio scansione con Playwright (Browser Virtuale)...")
     try:
         with sync_playwright() as p:
-            # Avviamo un browser in modalità headless (invisibile ma completo)
             browser = p.chromium.launch(headless=True)
             context = browser.new_context(
                 user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36",
@@ -32,9 +31,8 @@ def run():
             )
             page = context.new_page()
             
-            # Navighiamo sulla pagina attendendo il caricamento completo degli elementi dinamici
             page.goto(URL_TARGET, timeout=30000, wait_until="domcontentloaded")
-            page.wait_timeout(5000) # Attendiamo qualche secondo per stabilizzare gli script della pagina
+            page.wait_for_timeout(5000)
             
             html_content = page.content()
             browser.close()
@@ -67,7 +65,7 @@ def run():
             i += 1
 
         if not matches:
-            send_telegram("ℹ️ **Scanner Playwright**: Connessione e caricamento pagina completati con successo. Nessun match con quote attive trovato in questo momento.")
+            send_telegram("ℹ️ **Scanner Playwright**: Connessione e caricamento completati con successo. Nessun match con quote attive trovato in questo momento.")
             return
 
         for m in matches:
