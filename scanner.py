@@ -7,7 +7,7 @@ from playwright.sync_api import sync_playwright
 TELEGRAM_BOT_TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN')
 TELEGRAM_CHAT_ID = os.environ.get('TELEGRAM_CHAT_ID')
 
-URL_TARGET = "https://www.24live.com/table-tennis"
+URL_TARGET = "https://24live.com/page/sport/event/table-tennis-22/22339;sid=70504?lang=en"
 
 def send_telegram(message):
     if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
@@ -21,57 +21,38 @@ def send_telegram(message):
         print(f"Errore invio Telegram: {e}")
 
 def run():
-    print(f"Avvio scansione Pre-Match su {URL_TARGET}...")
+    print(f"Avvio estrazione pronostici da 24live...")
     matches = []
 
     try:
         with sync_playwright() as p:
-            browser = p.chromium.launch(
-                headless=True,
-                args=[
-                    '--disable-blink-features=AutomationControlled',
-                    '--no-sandbox',
-                    '--disable-setuid-sandbox',
-                    '--window-size=1920,1080'
-                ]
-            )
-            
+            browser = p.chromium.launch(headless=True)
             context = browser.new_context(
                 user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36",
                 viewport={'width': 1920, 'height': 1080},
                 locale="it-IT"
             )
-            
             page = context.new_page()
             
-            page.add_init_script("""
-                Object.defineProperty(navigator, 'webdriver', {
-                    get: () => undefined
-                });
-            """)
-            
-            print("Caricamento pagina 24live...")
-            page.goto(URL_TARGET, timeout=50000, wait_until="networkidle")
-            page.wait_for_timeout(6000) # Attesa rendering widget e quote 24live
+            page.goto(URL_TARGET, timeout=50000, wait_until="domcontentloaded")
+            page.wait_for_timeout(6000) # Attesa caricamento elementi JS e quote
             
             html_content = page.content()
             browser.close()
             
         soup = BeautifulSoup(html_content, 'html.parser')
         
-        # Scansione di elementi e righe di partita
-        elements = soup.find_all(['tr', 'div', 'li', 'a'])
+        # Estrazione delle righe o dei blocchi dedicati agli incontri
+        elements = soup.find_all(['tr', 'div', 'li'])
         for el in elements:
             text = el.get_text(separator=" ", strip=True)
             
-            # Cerca incontri con trattino o vs tipici di TT Cup / Tennistavolo
+            # Identifichiamo i match basandoci sulla presenza dei nomi e dei trattini/vs
             if (" - " in text or " vs " in text or " v " in text) and len(text) > 8 and len(text) < 120:
                 clean_text = " ".join(text.split())
                 
-                # Filtra parole chiave di sistema o menu
-                if not any(kw in clean_text.lower() for kw in ["privacy", "cookie", "terms", "home", "login", "register", "download", "app", "24live"]):
-                    
-                    # Estrazione quote decimali (es. 1.85, 1.90)
+                if not any(kw in clean_text.lower() for kw in ["menu", "cookie", "privacy", "table tennis", "home", "results"]):
+                    # Ricerca delle quote decimali associate al match
                     odds = re.findall(r'\b[1-9]\.\d{2}\b', clean_text)
                     o1 = float(odds[0]) if len(odds) >= 1 else None
                     o2 = float(odds[1]) if len(odds) >= 2 else None
@@ -87,14 +68,11 @@ def run():
                         matches.append(m_data)
 
         if not matches:
-            full_text = soup.get_text(separator="\n")
-            sample = "\n".join([line.strip() for line in full_text.split('\n') if line.strip()][:25])[:350]
-            send_telegram(f"ℹ️ **24live Scanner**: Nessun match intercettato dai filtri.\n\n**Testo rilevato:**\n`{sample}`")
+            send_telegram("ℹ️ **24live Prono**: Pagina aperta con successo, ma nessuna quota o match attivo estratto al momento.")
             return
 
-        send_telegram(f"🔍 **24live Scanner**: Trovati **{len(matches)}** incontri pre-match!")
+        send_telegram(f"🔍 **24live Prono**: Analizzati **{len(matches)}** match dal palinsesto.")
 
-        # Invio risultati su Telegram
         for m in matches[:12]:
             if m["has_odds"]:
                 diff = abs(m["odds1"] - m["odds2"])
@@ -102,13 +80,13 @@ def run():
                 odds_str = f"1: `{m['odds1']:.2f}` | 2: `{m['odds2']:.2f}` (Diff: `{diff:.2f}`)"
             else:
                 is_over = False
-                odds_str = "Pre-match (Quote in attesa)"
+                odds_str = "In attesa di quote ufficiali"
 
             if is_over:
                 signal_header = "🟢 **CONSIGLIATO: OVER 18.5 PUNTI**"
                 advice = "🎯 **Suggerimento:** GIOCA OVER 18.5 (Match equilibrato)"
             else:
-                signal_header = "⚪ **PRE-MATCH IN PALINSESTO**"
+                signal_header = "⚪ **MATCH IN PALINSESTO**"
                 advice = "⚠️ **Suggerimento:** PASS"
 
             msg = (
@@ -120,7 +98,7 @@ def run():
             send_telegram(msg)
 
     except Exception as e:
-        send_telegram(f"❌ Errore critico su 24live: `{e}`")
+        send_telegram(f"❌ Errore script 24live: `{e}`")
 
 if __name__ == "__main__":
     run()
