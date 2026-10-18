@@ -1,6 +1,5 @@
 import os
 import re
-import json
 import requests
 from bs4 import BeautifulSoup
 from playwright.sync_api import sync_playwright
@@ -22,87 +21,95 @@ def send_telegram(message):
         print(f"Errore invio Telegram: {e}")
 
 def run():
-    print(f"Avvio scansione avanzata con intercettazione dati su 24live...")
-    captured_data = []
+    print(f"Avvio scansione con filtri rigorosi su 24live...")
+    matches = []
 
     try:
         with sync_playwright() as p:
             browser = p.chromium.launch(
                 headless=True,
-                args=['--no-sandbox', '--disable-setuid-sandbox']
+                args=['--no-sandbox', '--disable-setuid-sandbox', '--window-size=1920,1080']
             )
             context = browser.new_context(
                 user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36",
+                viewport={'width': 1920, 'height': 1080},
                 locale="en-US"
             )
             page = context.new_page()
-
-            # Intercettiamo le risposte di rete JSON da 24live
-            def handle_response(response):
-                try:
-                    if "json" in response.headers.get("content-type", "") or "event" in response.url or "api" in response.url:
-                        data = response.json()
-                        captured_data.append(data)
-                except Exception:
-                    pass
-
-            page.on("response", handle_response)
-
-            page.goto(URL_TARGET, timeout=60000, wait_until="networkidle")
+            
+            page.goto(URL_TARGET, timeout=50000, wait_until="domcontentloaded")
             page.wait_for_timeout(8000)
-
+            
             html_content = page.content()
             browser.close()
-
-        matches = []
-
-        # 1. Analizziamo i dati JSON catturati dalla rete
-        json_str = json.dumps(captured_data)
-        # Cerchiamo pattern di eventi / quote / nomi nel JSON
-        events = re.findall(r'"([A-Za-z0-9\s\.\-]+)\s+(?:vs|v|\-)\s+([A-Za-z0-9\s\.\-]+)"', json_str, re.IGNORECASE)
+            
+        soup = BeautifulSoup(html_content, 'html.parser')
+        full_text = soup.get_text(separator="\n")
+        lines = [line.strip() for line in full_text.split('\n') if line.strip()]
         
-        for e in events:
-            p1, p2 = e[0].strip(), e[1].strip()
-            if len(p1) > 2 and len(p2) > 2 and not any(kw in p1.lower() for kw in ["table", "tennis", "live", "sport"]):
-                m_name = f"{p1} - {p2}"
-                if m_name not in [m["match"] for m in matches]:
-                    matches.append({"match": m_name, "odds1": None, "odds2": None, "has_odds": False})
+        # Parole chiave e sezioni da ignorare categoricamente
+        blacklist = [
+            "3inn", "home", "away", "menu", "table", "cookie", "privacy", 
+            "sport", "all", "live", "schedule", "results", "login", "register",
+            "search", "odds", "not started", "finished", "cancelled"
+        ]
 
-        # 2. Se il JSON non ha estratto nulla, analizziamo l'HTML con selettori generici
-        if not matches:
-            soup = BeautifulSoup(html_content, 'html.parser')
-            # Cerchiamo tutte le righe contenenti i trattini dei match
-            for div in soup.find_all(['div', 'tr', 'li']):
-                text = div.get_text(separator=" ", strip=True)
-                if (" - " in text or " vs " in text) and len(text) > 8 and len(text) < 120:
-                    clean = " ".join(text.split())
-                    if not any(kw in clean.lower() for kw in ["cookie", "privacy", "table tennis", "menu", "home", "search"]):
-                        odds = re.findall(r'\b[1-9]\.\d{2}\b', clean)
-                        o1 = float(odds[0]) if len(odds) >= 1 else None
-                        o2 = float(odds[1]) if len(odds) >= 2 else None
-                        m_data = {
-                            "match": clean[:90],
-                            "odds1": o1,
-                            "odds2": o2,
-                            "has_odds": (o1 is not None and o2 is not None)
-                        }
-                        if not any(m["match"] == m_data["match"] for m in matches):
-                            matches.append(m_data)
+        i = 0
+        while i < len(lines) - 2:
+            current_line = lines[i]
+            
+            # Cerca indicazioni di eventi o orari
+            if "Not started" in current_line or re.search(r'\d{2}:\d{2}', current_line):
+                if i + 2 < len(lines):
+                    p1 = lines[i+1]
+                    p2 = lines[i+2]
+                    
+                    # Filtro severo: scarta se contiene parole della blacklist o se è troppo corto/strano
+                    p1_low, p2_low = p1.lower(), p2.lower()
+                    if any(bad in p1_low for bad in blacklist) or any(bad in p2_low for bad in blacklist):
+                        i += 1
+                        continue
+                        
+                    if len(p1) < 3 or len(p2) < 3:
+                        i += 1
+                        continue
+                        
+                    match_name = f"{p1} - {p2}"
+                    
+                    # Estrazione quote nelle vicinanze
+                    nearby_odds = []
+                    for k in range(i, min(i + 10, len(lines))):
+                        found = re.findall(r'\b[1-9]\.\d{2}\b', lines[k])
+                        nearby_odds.extend(found)
+                    
+                    o1 = float(nearby_odds[0]) if len(nearby_odds) >= 1 else None
+                    o2 = float(nearby_odds[1]) if len(nearby_odds) >= 2 else None
+                    
+                    m_data = {
+                        "match": match_name,
+                        "odds1": o1,
+                        "odds2": o2,
+                        "has_odds": (o1 is not None and o2 is not None)
+                    }
+                    
+                    if not any(m["match"] == m_data["match"] for m in matches):
+                        matches.append(m_data)
+            i += 1
 
         if not matches:
-            send_telegram("ℹ️ **24live Prono**: Pagina caricata con successo! In questo momento non ci sono match attivi o quote pre-match pubblicate su questa scheda.")
+            send_telegram("ℹ️ **24live Prono**: Nessun match con nomi validi rilevato in questo momento.")
             return
 
-        send_telegram(f"🔍 **24live Prono**: Trovati **{len(matches)}** match!")
+        send_telegram(f"🔍 **24live Prono**: Trovati **{len(matches)}** match reali!")
 
-        for m in matches[:15]:
+        for m in matches[:12]:
             if m["has_odds"]:
                 diff = abs(m["odds1"] - m["odds2"])
                 is_over = (diff <= 0.30) and (1.65 <= m["odds1"] <= 2.15) and (1.65 <= m["odds2"] <= 2.15)
                 odds_str = f"1: `{m['odds1']:.2f}` | 2: `{m['odds2']:.2f}` (Diff: `{diff:.2f}`)"
             else:
                 is_over = False
-                odds_str = "Pre-match (Quote in arrivo)"
+                odds_str = "Pre-match (Quote in attesa)"
 
             if is_over:
                 signal_header = "🟢 **CONSIGLIATO: OVER 18.5 PUNTI**"
@@ -120,7 +127,7 @@ def run():
             send_telegram(msg)
 
     except Exception as e:
-        send_telegram(f"❌ Errore durante l'estrazione: `{e}`")
+        send_telegram(f"❌ Errore script 24live: `{e}`")
 
 if __name__ == "__main__":
     run()
