@@ -4,7 +4,6 @@ import time
 import requests
 from bs4 import BeautifulSoup
 from playwright.sync_api import sync_playwright
-from playwright_stealth import stealth_sync
 
 TELEGRAM_BOT_TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN')
 TELEGRAM_CHAT_ID = os.environ.get('TELEGRAM_CHAT_ID')
@@ -23,7 +22,7 @@ def send_telegram(message):
         print(f"Errore invio Telegram: {e}")
 
 def run():
-    print("Avvio scansione con Stealth & Cloudflare Bypass...")
+    print("Avvio scansione robusta con Playwright...")
     try:
         with sync_playwright() as p:
             browser = p.chromium.launch(
@@ -46,26 +45,29 @@ def run():
             
             page = context.new_page()
             
-            # Applichiamo le contromisure stealth anti-rilevamento bot
-            stealth_sync(page)
+            # Mascheramento nativo anti-bot per aggirare Cloudflare
+            page.add_init_script("""
+                Object.defineProperty(navigator, 'webdriver', {
+                    get: () => undefined
+                });
+            """)
             
             print(f"Navigazione verso {URL_TARGET}...")
             page.goto(URL_TARGET, timeout=60000, wait_until="domcontentloaded")
             
-            # Controllo dinamico: attendiamo finché Cloudflare scompare o passano max 30 secondi
-            max_wait = 30
+            # Attesa dinamica per superare la schermata di verifica Cloudflare
+            max_wait = 35
             waited = 0
             while waited < max_wait:
                 content = page.content()
                 if "Esecuzione della verifica di sicurezza" not in content and "Ray ID" not in content:
-                    print("Verifica Cloudflare superata con successo!")
+                    print("Pagina caricata correttamente!")
                     break
-                print("In attesa che Cloudflare completi il controllo...")
+                print("In attesa della verifica Cloudflare...")
                 time.sleep(3)
                 waited += 3
             
-            # Breve pausa di stabilizzazione contenuti
-            page.wait_for_timeout(3000)
+            page.wait_for_timeout(4000)
             html_content = page.content()
             browser.close()
             
@@ -95,10 +97,10 @@ def run():
                         matches.append(m_data)
 
         if not matches:
-            send_telegram("ℹ️ **Palinsesto TT Cup**: Superata la verifica Cloudflare, ma non ci sono match attivi in questo momento esatto.")
+            send_telegram("ℹ️ **Palinsesto TT Cup**: Pagina aperta con successo. Nessun match attivo rilevato in questo momento.")
             return
 
-        send_telegram(f"🔍 **TT Cup Scanner**: Verifiche superate! Trovati **{len(matches)}** match.")
+        send_telegram(f"🔍 **TT Cup Scanner**: Trovati **{len(matches)}** match!")
 
         for m in matches[:12]:
             if m["has_odds"]:
