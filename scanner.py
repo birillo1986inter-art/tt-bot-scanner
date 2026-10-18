@@ -1,8 +1,10 @@
 import os
 import re
+import time
 import requests
 from bs4 import BeautifulSoup
 from playwright.sync_api import sync_playwright
+from playwright_stealth import stealth_sync
 
 TELEGRAM_BOT_TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN')
 TELEGRAM_CHAT_ID = os.environ.get('TELEGRAM_CHAT_ID')
@@ -21,16 +23,16 @@ def send_telegram(message):
         print(f"Errore invio Telegram: {e}")
 
 def run():
-    print("Avvio scansione con Bypass Cloudflare...")
+    print("Avvio scansione con Stealth & Cloudflare Bypass...")
     try:
         with sync_playwright() as p:
-            # Avvio browser con flag anti-detection per superare Cloudflare
             browser = p.chromium.launch(
                 headless=True,
                 args=[
                     '--disable-blink-features=AutomationControlled',
                     '--no-sandbox',
                     '--disable-setuid-sandbox',
+                    '--disable-infobars',
                     '--window-size=1920,1080'
                 ]
             )
@@ -44,19 +46,26 @@ def run():
             
             page = context.new_page()
             
-            # Script di iniezione per rimuovere i segnali di automazione
-            page.add_init_script("""
-                Object.defineProperty(navigator, 'webdriver', {
-                    get: () => undefined
-                });
-            """)
+            # Applichiamo le contromisure stealth anti-rilevamento bot
+            stealth_sync(page)
             
+            print(f"Navigazione verso {URL_TARGET}...")
             page.goto(URL_TARGET, timeout=60000, wait_until="domcontentloaded")
             
-            # Attendiamo 15 secondi affinché la schermata di verifica Cloudflare finisca e reindirizzi alla pagina
-            print("In attesa del superamento della verifica Cloudflare...")
-            page.wait_for_timeout(15000)
+            # Controllo dinamico: attendiamo finché Cloudflare scompare o passano max 30 secondi
+            max_wait = 30
+            waited = 0
+            while waited < max_wait:
+                content = page.content()
+                if "Esecuzione della verifica di sicurezza" not in content and "Ray ID" not in content:
+                    print("Verifica Cloudflare superata con successo!")
+                    break
+                print("In attesa che Cloudflare completi il controllo...")
+                time.sleep(3)
+                waited += 3
             
+            # Breve pausa di stabilizzazione contenuti
+            page.wait_for_timeout(3000)
             html_content = page.content()
             browser.close()
             
@@ -65,8 +74,6 @@ def run():
         lines = [line.strip() for line in full_text.split('\n') if line.strip()]
         
         matches = []
-        
-        # Scansione delle righe per intercettare i match pre-match
         for i, line in enumerate(lines):
             if (" - " in line or " vs " in line or " v " in line) and len(line) > 5 and len(line) < 100:
                 if not any(kw in line.lower() for kw in ["bsportsfan", "privacy", "cookie", "terms", "home", "sport", "ray id", "verifica"]):
@@ -88,15 +95,10 @@ def run():
                         matches.append(m_data)
 
         if not matches:
-            # Se la verifica stesse ancora bloccando la pagina, invia una notifica di debug ridotta
-            if "Esecuzione della verifica di sicurezza" in full_text:
-                send_telegram("⚠️ **Cloudflare Challenge**: La verifica di sicurezza ha richiesto più tempo del previsto. Riproviamo al prossimo ciclo.")
-            else:
-                sample_text = "\n".join(lines[:25])[:300]
-                send_telegram(f"ℹ️ **PAGINA CARICATA**: Nessun match intercettato.\n\n`{sample_text}`")
+            send_telegram("ℹ️ **Palinsesto TT Cup**: Superata la verifica Cloudflare, ma non ci sono match attivi in questo momento esatto.")
             return
 
-        send_telegram(f"🔍 **TT Cup Scanner**: Rilevati **{len(matches)}** match pre-match!")
+        send_telegram(f"🔍 **TT Cup Scanner**: Verifiche superate! Trovati **{len(matches)}** match.")
 
         for m in matches[:12]:
             if m["has_odds"]:
@@ -105,13 +107,13 @@ def run():
                 odds_str = f"1: `{m['odds1']:.2f}` | 2: `{m['odds2']:.2f}` (Diff: `{diff:.2f}`)"
             else:
                 is_over = False
-                odds_str = "Quote Pre-Match in corso di pubblicazione"
+                odds_str = "Quote in caricamento"
 
             if is_over:
                 signal_header = "🟢 **CONSIGLIATO: OVER 18.5 PUNTI**"
                 advice = "🎯 **Suggerimento:** GIOCA OVER 18.5 (Match equilibrato)"
             else:
-                signal_header = "⚪ **PRE-MATCH IN PALINSESTO**"
+                signal_header = "⚪ **MATCH IN PALINSESTO**"
                 advice = "⚠️ **Suggerimento:** PASS"
 
             msg = (
@@ -123,7 +125,7 @@ def run():
             send_telegram(msg)
 
     except Exception as e:
-        send_telegram(f"❌ Errore critico: `{e}`")
+        send_telegram(f"❌ Errore critico nello script: `{e}`")
 
 if __name__ == "__main__":
     run()
