@@ -2,8 +2,8 @@ name: TT Cup Daily Digest
 
 on:
   schedule:
-    # 08:00 UTC corrisponde alle 09:00 ora italiana (o 08:00 se c'è l'ora solare)
-    - cron: '0 6 * * *'
+    # Ore 06:00 UTC (8:00 italiane) e Ore 11:30 UTC (13:30 italiane)
+    - cron: '0 6,11 * * *'
   workflow_dispatch:
 
 jobs:
