@@ -2,8 +2,7 @@ name: TT Cup Daily Digest
 
 on:
   schedule:
-    # Per oggi lo facciamo partire ogni ora o fai "Run workflow" a mano. 
-    # Dal 20 ottobre partirà tutti i giorni alle 08:00 UTC (corrispondenti alle 8:00/9:00 italiane)
+    # 08:00 UTC corrisponde alle 09:00 ora italiana (o 08:00 se c'è l'ora solare)
     - cron: '0 6 * * *'
   workflow_dispatch:
 
