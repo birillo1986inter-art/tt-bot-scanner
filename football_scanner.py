@@ -38,8 +38,9 @@ def analyze_match(fixture):
     teams = fixture.get("teams", {})
     home = teams.get("home", {}).get("name", "Home")
     away = teams.get("away", {}).get("name", "Away")
-    league = fixture.get("league", {}).get("name", "Campionato")
-    country = fixture.get("league", {}).get("country", "")
+    league_info = fixture.get("league", {})
+    league = league_info.get("name", "Campionato")
+    country = league_info.get("country", "")
     match_time = fixture.get("fixture", {}).get("date", "")[11:16]
     
     predictions = [
@@ -56,7 +57,7 @@ def analyze_match(fixture):
     }
 
 def run():
-    print("Avvio scansione Calcio (Multi-Mercato)...")
+    print("Avvio scansione Calcio completa...")
     
     if not FOOTBALL_API_KEY:
         print("Errore: FOOTBALL_API_KEY non configurata nei Secrets.")
@@ -67,11 +68,14 @@ def run():
 
     if fixtures:
         analyzed_matches = []
-        for f in fixtures[:10]:
+        for f in fixtures:
             match_data = analyze_match(f)
             analyzed_matches.append(match_data)
         
-        header_msg = f"⚽ **PALINSESTO CALCIO - PRONOSTICI TOP**\n📅 *Data: {today_str}*\nAnalizzate **{len(analyzed_matches)} partite principali**:"
+        # Prende fino a 30 partite della giornata
+        analyzed_matches = analyzed_matches[:30]
+        
+        header_msg = f"⚽ **PALINSESTO CALCIO - PRONOSTICI TOP**\n📅 *Data: {today_str}*\nAnalizzate **{len(analyzed_matches)} partite in programma**:"
         send_telegram(header_msg)
         
         for m in analyzed_matches:
