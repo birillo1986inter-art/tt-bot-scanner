@@ -70,26 +70,27 @@ def parse_betmonitor():
     return valid_matches
 
 def run():
-    print("Generazione palinsesto TT Cup Over 18.5...")
+    print("Generazione palinsesto TT Cup Over 18.5 (Messaggi Separati)...")
     matches = parse_betmonitor()
     
     today_str = datetime.now().strftime("%d/%m/%Y")
     
     if matches:
-        msg = f"📋 **PALINSESTO TT CUP - OVER 18.5**\n📅 *Data: {today_str}*\n\n"
-        msg += f"Ho trovato **{len(matches)} match** ideali:\n\n"
+        # Intestazione iniziale riassuntiva
+        header_msg = f"📋 **PALINSESTO TT CUP - OVER 18.5**\n📅 *Data: {today_str}*\nTrovati **{len(matches)} match** ideali:"
+        send_telegram(header_msg)
         
+        # Invia un messaggio separato per ciascuna partita
         for m in matches:
-            msg += (
+            match_msg = (
                 f"🕒 `{m['time']}` | ⚔️ **{m['match']}**\n"
                 f"📊 Quote: 1: `{m['odds1']:.2f}` | 2: `{m['odds2']:.2f}` (Diff: `{m['diff']:.2f}`)\n"
-                f"──────────────────\n"
+                f"🎯 *TT Cup Over 18.5*"
             )
-        msg += f"\n🎯 *Buona fortuna!*"
+            send_telegram(match_msg)
     else:
         msg = f"📋 **PALINSESTO TT CUP - OVER 18.5**\n📅 *Data: {today_str}*\n\nNessun match rispetta i criteri al momento della scansione."
-        
-    send_telegram(msg)
+        send_telegram(msg)
 
 if __name__ == "__main__":
     run()
