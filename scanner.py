@@ -1,7 +1,7 @@
 import os
 import re
 import requests
-from bs4نهار import BeautifulSoup
+from bs4 import BeautifulSoup
 from datetime import datetime
 
 TELEGRAM_BOT_TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN')
