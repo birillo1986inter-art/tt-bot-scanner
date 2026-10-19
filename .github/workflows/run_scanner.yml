@@ -1,12 +1,14 @@
-name: TT Cup Scanner Automatico
+name: TT Cup Daily Digest
 
 on:
   schedule:
-    - cron: '*/30 * * * *'
+    # Per oggi lo facciamo partire ogni ora o fai "Run workflow" a mano. 
+    # Dal 20 ottobre partirà tutti i giorni alle 08:00 UTC (corrispondenti alle 8:00/9:00 italiane)
+    - cron: '0 6 * * *'
   workflow_dispatch:
 
 jobs:
-  run-scanner:
+  run-daily-digest:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -21,18 +23,9 @@ jobs:
         run: |
           pip install requests beautifulsoup4
 
-      - name: Run script
+      - name: Run daily scanner
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
           python scanner.py
-
-      # Questo pezzo serve a salvare la memoria dei doppioni su GitHub
-      - name: Commit & Push dei match gia inviati
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add sent_matches.json || true
-          git commit -m "Update sent matches history" || true
-          git push || true
