@@ -6,24 +6,33 @@ on:
   workflow_dispatch:
 
 jobs:
-  scansione:
+  run-scanner:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout codice
-        uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - name: Configura Python
-        uses: actions/setup-python@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
           python-version: '3.10'
 
-      - name: Installa dipendenze
+      - name: Install dependencies
         run: |
-          pip install playwright beautifulsoup4 requests
-          playwright install chromium
+          pip install requests beautifulsoup4
 
-      - name: Esegui Scanner
+      - name: Run script
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        run: python scanner.py
+        run: |
+          python scanner.py
+
+      # Questo pezzo serve a salvare la memoria dei doppioni su GitHub
+      - name: Commit & Push dei match gia inviati
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add sent_matches.json || true
+          git commit -m "Update sent matches history" || true
+          git push || true
