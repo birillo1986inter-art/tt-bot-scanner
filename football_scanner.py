@@ -57,7 +57,7 @@ def analyze_match(fixture):
     }
 
 def run():
-    print("Avvio scansione Calcio completa...")
+    print("Avvio scansione Calcio senza limiti...")
     
     if not FOOTBALL_API_KEY:
         print("Errore: FOOTBALL_API_KEY non configurata nei Secrets.")
@@ -72,10 +72,8 @@ def run():
             match_data = analyze_match(f)
             analyzed_matches.append(match_data)
         
-        # Prende fino a 30 partite della giornata
-        analyzed_matches = analyzed_matches[:30]
-        
-        header_msg = f"⚽ **PALINSESTO CALCIO - PRONOSTICI TOP**\n📅 *Data: {today_str}*\nAnalizzate **{len(analyzed_matches)} partite in programma**:"
+        # Nessun limite: elabora e invia tutte le partite del giorno
+        header_msg = f"⚽ **PALINSESTO GIORNALIERO COMPLETO**\n📅 *Data: {today_str}*\nTrovate e analizzate **{len(analyzed_matches)} partite**:"
         send_telegram(header_msg)
         
         for m in analyzed_matches:
