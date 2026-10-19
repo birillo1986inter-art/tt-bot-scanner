@@ -1,8 +1,8 @@
 import os
 import re
-import json
 import requests
-from bs4 import BeautifulSoup
+from bs4نهار import BeautifulSoup
+from datetime import datetime
 
 TELEGRAM_BOT_TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN')
 TELEGRAM_CHAT_ID = os.environ.get('TELEGRAM_CHAT_ID')
@@ -15,26 +15,6 @@ HEADERS = {
     "Accept-Language": "en-US,en;q=0.9"
 }
 
-# Nome del file in cui salviamo i match già notificati per evitare doppioni
-SENT_FILE = "sent_matches.json"
-
-def load_sent_matches():
-    if os.path.exists(SENT_FILE):
-        try:
-            with open(SENT_FILE, "r", encoding="utf-8") as f:
-                return json.load(f)
-        except Exception:
-            return []
-    return []
-
-def save_sent_matches(sent_list):
-    try:
-        # Teniamo solo gli ultimi 50 match per evitare che il file cresca troppo
-        with open(SENT_FILE, "w", encoding="utf-8") as f:
-            json.dump(sent_list[-50:], f, ensure_ascii=False, indent=2)
-    except Exception as e:
-        print(f"Errore salvataggio storico: {e}")
-
 def send_telegram(message):
     if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
         return
@@ -46,7 +26,7 @@ def send_telegram(message):
         print(f"Errore invio Telegram: {e}")
 
 def parse_betmonitor():
-    matches = []
+    valid_matches = []
     try:
         response = requests.get(URL_BETMONITOR, headers=HEADERS, timeout=15)
         if response.status_code != 200:
@@ -72,54 +52,47 @@ def parse_betmonitor():
                         o1 = float(odds[0]) if len(odds) >= 1 else None
                         o2 = float(odds[1]) if len(odds) >= 2 else None
                         
-                        m_data = {
-                            "time": match_time,
-                            "match": match_name,
-                            "odds1": o1,
-                            "odds2": o2,
-                            "has_odds": (o1 is not None and o2 is not None)
-                        }
-                        
-                        if not any(m["match"] == m_data["match"] for m in matches):
-                            matches.append(m_data)
+                        if o1 is not None and o2 is not None:
+                            diff = abs(o1 - o2)
+                            # Filtri Over 18.5
+                            is_over = (diff <= 0.30) and (1.65 <= o1 <= 2.15) and (1.65 <= o2 <= 2.15)
+                            
+                            if is_over:
+                                match_item = {
+                                    "time": match_time,
+                                    "match": match_name,
+                                    "odds1": o1,
+                                    "odds2": o2,
+                                    "diff": diff
+                                }
+                                if match_item not in valid_matches:
+                                    valid_matches.append(match_item)
     except Exception as e:
         print(f"Errore lettura Betmonitor: {e}")
         
-    return matches
+    return valid_matches
 
 def run():
-    print("Avvio scansione con controllo duplicati...")
+    print("Generazione palinsesto giornaliero Over 18.5...")
     matches = parse_betmonitor()
-    sent_matches = load_sent_matches()
-    new_sent_added = False
-
-    for m in matches:
-        if m["has_odds"]:
-            o1, o2 = m["odds1"], m["odds2"]
-            diff = abs(o1 - o2)
-            
-            # Criteri Over 18.5
-            is_over = (diff <= 0.30) and (1.65 <= o1 <= 2.15) and (1.65 <= o2 <= 2.15)
-            
-            if is_over:
-                # Creiamo una chiave unica per la partita (es. "Jachym Zacharda - Jan Kocab_14:50")
-                match_key = f"{m['match']}_{m['time']}"
-                
-                # Se NON è stata ancora notificata, la mandiamo
-                if match_key not in sent_matches:
-                    msg = (
-                        f"🟢 **SEGNALE OVER 18.5 PUNTI**\n\n"
-                        f"🕒 **Orario:** {m['time']}\n"
-                        f"⚔️ **Match:** {m['match']}\n"
-                        f"📊 **Quote:** 1: `{o1:.2f}` | 2: `{o2:.2f}` (Diff: `{diff:.2f}`)\n\n"
-                        f"🎯 **Consiglio:** GIOCA OVER 18.5 PUNTI"
-                    )
-                    send_telegram(msg)
-                    sent_matches.append(match_key)
-                    new_sent_added = True
-
-    if new_sent_added:
-        save_sent_matches(sent_matches)
+    
+    today_str = datetime.now().strftime("%d/%m/%Y")
+    
+    if matches:
+        msg = f"📋 **PALINSESTO TT CUP - OVER 18.5**\n📅 *Data: {today_str}*\n\n"
+        msg += f"Ho trovato **{len(matches)} match** ideali per oggi:\n\n"
+        
+        for m in matches:
+            msg += (
+                f"🕒 `{m['time']}` | ⚔️ **{m['match']}**\n"
+                f"📊 Quote: 1: `{m['odds1']:.2f}` | 2: `{m['odds2']:.2f}` (Diff: `{m['diff']:.2f}`)\n"
+                f"──────────────────\n"
+            )
+        msg += f"\n🎯 *Buona fortuna con le giocate di oggi!*"
+    else:
+        msg = f"📋 **PALINSESTO TT CUP - OVER 18.5**\n📅 *Data: {today_str}*\n\nNessun match rispetta i criteri rigidi al momento della scansione."
+        
+    send_telegram(msg)
 
 if __name__ == "__main__":
     run()
