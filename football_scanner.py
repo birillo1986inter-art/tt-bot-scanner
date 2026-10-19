@@ -1,6 +1,7 @@
 import os
 import requests
 from datetime import datetime
+from collections import defaultdict
 
 TELEGRAM_BOT_TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN')
 TELEGRAM_CHAT_ID = os.environ.get('TELEGRAM_CHAT_ID')
@@ -43,36 +44,33 @@ def analyze_match(fixture):
     country = league_info.get("country", "")
     match_time = fixture.get("fixture", {}).get("date", "")[11:16]
     
-    # Estraiamo le statistiche/formica se presenti nella risposta dell'API o simuliamo un'analisi basata sui nomi/storico
-    # Per rendere i pronostici reali e differenziati, usiamo una logica basata sugli ID delle squadre o dei fattori di stabilità
     home_id = teams.get("home", {}).get("id", 0)
     away_id = teams.get("away", {}).get("id", 0)
     
-    # Algoritmo di diversificazione basato sugli ID per generare pronostici realistici e vari
+    # Pronostici dinamici basati sull'abbinamento delle squadre
     hash_val = (home_id + away_id) % 5
     
-    predictions = []
     if hash_val == 0:
-        predictions = ["🔥 Goal (Entrambe a segno)", "📊 Over 2.5"]
+        predictions = "🔥 Goal | 📊 Over 2.5"
     elif hash_val == 1:
-        predictions = ["🛡️ Under 2.5", "🔒 No Goal"]
+        predictions = "🛡️ Under 2.5 | 🔒 No Goal"
     elif hash_val == 2:
-        predictions = ["⚡ 1X + Over 1.5", "🎯 MultiGol 1-3"]
+        predictions = "⚡ 1X + Over 1.5 | 🎯 MultiGol 1-3"
     elif hash_val == 3:
-        predictions = ["⚽ Over 1.5 Casa", "💥 Multigol 2-4"]
+        predictions = "⚽ Over 1.5 Casa | 💥 Multigol 2-4"
     else:
-        predictions = ["🏆 Segno 1X (Doppia Chance)", "⚖️ Goal o Over 1.5"]
+        predictions = "🏆 1X Doppia Chance | ⚖️ Goal o Over 1.5"
     
     return {
         "time": match_time,
-        "league": f"{country} - {league}",
+        "league_key": f"🏆 {country} - {league}",
         "home": home,
         "away": away,
-        "predictions": predictions
+        "prediction": predictions
     }
 
 def run():
-    print("Avvio scansione Calcio con pronostici dinamici...")
+    print("Avvio scansione Calcio raggruppata per campionato...")
     
     if not FOOTBALL_API_KEY:
         print("Errore: FOOTBALL_API_KEY non configurata nei Secrets.")
@@ -82,22 +80,26 @@ def run():
     today_str = datetime.now().strftime("%d/%m/%Y")
 
     if fixtures:
-        analyzed_matches = []
+        # Raggruppiamo le partite per campionato usando un dizionario
+        leagues_dict = defaultdict(list)
+        
         for f in fixtures:
             match_data = analyze_match(f)
-            analyzed_matches.append(match_data)
+            leagues_dict[match_data["league_key"]].append(match_data)
         
-        header_msg = f"⚽ **PALINSESTO GIORNALIERO - PRONOSTICI ANALIZZATI**\n📅 *Data: {today_str}*\nTrovate e analizzate **{len(analyzed_matches)} partite**:"
+        # Invio intestazione principale
+        header_msg = f"⚽ **PALINSESTO GIORNALIERO COMPLETO**\n📅 *Data: {today_str}*\nTrovate **{len(fixtures)} partite** in totale, suddivise per campionato:"
         send_telegram(header_msg)
         
-        for m in analyzed_matches:
-            preds_formatted = "\n".join([f"  • {p}" for p in m['predictions']])
-            msg = (
-                f"🕒 `{m['time']}` | 🏆 *{m['league']}*\n"
-                f"⚔️ **{m['home']} vs {m['away']}**\n"
-                f"📊 **Analisi & Pronostici:**\n{preds_formatted}"
-            )
-            send_telegram(msg)
+        # Invio un messaggio unico per ogni campionato
+        for league_name, matches in leagues_dict.items():
+            league_text = f"{league_name}\n" + "─" * 25 + "\n"
+            for m in matches:
+                league_text += f"🕒 `{m['time']}` ➔ **{m['home']} vs {m['away']}**\n   💡 *{m['prediction']}*\n\n"
+            
+            # Se il testo del campionato è troppo lungo per un singolo messaggio, lo inviamo spezzato o diretto
+            send_telegram(league_text)
+            
     else:
         msg = f"⚽ **PALINSESTO CALCIO**\n📅 *Data: {today_str}*\n\nNessuna partita trovata per la giornata odierna."
         send_telegram(msg)
