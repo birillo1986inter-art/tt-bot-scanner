@@ -7,8 +7,9 @@ from datetime import datetime
 TELEGRAM_BOT_TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN')
 TELEGRAM_CHAT_ID = os.environ.get('TELEGRAM_CHAT_ID')
 
-URL_BETMONITOR = "https://www.betmonitor.com/mobile/odds-comparison/table-tennis/ukraine-tt-cup/10007095"
-URL_BETMONITOR_ALT = "https://www.betmonitor.com/odds-comparison/tabletennis/today"
+# Puntiamo direttamente al calendario completo giornaliero di Betmonitor
+URL_BETMONITOR_TODAY = "https://www.betmonitor.com/odds-comparison/tabletennis/today"
+URL_BETMONITOR_ALT = "https://www.betmonitor.com/mobile/odds-comparison/table-tennis/ukraine-tt-cup/10007095"
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Linux; Android 10; Mobile) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Mobile Safari/537.36",
@@ -28,8 +29,8 @@ def send_telegram(message):
 def parse_betmonitor():
     valid_matches = []
     try:
-        response = requests.get(URL_BETMONITOR, headers=HEADERS, timeout=15)
-        if response.status_code != 200:
+        response = requests.get(URL_BETMONITOR_TODAY, headers=HEADERS, timeout=15)
+        if response.status_code != 200 or "table" not in response.text.lower():
             response = requests.get(URL_BETMONITOR_ALT, headers=HEADERS, timeout=15)
             
         soup = BeautifulSoup(response.text, 'html.parser')
@@ -73,14 +74,20 @@ def parse_betmonitor():
     return valid_matches
 
 def run():
-    print("Generazione palinsesto giornaliero Over 18.5...")
+    print("Generazione palinsesto giornaliero completo Over 18.5...")
     matches = parse_betmonitor()
     
     today_str = datetime.now().strftime("%d/%m/%Y")
     
     if matches:
+        # Ordiniamo i match per orario se possibile
+        try:
+            matches = sorted(matches, key=lambda x: x['time'])
+        except Exception:
+            pass
+
         msg = f"📋 **PALINSESTO TT CUP - OVER 18.5**\n📅 *Data: {today_str}*\n\n"
-        msg += f"Ho trovato **{len(matches)} match** ideali per oggi:\n\n"
+        msg += f"Trovati **{len(matches)} match** in programma:\n\n"
         
         for m in matches:
             msg += (
@@ -90,7 +97,7 @@ def run():
             )
         msg += f"\n🎯 *Buona fortuna con le giocate di oggi!*"
     else:
-        msg = f"📋 **PALINSESTO TT CUP - OVER 18.5**\n📅 *Data: {today_str}*\n\nNessun match rispetta i criteri rigidi al momento della scansione."
+        msg = f"📋 **PALINSESTO TT CUP - OVER 18.5**\n📅 *Data: {today_str}*\n\nNessun match rispetta i criteri rigidi al momento."
         
     send_telegram(msg)
 
