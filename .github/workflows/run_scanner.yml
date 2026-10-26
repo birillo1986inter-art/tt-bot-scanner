@@ -2,13 +2,17 @@ name: TT Cup Daily Digest
 
 on:
   schedule:
-    # Esegue la scansione alle 08:00 (06:00 UTC) e alle 15:00 (13:00 UTC) ora italiana
-    - cron: '0 6,13 * * *'
+    # 1. Scansione del mattino alle 07:20 italiane (06:20 UTC)
+    - cron: '20 6 * * *'
+    # 2. Scansione del pomeriggio alle 15:00 italiane (14:00 UTC con ora solare)
+    - cron: '0 14 * * *'
+  
   workflow_dispatch:
 
 jobs:
-  run-daily-digest:
+  run-script:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -20,11 +24,13 @@ jobs:
 
       - name: Install dependencies
         run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
           pip install requests beautifulsoup4
 
-      - name: Run daily scanner
+      - name: Run script
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
-          python scanner.py
+          python run_scanner.py
