@@ -2,9 +2,9 @@ name: TT Cup Daily Digest
 
 on:
   schedule:
-    # 1. Scansione del mattino alle 07:20 italiane (06:20 UTC)
+    # Scansione del mattino alle 07:20 italiane (06:20 UTC)
     - cron: '20 6 * * *'
-    # 2. Scansione del pomeriggio alle 15:00 italiane (14:00 UTC con ora solare)
+    # Scansione del pomeriggio alle 15:00 italiane (14:00 UTC con ora solare)
     - cron: '0 14 * * *'
   
   workflow_dispatch:
@@ -33,4 +33,4 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
-          python run_scanner.py
+          python scanner.py
