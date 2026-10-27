@@ -244,10 +244,15 @@
                 let orarioMatch = m.orario || m.ora || "Live";
                 let isSelectedClass = (indiceSelezionatoCorrente === index) ? 'selected' : '';
 
-                // Legge le quote dal JSON (se presenti, altrimenti imposta un default equilibrato)
-                let q1 = m.quota1 || m.q1 || "1.85";
-                let q2 = m.quota2 || m.q2 || "1.85";
-                let diff = (Math.abs(parseFloat(q1) - parseFloat(q2))).toFixed(2);
+                // Estrae le quote reali da tutte le possibili chiavi generate dallo script Python
+                let q1 = m.quota1 || m.q1 || m.odd1 || m.quota_1 || m.coefficiente1 || "-";
+                let q2 = m.quota2 || m.q2 || m.odd2 || m.quota_2 || m.coefficiente2 || "-";
+                
+                let diffStr = "-";
+                if (q1 !== "-" && q2 !== "-") {
+                    let diff = Math.abs(parseFloat(q1) - parseFloat(q2));
+                    diffStr = diff.toFixed(2);
+                }
 
                 html += `
                     <div class="match-item ${isSelectedClass}" onclick="selezionaMatch(${index})">
@@ -257,7 +262,7 @@
                         </div>
                         <div class="match-line-2">
                             <span>📊 1: ${q1} | 2: ${q2}</span>
-                            <span>Diff: <span class="diff-badge">${diff}</span></span>
+                            <span>Diff: <span class="diff-badge">${diffStr}</span></span>
                         </div>
                         <div class="match-line-3">
                             <span>🎯 Strategia Over 18 Set</span>
@@ -276,8 +281,9 @@
             document.getElementById('selected-match-title').innerText = nomeMatch;
             document.getElementById('active-match-panel').style.display = 'block';
             
-            if(matchSelezionato.quota1) {
-                document.getElementById('input-quota').value = matchSelezionato.quota1;
+            let q1Val = matchSelezionato.quota1 || matchSelezionato.q1 || matchSelezionato.odd1 || matchSelezionato.quota_1;
+            if(q1Val && !isNaN(parseFloat(q1Val))) {
+                document.getElementById('input-quota').value = parseFloat(q1Val).toFixed(2);
             }
 
             mostraPalinsesto(listaMatchCache);
