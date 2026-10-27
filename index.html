@@ -47,15 +47,20 @@
         .btn { background: var(--accent); color: #000; border: none; padding: 7px 14px; border-radius: 8px; font-weight: 800; cursor: pointer; font-size: 0.75rem; text-transform: uppercase; box-shadow: 0 2px 6px rgba(245,158,11,0.3); transition: all 0.2s; }
         .btn:active { transform: scale(0.95); }
         .btn-secondary { background: #334155; color: var(--text-main); box-shadow: none; }
+        .btn-danger { background: var(--danger); color: #fff; box-shadow: none; }
         
         .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 12px; margin-bottom: 12px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3); }
         h2 { font-size: 0.85rem; margin-bottom: 8px; color: var(--accent); display: flex; align-items: center; gap: 6px; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 700; }
         
-        /* Statistiche Avanzate / Box */
+        /* Statistiche Avanzate */
         .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 8px; }
         .stat-box { background: #060911; border: 1px solid var(--border); border-radius: 8px; padding: 8px; text-align: center; }
         .stat-value { font-size: 0.95rem; font-weight: 900; color: #fff; margin-top: 2px; }
         .stat-label { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; }
+
+        /* Barra di Ricerca Giocatore */
+        .search-box { width: 100%; background: #060911; border: 1px solid var(--border); color: white; padding: 8px 12px; border-radius: 8px; font-size: 0.85rem; margin-bottom: 10px; }
+        .search-box:focus { outline: none; border-color: var(--accent); }
 
         /* Palinsesto Match */
         .match-item { 
@@ -89,7 +94,7 @@
         .day-group:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
         .day-header { font-size: 0.78rem; color: var(--text-main); font-weight: bold; margin-bottom: 6px; display: flex; justify-content: space-between; background: rgba(255,255,255,0.04); padding: 6px 10px; border-radius: 6px; }
         
-        table { width: 100%; border-collapse: collapse; font-size: 0.75rem; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.73rem; }
         th, td { text-align: left; padding: 6px 4px; border-bottom: 1px solid rgba(255,255,255,0.03); }
         th { color: var(--text-muted); font-weight: 700; }
         
@@ -99,6 +104,9 @@
         
         .profit-positive { color: var(--success); font-weight: 950; }
         .profit-negative { color: var(--danger); font-weight: 950; }
+        
+        .delete-btn { background: rgba(239, 68, 68, 0.2); color: var(--danger); border: 1px solid var(--danger); border-radius: 4px; padding: 2px 6px; cursor: pointer; font-size: 0.7rem; font-weight: bold; }
+        .delete-btn:hover { background: var(--danger); color: #fff; }
     </style>
 </head>
 <body>
@@ -112,7 +120,7 @@
         <button class="btn" onclick="caricaPalinsesto()">Aggiorna</button>
     </header>
 
-    <!-- STATISTICHE E ANALISI AVANZATA (NEW) -->
+    <!-- STATISTICHE E ANALISI AVANZATA -->
     <div class="card">
         <h2>📈 Statistiche & Win Rate</h2>
         <div class="stats-grid">
@@ -186,13 +194,22 @@
         </div>
     </div>
 
-    <!-- CALENDARIO E ARCHIVIO -->
+    <!-- CALENDARIO E ARCHIVIO CON FILTRO GIOCATORE -->
     <div class="card">
-        <h2>📅 Calendario & Storico</h2>
+        <h2>📅 Calendario & Archivio</h2>
+        
+        <!-- Barra di ricerca / Filtro Giocatore -->
+        <input type="text" id="filtro-giocatore" class="search-box" placeholder="🔍 Filtra per nome giocatore..." oninput="aggiornaCalendarioUI()">
+
         <div id="calendario-container">
             <div class="empty-text">Nessuna giocata registrata nello storico</div>
         </div>
-        <button class="btn btn-secondary" style="margin-top: 10px; width: 100%; font-size: 0.75rem; padding: 6px;" onclick="pulisciStorico()">Azzera Storico</button>
+        
+        <!-- Pulsanti di Reset -->
+        <div style="display: flex; gap: 8px; margin-top: 12px;">
+            <button class="btn btn-secondary" style="flex: 1; font-size: 0.7rem; padding: 6px;" onclick="resetOggi()">Reset Giornata</button>
+            <button class="btn btn-danger" style="flex: 1; font-size: 0.7rem; padding: 6px;" onclick="pulisciStorico()">Azzera Tutto</button>
+        </div>
     </div>
 
     <script>
@@ -290,11 +307,20 @@
             storico.unshift(nuovaGiocata);
             localStorage.setItem('quantum_storico_calendario', JSON.stringify(storico));
 
-             aggiornaTutto();
+            aggiornaTutto();
             
             document.getElementById('active-match-panel').style.display = 'none';
             indiceSelezionatoCorrente = null;
             mostraPalinsesto(listaMatchCache);
+        }
+
+        function eliminaGiocata(id) {
+            if (confirm("Vuoi eliminare questa singola giocata?")) {
+                let storico = JSON.parse(localStorage.getItem('quantum_storico_calendario')) || [];
+                storico = storico.filter(g => g.id !== id);
+                localStorage.setItem('quantum_storico_calendario', JSON.stringify(storico));
+                aggiornaTutto();
+            }
         }
 
         function aggiornaTutto() {
@@ -322,7 +348,6 @@
             document.getElementById('stat-winrate').innerText = winRate;
             document.getElementById('stat-tot').innerText = tot;
 
-            // Calcolo Streak (serie attuale)
             let streakCount = 0;
             let streakType = storico[0].esito;
             for (let i = 0; i < storico.length; i++) {
@@ -335,7 +360,6 @@
             let streakText = (streakType === 'VINTA' ? '🟢 +' : '🔴 -') + streakCount;
             document.getElementById('stat-streak').innerText = streakText;
 
-            // Statistiche per Set (Vinte / Perse)
             let setStats = {
                 1: { v: 0, p: 0 },
                 2: { v: 0, p: 0 },
@@ -358,14 +382,21 @@
         function aggiornaCalendarioUI() {
             let storico = JSON.parse(localStorage.getItem('quantum_storico_calendario')) || [];
             const container = document.getElementById('calendario-container');
+            const queryFiltro = document.getElementById('filtro-giocatore').value.toLowerCase().trim();
             
-            if (storico.length === 0) {
-                container.innerHTML = `<div class="empty-text">Nessuna scommessa salvata nello storico</div>`;
+            // Applica il filtro se l'utente ha scritto qualcosa nella barra di ricerca
+            let storicoFiltrato = storico;
+            if (queryFiltro !== "") {
+                storicoFiltrato = storico.filter(g => g.match.toLowerCase().includes(queryFiltro));
+            }
+
+            if (storicoFiltrato.length === 0) {
+                container.innerHTML = `<div class="empty-text">Nessuna giocata trovata con questo filtro.</div>`;
                 return;
             }
 
             let gruppi = {};
-            storico.forEach(s => {
+            storicoFiltrato.forEach(s => {
                 if (!gruppi[s.dataFull]) gruppi[s.dataFull] = [];
                 gruppi[s.dataFull].push(s);
             });
@@ -403,6 +434,7 @@
                                     <th>Q.</th>
                                     <th>Punt.</th>
                                     <th>Esito</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -418,6 +450,7 @@
                             <td>${g.quota}</td>
                             <td>${g.stake}€</td>
                             <td><span class="${badgeClass}">${g.esito}</span></td>
+                            <td><button class="delete-btn" onclick="eliminaGiocata(${g.id})">❌</button></td>
                         </tr>
                     `;
                 });
@@ -428,8 +461,18 @@
             container.innerHTML = html;
         }
 
+        function resetOggi() {
+            const oggi = new Date().toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit', year: 'numeric' });
+            if (confirm(`Vuoi cancellare tutte le giocate registrate oggi (${oggi})?`)) {
+                let storico = JSON.parse(localStorage.getItem('quantum_storico_calendario')) || [];
+                let filtrato = storico.filter(g => g.dataFull !== oggi);
+                localStorage.setItem('quantum_storico_calendario', JSON.stringify(filtrato));
+                aggiornaTutto();
+            }
+        }
+
         function pulisciStorico() {
-            if (confirm("Vuoi davvero azzerare tutto il calendario storico e le statistiche?")) {
+            if (confirm("ATTENZIONE: Vuoi davvero azzerare tutto il calendario storico e le statistiche di tutti i giorni?")) {
                 localStorage.removeItem('quantum_storico_calendario');
                 aggiornaTutto();
             }
