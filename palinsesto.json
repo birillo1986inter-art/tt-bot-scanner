@@ -1,5 +1,11 @@
 [
   {
+    "orario": "16:15",
+    "giocatori": "Frantisek Chaloupka - Jan Pribyl",
+    "quota1": "1.82",
+    "quota2": "1.90"
+  },
+  {
     "orario": "16:35",
     "giocatori": "Martin Mastera - Tomas Bartik",
     "quota1": "2.00",
@@ -26,26 +32,26 @@
   {
     "orario": "17:40",
     "giocatori": "Lukas Krupnik Jnr - Filip Mandrysz",
-    "quota1": "1.93",
-    "quota2": "1.79"
+    "quota1": "1.90",
+    "quota2": "1.81"
   },
   {
     "orario": "17:55",
     "giocatori": "David Sykora - Jiri Volek",
-    "quota1": "1.91",
-    "quota2": "1.81"
+    "quota1": "1.93",
+    "quota2": "1.78"
   },
   {
     "orario": "18:00",
     "giocatori": "Jakub Caban - Arkadiusz Wiekiera",
-    "quota1": "1.96",
-    "quota2": "1.75"
+    "quota1": "1.93",
+    "quota2": "1.78"
   },
   {
     "orario": "18:20",
     "giocatori": "Tomas Rein - Jachym Sebl",
-    "quota1": "1.90",
-    "quota2": "1.79"
+    "quota1": "1.95",
+    "quota2": "1.76"
   },
   {
     "orario": "18:25",
@@ -54,16 +60,16 @@
     "quota2": "1.77"
   },
   {
+    "orario": "18:30",
+    "giocatori": "Michal Szostak - Jakub Caban",
+    "quota1": "1.77",
+    "quota2": "1.94"
+  },
+  {
     "orario": "18:50",
     "giocatori": "Lukas Dominik Rek - Vojtech Koutnik",
     "quota1": "1.87",
     "quota2": "1.82"
-  },
-  {
-    "orario": "20:10",
-    "giocatori": "Jiri Vanous - Patrik Sturma",
-    "quota1": "1.72",
-    "quota2": "2.00"
   },
   {
     "orario": "20:35",
