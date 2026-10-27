@@ -1,21 +1,9 @@
 [
   {
-    "orario": "14:20",
-    "giocatori": "Jan Srnka - Lukas Dominik Rek",
-    "quota1": "1.88",
-    "quota2": "1.83"
-  },
-  {
     "orario": "16:35",
     "giocatori": "Martin Mastera - Tomas Bartik",
     "quota1": "2.00",
     "quota2": "1.73"
-  },
-  {
-    "orario": "16:45",
-    "giocatori": "Borek Moravec - Jan Pribyl",
-    "quota1": "1.75",
-    "quota2": "1.97"
   },
   {
     "orario": "16:55",
@@ -44,14 +32,20 @@
   {
     "orario": "17:55",
     "giocatori": "David Sykora - Jiri Volek",
-    "quota1": "1.89",
+    "quota1": "1.91",
     "quota2": "1.81"
+  },
+  {
+    "orario": "18:00",
+    "giocatori": "Jakub Caban - Arkadiusz Wiekiera",
+    "quota1": "1.96",
+    "quota2": "1.75"
   },
   {
     "orario": "18:20",
     "giocatori": "Tomas Rein - Jachym Sebl",
-    "quota1": "1.88",
-    "quota2": "1.81"
+    "quota1": "1.90",
+    "quota2": "1.79"
   },
   {
     "orario": "18:25",
