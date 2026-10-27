@@ -76,7 +76,6 @@ def run():
     
     today_str = datetime.now().strftime("%d/%m/%Y")
     
-    # Generazione automatica del file palinsesto.json con le quote pronte per la web app
     partite_per_html = []
     for m in matches:
         partite_per_html.append({
@@ -98,7 +97,7 @@ def run():
         send_telegram(header_msg)
         
         for m in matches:
-            diff_ val = abs(float(m['quota1']) - float(m['quota2']))
+            diff_val = abs(float(m['quota1']) - float(m['quota2']))
             match_msg = (
                 f"🕒 `{m['orario']}` | ⚔️ **{m['giocatori']}**\n"
                 f"📊 Quote: 1: `{m['quota1']}` | 2: `{m['quota2']}` (Diff: `{diff_val:.2f}`)\n"
