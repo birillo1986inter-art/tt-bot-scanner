@@ -1,37 +1,40 @@
-name: Run Scanner
+name: run-scanner
 
 on:
   schedule:
-    - cron: '*/30 * * * *'
-  workflow_dispatch:
+    # Esegue la scansione alle 07:00 (06:00 UTC) e alle 15:30 (14:30 UTC) italiane
+    - cron: '0 6 * * *'
+    - cron: '30 14 * * *'
+  workflow_dispatch: # Mantiene il pulsante per avviarlo a mano quando vuoi
 
 jobs:
-  run-scanner:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+    - name: Checkout repository
+      uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
 
-      - name: Install dependencies
-        run: |
-          pip install requests beautifulsoup4
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install requests beautifulsoup4
 
-      - name: Run script
-        env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        run: |
-          python scanner.py
+    - name: Run script
+      env:
+        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      run: |
+        python scanner.py
 
-      - name: Commit and push palinsesto.json
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add palinsesto.json
-          git commit -m "Aggiornamento automatico palinsesto.json" || exit 0
-          git push
+    - name: Commit and push palinsesto.json
+      run: |
+        git config --global user.name "GitHub Action"
+        git config --global user.email "action@github.com"
+        git add palinsesto.json
+        git diff --quiet && git diff --staged --quiet || (git commit -m "Aggiornamento automatico palinsesto.json [skip ci]" && git push)
