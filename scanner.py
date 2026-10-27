@@ -1,5 +1,6 @@
 import os
 import re
+import json
 import requests
 from bs4 import BeautifulSoup
 from datetime import datetime
@@ -7,7 +8,7 @@ from datetime import datetime
 TELEGRAM_BOT_TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN')
 TELEGRAM_CHAT_ID = os.environ.get('TELEGRAM_CHAT_ID')
 
-# Link specifico TT Cup (testato e funzionante)
+# Link specifico TT Cup
 URL_BETMONITOR = "https://www.betmonitor.com/mobile/odds-comparison/table-tennis/ukraine-tt-cup/10007095"
 
 HEADERS = {
@@ -70,17 +71,32 @@ def parse_betmonitor():
     return valid_matches
 
 def run():
-    print("Generazione palinsesto TT Cup Over 18.5 (Messaggi Separati)...")
+    print("Generazione palinsesto TT Cup Over 18.5...")
     matches = parse_betmonitor()
     
     today_str = datetime.now().strftime("%d/%m/%Y")
     
+    # Generazione automatica del file palinsesto.json per la web app
+    partite_per_html = []
+    for m in matches:
+        partite_per_html.append({
+            "orario": m['time'],
+            "match": m['match'],
+            "pronostico": "TT Cup Over 18.5",
+            "quota": round((m['odds1'] + m['odds2']) / 2, 2)
+        })
+    
+    try:
+        with open("palinsesto.json", "w", encoding="utf-8") as f:
+            json.dump(partite_per_html, f, ensure_ascii=False, indent=2)
+        print("✅ File palinsesto.json salvato con successo!")
+    except Exception as e:
+        print(f"Errore nel salvataggio del file palinsesto.json: {e}")
+
     if matches:
-        # Intestazione iniziale riassuntiva
         header_msg = f"📋 **PALINSESTO TT CUP - OVER 18.5**\n📅 *Data: {today_str}*\nTrovati **{len(matches)} match** ideali:"
         send_telegram(header_msg)
         
-        # Invia un messaggio separato per ciascuna partita
         for m in matches:
             match_msg = (
                 f"🕒 `{m['time']}` | ⚔️ **{m['match']}**\n"
