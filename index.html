@@ -6,68 +6,159 @@
     <title>QUANTUM CUP 18 🏓</title>
     <style>
         :root {
-            --bg-color: #0b0f19;
-            --card-bg: #131b2e;
+            --bg-color: #04060b;
+            --card-bg: #0d1322;
             --accent: #f59e0b;
-            --accent-hover: #d97706;
+            --accent-glow: rgba(245, 158, 11, 0.18);
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --border: #1e293b;
             --success: #10b981;
             --danger: #ef4444;
+            --info: #3b82f6;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-        body { background-color: var(--bg-color); color: var(--text-main); padding: 12px; }
-        header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
-        h1 { font-size: 1.2rem; color: var(--accent); display: flex; align-items: center; gap: 6px; }
-        .btn { background: var(--accent); color: #000; border: none; padding: 8px 14px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 0.85rem; }
-        .btn:active { transform: scale(0.98); }
-        .btn-secondary { background: #334155; color: var(--text-main); }
+        body { background-color: var(--bg-color); color: var(--text-main); padding: 10px; max-width: 600px; margin: 0 auto; }
         
-        .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 12px; margin-bottom: 16px; }
-        h2 { font-size: 0.95rem; margin-bottom: 10px; color: var(--accent); display: flex; align-items: center; gap: 6px; }
+        header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            margin-bottom: 12px; 
+            padding: 12px; 
+            background: linear-gradient(135deg, #0d1322 0%, #172038 100%);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+        }
+        h1 { 
+            font-size: 1.15rem; 
+            color: var(--accent); 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+            font-weight: 900; 
+            letter-spacing: 0.5px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+        .pingpong-icon { font-size: 1.3rem; filter: drop-shadow(0 0 6px rgba(245, 158, 11, 0.6)); animation: pulsePing 2s infinite; }
+        @keyframes pulsePing { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
         
-        /* Lista Match */
-        .match-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid var(--border); cursor: pointer; transition: background 0.2s; }
+        .btn { background: var(--accent); color: #000; border: none; padding: 7px 14px; border-radius: 8px; font-weight: 800; cursor: pointer; font-size: 0.75rem; text-transform: uppercase; box-shadow: 0 2px 6px rgba(245,158,11,0.3); transition: all 0.2s; }
+        .btn:active { transform: scale(0.95); }
+        .btn-secondary { background: #334155; color: var(--text-main); box-shadow: none; }
+        
+        .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 12px; margin-bottom: 12px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3); }
+        h2 { font-size: 0.85rem; margin-bottom: 8px; color: var(--accent); display: flex; align-items: center; gap: 6px; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 700; }
+        
+        /* Statistiche Avanzate / Box */
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 8px; }
+        .stat-box { background: #060911; border: 1px solid var(--border); border-radius: 8px; padding: 8px; text-align: center; }
+        .stat-value { font-size: 0.95rem; font-weight: 900; color: #fff; margin-top: 2px; }
+        .stat-label { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; }
+
+        /* Palinsesto Match */
+        .match-item { 
+            padding: 10px 12px; 
+            border-bottom: 1px solid var(--border); 
+            cursor: pointer; 
+            transition: all 0.2s ease; 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
         .match-item:last-child { border-bottom: none; }
-        .match-item:hover { background: rgba(245, 158, 11, 0.05); border-radius: 6px; }
-        .match-info { font-size: 0.9rem; }
-        .match-time { font-size: 0.75rem; color: var(--text-muted); }
+        .match-item:hover { background: var(--accent-glow); border-radius: 8px; }
+        .match-item.selected { background: var(--accent-glow); border-left: 4px solid var(--accent); border-radius: 6px; }
+        .match-info { font-size: 0.88rem; font-weight: 700; color: #fff; }
+        .match-time { font-size: 0.72rem; color: var(--text-muted); margin-bottom: 2px; font-weight: 600; display: flex; align-items: center; gap: 4px; }
 
-        /* Pannello Giocata Attiva */
-        #active-match-panel { display: none; border: 2px solid var(--accent); background: #172033; }
-        .set-box { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin: 10px 0; }
-        .set-btn { background: #1e293b; border: 1px solid var(--border); color: var(--text-main); padding: 8px; border-radius: 8px; text-align: center; cursor: pointer; font-size: 0.8rem; }
-        .set-btn.active { border-color: var(--accent); background: rgba(245, 158, 11, 0.2); font-weight: bold; }
+        /* Dashboard Attiva */
+        #active-match-panel { display: none; border: 2px solid var(--accent); background: #090f1f; box-shadow: 0 0 15px rgba(245, 158, 11, 0.15); }
+        .set-box { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin: 10px 0; }
+        .set-btn { background: #131d35; border: 1px solid var(--border); color: var(--text-main); padding: 8px; border-radius: 8px; text-align: center; cursor: pointer; font-size: 0.8rem; font-weight: 800; transition: all 0.2s; }
+        .set-btn.active { border-color: var(--accent); background: rgba(245, 158, 11, 0.25); color: var(--accent); box-shadow: 0 0 8px rgba(245,158,11,0.3); }
         
-        .mm-container { background: #0f172a; padding: 10px; border-radius: 8px; margin-top: 8px; font-size: 0.85rem; }
+        .mm-container { background: #04060b; padding: 10px; border-radius: 8px; margin-top: 8px; font-size: 0.8rem; border: 1px solid var(--border); }
         .mm-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
-        input[type="number"] { background: #1e293b; border: 1px solid var(--border); color: white; padding: 6px; border-radius: 6px; width: 80px; text-align: right; }
+        .mm-row:last-child { margin-bottom: 0; }
+        input[type="number"] { background: #131d35; border: 1px solid var(--border); color: white; padding: 5px 8px; border-radius: 6px; width: 80px; text-align: right; font-size: 0.85rem; font-weight: bold; }
 
-        /* Calendario & Storico Giornaliero */
-        .day-group { margin-bottom: 12px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
-        .day-header { font-size: 0.85rem; color: var(--accent); font-weight: bold; margin-bottom: 6px; display: flex; justify-content: space-between; }
+        /* Calendario & Storico */
+        .day-group { margin-bottom: 12px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+        .day-group:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .day-header { font-size: 0.78rem; color: var(--text-main); font-weight: bold; margin-bottom: 6px; display: flex; justify-content: space-between; background: rgba(255,255,255,0.04); padding: 6px 10px; border-radius: 6px; }
+        
         table { width: 100%; border-collapse: collapse; font-size: 0.75rem; }
-        th, td { text-align: left; padding: 6px 4px; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        th { color: var(--text-muted); font-weight: 600; }
-        .badge-win { color: var(--success); font-weight: bold; }
-        .badge-loss { color: var(--danger); font-weight: bold; }
-        .empty-text { text-align: center; color: var(--text-muted); padding: 15px; font-size: 0.85rem; }
+        th, td { text-align: left; padding: 6px 4px; border-bottom: 1px solid rgba(255,255,255,0.03); }
+        th { color: var(--text-muted); font-weight: 700; }
+        
+        .badge-win { color: var(--success); font-weight: 900; }
+        .badge-loss { color: var(--danger); font-weight: 900; }
+        .empty-text { text-align: center; color: var(--text-muted); padding: 14px; font-size: 0.8rem; }
+        
+        .profit-positive { color: var(--success); font-weight: 950; }
+        .profit-negative { color: var(--danger); font-weight: 950; }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>QUANTUM CUP 18 🏓</h1>
+        <h1>
+            <span class="pingpong-icon">🏓</span> 
+            QUANTUM CUP 18 
+            <span class="pingpong-icon" style="transform: scaleX(-1);">🏓</span>
+        </h1>
         <button class="btn" onclick="caricaPalinsesto()">Aggiorna</button>
     </header>
 
-    <!-- PANNELLO GIOCATA ATTIVA (Money Management) -->
+    <!-- STATISTICHE E ANALISI AVANZATA (NEW) -->
+    <div class="card">
+        <h2>📈 Statistiche & Win Rate</h2>
+        <div class="stats-grid">
+            <div class="stat-box">
+                <div class="stat-label">Win Rate</div>
+                <div class="stat-value" id="stat-winrate" style="color: var(--accent);">0.0%</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">Streak</div>
+                <div class="stat-value" id="stat-streak">-</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">Tot. Giocate</div>
+                <div class="stat-value" id="stat-tot">0</div>
+            </div>
+        </div>
+        <div class="stats-grid" style="grid-template-columns: repeat(3, 1fr); margin-bottom: 0;">
+            <div class="stat-box">
+                <div class="stat-label">1° Set (V/P)</div>
+                <div class="stat-value" id="stat-set1" style="font-size: 0.85rem;">0 / 0</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">2° Set (V/P)</div>
+                <div class="stat-value" id="stat-set2" style="font-size: 0.85rem;">0 / 0</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">3° Set (V/P)</div>
+                <div class="stat-value" id="stat-set3" style="font-size: 0.85rem;">0 / 0</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PALINSESTO LIVE -->
+    <div class="card">
+        <h2>⚡ Palinsesto Live</h2>
+        <div id="palinsesto-container">
+            <div class="empty-text">Caricamento palinsesto in corso...</div>
+        </div>
+    </div>
+
+    <!-- DASHBOARD / MONEY MANAGEMENT -->
     <div class="card" id="active-match-panel">
-        <h2>🎯 Gestione Giocata Attiva</h2>
-        <div id="selected-match-title" style="font-weight: bold; margin-bottom: 6px; font-size: 0.95rem; color: #fff;">-</div>
+        <h2>🎯 Gestione Giocata (Over 18 Set)</h2>
+        <div id="selected-match-title" style="font-weight: 700; margin-bottom: 6px; font-size: 0.88rem; color: var(--accent); background: rgba(255,255,255,0.04); padding: 8px; border-radius: 6px; border: 1px solid rgba(245,158,11,0.2);">-</div>
         
-        <div style="font-size: 0.8rem; color: var(--text-muted);">Scegli il Set (Strategia Over 18):</div>
+        <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 6px;">Seleziona il Set di riferimento:</div>
         <div class="set-box">
             <div class="set-btn" id="btn-set1" onclick="selezionaSet(1)">1° Set</div>
             <div class="set-btn" id="btn-set2" onclick="selezionaSet(2)">2° Set</div>
@@ -83,39 +174,32 @@
                 <span>Puntata (€):</span>
                 <input type="number" id="input-stake" value="10.00" step="1.00" oninput="calcolaRitorno()">
             </div>
-            <div class="mm-row" style="font-weight: bold; color: var(--accent); margin-top: 4px;">
-                <span>Vincita Potenziale:</span>
-                <span id="calc-ritorno">18.50 €</span>
+            <div class="mm-row" style="font-weight: bold; color: var(--success); margin-top: 6px; padding-top: 6px; border-top: 1px solid var(--border);">
+                <span>Utile Netto Previsto:</span>
+                <span id="calc-utile">+8.50 €</span>
             </div>
         </div>
 
-        <div style="display: flex; gap: 8px; margin-top: 10px;">
+        <div style="display: flex; gap: 8px; margin-top: 12px;">
             <button class="btn" style="flex: 1; background: var(--success); color: white;" onclick="registraScommessa('VINTA')">✅ Vinta</button>
             <button class="btn" style="flex: 1; background: var(--danger); color: white;" onclick="registraScommessa('PERSA')">❌ Persa</button>
         </div>
     </div>
 
-    <!-- LISTA PALINSESTO -->
+    <!-- CALENDARIO E ARCHIVIO -->
     <div class="card">
-        <h2>⚡ Palinsesto Match (Tocca per giocare)</h2>
-        <div id="palinsesto-container">
-            <div class="empty-text">Caricamento palinsesto in corso...</div>
-        </div>
-    </div>
-
-    <!-- CALENDARIO E ARCHIVIO GIORNALIERO -->
-    <div class="card">
-        <h2>📅 Calendario & Storico Giornaliero</h2>
+        <h2>📅 Calendario & Storico</h2>
         <div id="calendario-container">
-            <div class="empty-text">Nessuna scommessa registrata nello storico</div>
+            <div class="empty-text">Nessuna giocata registrata nello storico</div>
         </div>
-        <button class="btn btn-secondary" style="margin-top: 10px; width: 100%; font-size: 0.8rem;" onclick="pulisciStorico()">Azzera Storico</button>
+        <button class="btn btn-secondary" style="margin-top: 10px; width: 100%; font-size: 0.75rem; padding: 6px;" onclick="pulisciStorico()">Azzera Storico</button>
     </div>
 
     <script>
         let matchSelezionato = null;
         let setSelezionato = 1;
         let listaMatchCache = [];
+        let indiceSelezionatoCorrente = null;
 
         async function caricaPalinsesto() {
             try {
@@ -125,7 +209,7 @@
                 listaMatchCache = data;
                 mostraPalinsesto(data);
             } catch (err) {
-                document.getElementById('palinsesto-container').innerHTML = `<div class="empty-text">Attendi il prossimo aggiornamento da GitHub Actions per vedere le partite.</div>`;
+                document.getElementById('palinsesto-container').innerHTML = `<div class="empty-text">In attesa dell'aggiornamento da GitHub Actions.</div>`;
             }
         }
 
@@ -140,26 +224,31 @@
             data.forEach((m, index) => {
                 let nomeMatch = m.giocatori || m.match || m.titolo || "Match TT Cup";
                 let orarioMatch = m.orario || m.ora || "Live";
+                let isSelectedClass = (indiceSelezionatoCorrente === index) ? 'selected' : '';
 
                 html += `
-                    <div class="match-item" onclick="selezionaMatchPerGiocare(${index})">
+                    <div class="match-item ${isSelectedClass}" onclick="selezionaMatch(${index})">
                         <div>
                             <div class="match-time">🕒 ${orarioMatch}</div>
-                            <div class="match-info"><b>${nomeMatch}</b></div>
+                            <div class="match-info">${nomeMatch}</div>
                         </div>
-                        <div style="color: var(--accent); font-size: 0.8rem; font-weight: bold;">Metti in Gioco ➔</div>
+                        <div style="color: var(--accent); font-size: 0.8rem; font-weight: 800;">GIOCA ➔</div>
                     </div>
                 `;
             });
             container.innerHTML = html;
         }
 
-        function selezionaMatchPerGiocare(index) {
+        function selezionaMatch(index) {
+            indiceSelezionatoCorrente = index;
             matchSelezionato = listaMatchCache[index];
             let nomeMatch = matchSelezionato.giocatori || matchSelezionato.match || matchSelezionato.titolo || "Match TT Cup";
-            document.getElementById('selected-match-title').innerText = "Match: " + nomeMatch;
+            
+            document.getElementById('selected-match-title').innerText = nomeMatch;
             document.getElementById('active-match-panel').style.display = 'block';
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            mostraPalinsesto(listaMatchCache);
+            document.getElementById('active-match-panel').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             calcolaRitorno();
         }
 
@@ -172,14 +261,15 @@
         function calcolaRitorno() {
             const quota = parseFloat(document.getElementById('input-quota').value) || 0;
             const stake = parseFloat(document.getElementById('input-stake').value) || 0;
-            document.getElementById('calc-ritorno').innerText = (quota * stake).toFixed(2) + ' €';
+            const utile = (quota * stake) - stake;
+            document.getElementById('calc-utile').innerText = (utile >= 0 ? "+" : "") + utile.toFixed(2) + " €";
         }
 
         function registraScommessa(esito) {
             if (!matchSelezionato) return;
             
             let nomeMatch = matchSelezionato.giocatori || matchSelezionato.match || matchSelezionato.titolo || "Match TT Cup";
-            const quota = document.getElementById('input-quota').value;
+            const quota = parseFloat(document.getElementById('input-quota').value);
             const stake = parseFloat(document.getElementById('input-stake').value);
             const ora = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
             const oggi = new Date().toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit', year: 'numeric' });
@@ -189,8 +279,9 @@
                 dataFull: oggi,
                 orario: ora,
                 match: nomeMatch,
+                setNum: setSelezionato,
                 dettaglio: `Set ${setSelezionato} (Over 18)`,
-                quota: quota,
+                quota: quota.toFixed(2),
                 stake: stake,
                 esito: esito
             };
@@ -199,9 +290,69 @@
             storico.unshift(nuovaGiocata);
             localStorage.setItem('quantum_storico_calendario', JSON.stringify(storico));
 
-            aggiornaCalendarioUI();
+             aggiornaTutto();
+            
             document.getElementById('active-match-panel').style.display = 'none';
-            alert('Giocata registrata e salvata nel calendario!');
+            indiceSelezionatoCorrente = null;
+            mostraPalinsesto(listaMatchCache);
+        }
+
+        function aggiornaTutto() {
+            aggiornaStatistiche();
+            aggiornaCalendarioUI();
+        }
+
+        function aggiornaStatistiche() {
+            let storico = JSON.parse(localStorage.getItem('quantum_storico_calendario')) || [];
+            let tot = storico.length;
+            
+            if (tot === 0) {
+                document.getElementById('stat-winrate').innerText = "0.0%";
+                document.getElementById('stat-streak').innerText = "-";
+                document.getElementById('stat-tot').innerText = "0";
+                document.getElementById('stat-set1').innerText = "0 / 0";
+                document.getElementById('stat-set2').innerText = "0 / 0";
+                document.getElementById('stat-set3').innerText = "0 / 0";
+                return;
+            }
+
+            let vinte = storico.filter(g => g.esito === 'VINTA').length;
+            let winRate = ((vinte / tot) * 100).toFixed(1) + "%";
+            
+            document.getElementById('stat-winrate').innerText = winRate;
+            document.getElementById('stat-tot').innerText = tot;
+
+            // Calcolo Streak (serie attuale)
+            let streakCount = 0;
+            let streakType = storico[0].esito;
+            for (let i = 0; i < storico.length; i++) {
+                if (storico[i].esito === streakType) {
+                    streakCount++;
+                } else {
+                    break;
+                }
+            }
+            let streakText = (streakType === 'VINTA' ? '🟢 +' : '🔴 -') + streakCount;
+            document.getElementById('stat-streak').innerText = streakText;
+
+            // Statistiche per Set (Vinte / Perse)
+            let setStats = {
+                1: { v: 0, p: 0 },
+                2: { v: 0, p: 0 },
+                3: { v: 0, p: 0 }
+            };
+
+            storico.forEach(g => {
+                let s = g.setNum || 1;
+                if (setStats[s]) {
+                    if (g.esito === 'VINTA') setStats[s].v++;
+                    else setStats[s].p++;
+                }
+            });
+
+            document.getElementById('stat-set1').innerText = `${setStats[1].v} / ${setStats[1].p}`;
+            document.getElementById('stat-set2').innerText = `${setStats[2].v} / ${setStats[2].p}`;
+            document.getElementById('stat-set3').innerText = `${setStats[3].v} / ${setStats[3].p}`;
         }
 
         function aggiornaCalendarioUI() {
@@ -225,11 +376,23 @@
                 let vinte = giocateDelGiorno.filter(g => g.esito === 'VINTA').length;
                 let perse = giocateDelGiorno.filter(g => g.esito === 'PERSA').length;
 
+                let profittoGiorno = 0;
+                giocateDelGiorno.forEach(g => {
+                    if (g.esito === 'VINTA') {
+                        profittoGiorno += (parseFloat(g.quota) * g.stake) - g.stake;
+                    } else {
+                        profittoGiorno -= g.stake;
+                    }
+                });
+
+                let profitClass = profittoGiorno >= 0 ? 'profit-positive' : 'profit-negative';
+                let profitStr = (profittoGiorno >= 0 ? "+" : "") + profittoGiorno.toFixed(2) + " €";
+
                 html += `
                     <div class="day-group">
                         <div class="day-header">
-                            <span>📅 ${data}</span>
-                            <span>Vinte: ${vinte} | Perse: ${perse}</span>
+                            <span>📅 ${data} &nbsp;|&nbsp; 🟢 ${vinte} ❌ ${perse}</span>
+                            <span class="${profitClass}">Bilancio: ${profitStr}</span>
                         </div>
                         <table>
                             <thead>
@@ -237,7 +400,7 @@
                                     <th>Ora</th>
                                     <th>Match</th>
                                     <th>Set</th>
-                                    <th>Q.ta</th>
+                                    <th>Q.</th>
                                     <th>Punt.</th>
                                     <th>Esito</th>
                                 </tr>
@@ -266,14 +429,14 @@
         }
 
         function pulisciStorico() {
-            if (confirm("Vuoi davvero azzerare tutto il calendario storico?")) {
+            if (confirm("Vuoi davvero azzerare tutto il calendario storico e le statistiche?")) {
                 localStorage.removeItem('quantum_storico_calendario');
-                aggiornaCalendarioUI();
+                aggiornaTutto();
             }
         }
 
         caricaPalinsesto();
-        aggiornaCalendarioUI();
+        aggiornaTutto();
         selezionaSet(1);
     </script>
 </body>
