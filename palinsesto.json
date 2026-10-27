@@ -1,21 +1,9 @@
 [
   {
-    "orario": "11:10",
-    "giocatori": "Jan Krupnik - Tomas Krenek",
-    "quota1": "1.96",
-    "quota2": "1.75"
-  },
-  {
-    "orario": "11:40",
-    "giocatori": "Lukas Dzida - Lukas Kantor",
-    "quota1": "1.79",
-    "quota2": "1.91"
-  },
-  {
     "orario": "12:20",
     "giocatori": "Jan Srnka - Ondrej Knazik",
-    "quota1": "1.88",
-    "quota2": "1.82"
+    "quota1": "1.81",
+    "quota2": "1.90"
   },
   {
     "orario": "12:45",
@@ -51,55 +39,49 @@
     "orario": "14:35",
     "giocatori": "Radek Neterda - Ondrej Pros",
     "quota1": "1.75",
-    "quota2": "1.96"
-  },
-  {
-    "orario": "15:40",
-    "giocatori": "Lukas Krupnik Jnr - Radomir Benesz",
-    "quota1": "1.87",
-    "quota2": "1.83"
+    "quota2": "1.97"
   },
   {
     "orario": "16:35",
     "giocatori": "Martin Mastera - Tomas Bartik",
-    "quota1": "1.85",
-    "quota2": "1.86"
+    "quota1": "2.00",
+    "quota2": "1.73"
   },
   {
     "orario": "16:45",
     "giocatori": "Borek Moravec - Jan Pribyl",
     "quota1": "1.75",
-    "quota2": "1.97"
+    "quota2": "1.95"
   },
   {
     "orario": "16:55",
     "giocatori": "David Sykora - Milan Dvorak",
-    "quota1": "2.00",
+    "quota1": "2.01",
     "quota2": "1.72"
   },
   {
     "orario": "17:10",
     "giocatori": "Radomir Benesz - Filip Mandrysz",
-    "quota1": "1.88",
-    "quota2": "1.83"
+    "quota1": "1.91",
+    "quota2": "1.80"
   },
   {
     "orario": "17:40",
     "giocatori": "Lukas Krupnik Jnr - Filip Mandrysz",
     "quota1": "1.80",
-    "quota2": "1.91"
+    "quota2": "1.89"
   },
   {
     "orario": "17:55",
     "giocatori": "David Sykora - Jiri Volek",
     "quota1": "1.86",
-    "quota2": "1.85"
+    "quota2": "1.83"
   },
   {
     "orario": "18:20",
     "giocatori": "Tomas Rein - Jachym Sebl",
-    "quota1": "1.93",
-    "quota2": "1.78"
+    "quota1": "1.88",
+    "quota2": "1.81"
   },
   {
     "orario": "18:25",
@@ -110,8 +92,14 @@
   {
     "orario": "18:50",
     "giocatori": "Lukas Dominik Rek - Vojtech Koutnik",
-    "quota1": "1.93",
-    "quota2": "1.78"
+    "quota1": "1.87",
+    "quota2": "1.82"
+  },
+  {
+    "orario": "20:10",
+    "giocatori": "Jiri Vanous - Patrik Sturma",
+    "quota1": "1.74",
+    "quota2": "1.98"
   },
   {
     "orario": "20:35",
@@ -122,13 +110,13 @@
   {
     "orario": "20:50",
     "giocatori": "Michal Nemec - Marek Dlask",
-    "quota1": "1.95",
-    "quota2": "1.77"
+    "quota1": "1.98",
+    "quota2": "1.75"
   },
   {
     "orario": "22:15",
     "giocatori": "Kamil Kleprlik - Ivan Heuman",
-    "quota1": "1.80",
-    "quota2": "1.90"
+    "quota1": "1.83",
+    "quota2": "1.87"
   }
 ]
