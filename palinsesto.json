@@ -1,62 +1,128 @@
 [
   {
     "orario": "10:25",
-    "match": "Vaclav Nadvornik - Jan Kocab",
-    "pronostico": "TT Cup Over 18.5",
-    "quota": 1.85
+    "giocatori": "Vaclav Nadvornik - Jan Kocab",
+    "quota1": "1.80",
+    "quota2": "1.90"
   },
   {
     "orario": "11:40",
-    "match": "Lukas Dzida - Lukas Kantor",
-    "pronostico": "TT Cup Over 18.5",
-    "quota": 1.85
+    "giocatori": "Lukas Dzida - Lukas Kantor",
+    "quota1": "1.79",
+    "quota2": "1.91"
   },
   {
     "orario": "12:20",
-    "match": "Jan Srnka - Ondrej Knazik",
-    "pronostico": "TT Cup Over 18.5",
-    "quota": 1.85
+    "giocatori": "Jan Srnka - Ondrej Knazik",
+    "quota1": "1.88",
+    "quota2": "1.82"
   },
   {
     "orario": "12:30",
-    "match": "Pawel Gola - Dawid Stapor",
-    "pronostico": "TT Cup Over 18.5",
-    "quota": 1.85
+    "giocatori": "Pawel Gola - Dawid Stapor",
+    "quota1": "1.96",
+    "quota2": "1.75"
   },
   {
     "orario": "12:45",
-    "match": "Michal Macurak - Tomas Krenek",
-    "pronostico": "TT Cup Over 18.5",
-    "quota": 1.85
+    "giocatori": "Michal Macurak - Tomas Krenek",
+    "quota1": "1.86",
+    "quota2": "1.82"
   },
   {
     "orario": "13:25",
-    "match": "Petr Chlumsky - David Sochor",
-    "pronostico": "TT Cup Over 18.5",
-    "quota": 1.86
+    "giocatori": "Petr Chlumsky - David Sochor",
+    "quota1": "1.96",
+    "quota2": "1.76"
   },
   {
     "orario": "14:10",
-    "match": "Tomas Kindl - Lukas Kantor",
-    "pronostico": "TT Cup Over 18.5",
-    "quota": 1.85
+    "giocatori": "Tomas Kindl - Lukas Kantor",
+    "quota1": "1.90",
+    "quota2": "1.80"
   },
   {
     "orario": "14:15",
-    "match": "Tomas Krenek - Jan Krupnik",
-    "pronostico": "TT Cup Over 18.5",
-    "quota": 1.84
+    "giocatori": "Tomas Krenek - Jan Krupnik",
+    "quota1": "1.79",
+    "quota2": "1.91"
   },
   {
     "orario": "14:20",
-    "match": "Jan Srnka - Lukas Dominik Rek",
-    "pronostico": "TT Cup Over 18.5",
-    "quota": 1.85
+    "giocatori": "Jan Srnka - Lukas Dominik Rek",
+    "quota1": "1.86",
+    "quota2": "1.84"
   },
   {
     "orario": "14:35",
-    "match": "Radek Neterda - Ondrej Pros",
-    "pronostico": "TT Cup Over 18.5",
-    "quota": 1.85
+    "giocatori": "Radek Neterda - Ondrej Pros",
+    "quota1": "1.75",
+    "quota2": "1.96"
+  },
+  {
+    "orario": "15:40",
+    "giocatori": "Lukas Krupnik Jnr - Radomir Benesz",
+    "quota1": "1.87",
+    "quota2": "1.83"
+  },
+  {
+    "orario": "16:35",
+    "giocatori": "Martin Mastera - Tomas Bartik",
+    "quota1": "1.85",
+    "quota2": "1.86"
+  },
+  {
+    "orario": "16:55",
+    "giocatori": "David Sykora - Milan Dvorak",
+    "quota1": "2.00",
+    "quota2": "1.72"
+  },
+  {
+    "orario": "17:10",
+    "giocatori": "Radomir Benesz - Filip Mandrysz",
+    "quota1": "1.89",
+    "quota2": "1.83"
+  },
+  {
+    "orario": "17:40",
+    "giocatori": "Lukas Krupnik Jnr - Filip Mandrysz",
+    "quota1": "1.80",
+    "quota2": "1.91"
+  },
+  {
+    "orario": "17:55",
+    "giocatori": "David Sykora - Jiri Volek",
+    "quota1": "1.85",
+    "quota2": "1.83"
+  },
+  {
+    "orario": "18:20",
+    "giocatori": "Tomas Rein - Jachym Sebl",
+    "quota1": "1.93",
+    "quota2": "1.78"
+  },
+  {
+    "orario": "18:25",
+    "giocatori": "Milan Dvorak - Petr Moravec",
+    "quota1": "1.89",
+    "quota2": "1.82"
+  },
+  {
+    "orario": "18:50",
+    "giocatori": "Lukas Dominik Rek - Vojtech Koutnik",
+    "quota1": "1.93",
+    "quota2": "1.78"
+  },
+  {
+    "orario": "20:35",
+    "giocatori": "Tomas Krcil - Lubomir Vana",
+    "quota1": "1.76",
+    "quota2": "1.95"
+  },
+  {
+    "orario": "20:50",
+    "giocatori": "Michal Nemec - Marek Dlask",
+    "quota1": "1.82",
+    "quota2": "1.89"
   }
 ]
