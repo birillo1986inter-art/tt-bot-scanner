@@ -1,31 +1,24 @@
-name: TT Cup Daily Digest
+name: Run Scanner
 
 on:
   schedule:
-    # Scansione del mattino alle 07:20 italiane (06:20 UTC)
-    - cron: '20 6 * * *'
-    # Scansione del pomeriggio alle 15:00 italiane (14:00 UTC con ora solare)
-    - cron: '0 14 * * *'
-  
+    - cron: '*/30 * * * *'
   workflow_dispatch:
 
 jobs:
-  run-script:
+  run-scanner:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v4
         with:
           python-version: '3.10'
 
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
           pip install requests beautifulsoup4
 
       - name: Run script
@@ -34,3 +27,11 @@ jobs:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
           python scanner.py
+
+      - name: Commit and push palinsesto.json
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add palinsesto.json
+          git commit -m "Aggiornamento automatico palinsesto.json" || exit 0
+          git push
