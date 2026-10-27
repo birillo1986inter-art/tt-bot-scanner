@@ -8,245 +8,270 @@
         :root {
             --bg-color: #0b0f19;
             --card-bg: #131b2e;
-            --accent-color: #f59e0b;
+            --accent: #f59e0b;
             --accent-hover: #d97706;
-            --text-main: #f3f4f6;
-            --text-muted: #9ca3af;
-            --border-color: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #1e293b;
+            --success: #10b981;
+            --danger: #ef4444;
         }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-main); padding: 12px; }
+        header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+        h1 { font-size: 1.2rem; color: var(--accent); display: flex; align-items: center; gap: 6px; }
+        .btn { background: var(--accent); color: #000; border: none; padding: 8px 14px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 0.85rem; }
+        .btn:active { transform: scale(0.98); }
+        .btn-secondary { background: #334155; color: var(--text-main); }
+        
+        .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 12px; margin-bottom: 16px; }
+        h2 { font-size: 0.95rem; margin-bottom: 10px; color: var(--accent); display: flex; align-items: center; gap: 6px; }
+        
+        /* Lista Match */
+        .match-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid var(--border); cursor: pointer; transition: background 0.2s; }
+        .match-item:last-child { border-bottom: none; }
+        .match-item:hover { background: rgba(245, 158, 11, 0.05); border-radius: 6px; }
+        .match-info { font-size: 0.9rem; }
+        .match-time { font-size: 0.75rem; color: var(--text-muted); }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+        /* Pannello Giocata Attiva */
+        #active-match-panel { display: none; border: 2px solid var(--accent); background: #172033; }
+        .set-box { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin: 10px 0; }
+        .set-btn { background: #1e293b; border: 1px solid var(--border); color: var(--text-main); padding: 8px; border-radius: 8px; text-align: center; cursor: pointer; font-size: 0.8rem; }
+        .set-btn.active { border-color: var(--accent); background: rgba(245, 158, 11, 0.2); font-weight: bold; }
+        
+        .mm-container { background: #0f172a; padding: 10px; border-radius: 8px; margin-top: 8px; font-size: 0.85rem; }
+        .mm-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+        input[type="number"] { background: #1e293b; border: 1px solid var(--border); color: white; padding: 6px; border-radius: 6px; width: 80px; text-align: right; }
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            padding: 15px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        h1 {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            color: var(--accent-color);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .action-bar {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        button {
-            padding: 10px 18px;
-            font-weight: 600;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .btn-primary {
-            background-color: var(--accent-color);
-            color: #000;
-        }
-
-        .btn-primary:hover {
-            background-color: var(--accent-hover);
-        }
-
-        .btn-secondary {
-            background-color: #374151;
-            color: var(--text-main);
-        }
-
-        .btn-secondary:hover {
-            background-color: #4b5563;
-        }
-
-        .card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 20px;
-            overflow-x: auto;
-        }
-
-        .card-title {
-            font-size: 1rem;
-            margin-bottom: 12px;
-            color: var(--text-muted);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-            font-size: 0.9rem;
-            white-space: nowrap;
-        }
-
-        th, td {
-            padding: 12px 10px;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        th {
-            color: var(--text-muted);
-            font-weight: 600;
-        }
-
-        .step-btn {
-            background: #1e3a8a;
-            color: #93c5fd;
-            border: 1px solid #3b82f6;
-            padding: 6px 12px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.85rem;
-        }
-
-        .step-btn:hover {
-            background: #2563eb;
-            color: #fff;
-        }
-
-        .empty-state {
-            text-align: center;
-            color: var(--text-muted);
-            padding: 20px;
-            font-style: italic;
-        }
+        /* Calendario & Storico Giornaliero */
+        .day-group { margin-bottom: 12px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+        .day-header { font-size: 0.85rem; color: var(--accent); font-weight: bold; margin-bottom: 6px; display: flex; justify-content: space-between; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.75rem; }
+        th, td { text-align: left; padding: 6px 4px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        th { color: var(--text-muted); font-weight: 600; }
+        .badge-win { color: var(--success); font-weight: bold; }
+        .badge-loss { color: var(--danger); font-weight: bold; }
+        .empty-text { text-align: center; color: var(--text-muted); padding: 15px; font-size: 0.85rem; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>QUANTUM CUP 18 🏓</h1>
+    <header>
+        <h1>QUANTUM CUP 18 🏓</h1>
+        <button class="btn" onclick="caricaPalinsesto()">Aggiorna</button>
+    </header>
 
-    <div class="action-bar">
-        <button class="btn-primary" onclick="caricaPalinsestoAutomatico()">🔄 Aggiorna da G-Tube</button>
-        <button class="btn-secondary" onclick="pulisciBox()">Pulisci Box</button>
-    </div>
+    <!-- PANNELLO GIOCATA ATTIVA (Money Management) -->
+    <div class="card" id="active-match-panel">
+        <h2>🎯 Gestione Giocata Attiva</h2>
+        <div id="selected-match-title" style="font-weight: bold; margin-bottom: 6px; font-size: 0.95rem; color: #fff;">-</div>
+        
+        <div style="font-size: 0.8rem; color: var(--text-muted);">Scegli il Set (Strategia Over 18):</div>
+        <div class="set-box">
+            <div class="set-btn" id="btn-set1" onclick="selezionaSet(1)">1° Set</div>
+            <div class="set-btn" id="btn-set2" onclick="selezionaSet(2)">2° Set</div>
+            <div class="set-btn" id="btn-set3" onclick="selezionaSet(3)">3° Set</div>
+        </div>
 
-    <!-- Box Match Attivi -->
-    <div class="card">
-        <div class="card-title">⚡ Match Attivi dal Palinsesto G-Tube</div>
-        <div id="match-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Orario</th>
-                        <th>Match TT Cup</th>
-                        <th>Pronostico</th>
-                        <th>Quote</th>
-                        <th>Set 1 (Base)</th>
-                        <th>Set 2 (Step 2)</th>
-                        <th>Set 3 (Step 3)</th>
-                    </tr>
-                </thead>
-                <tbody id="active-match-body">
-                    <tr>
-                        <td colspan="7" class="empty-state">In attesa di caricamento palinsesto... Clicca "Aggiorna da G-Tube".</td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="mm-container">
+            <div class="mm-row">
+                <span>Quota:</span>
+                <input type="number" id="input-quota" value="1.85" step="0.01" oninput="calcolaRitorno()">
+            </div>
+            <div class="mm-row">
+                <span>Puntata (€):</span>
+                <input type="number" id="input-stake" value="10.00" step="1.00" oninput="calcolaRitorno()">
+            </div>
+            <div class="mm-row" style="font-weight: bold; color: var(--accent); margin-top: 4px;">
+                <span>Vincita Potenziale:</span>
+                <span id="calc-ritorno">18.50 €</span>
+            </div>
+        </div>
+
+        <div style="display: flex; gap: 8px; margin-top: 10px;">
+            <button class="btn" style="flex: 1; background: var(--success); color: white;" onclick="registraScommessa('VINTA')">✅ Vinta</button>
+            <button class="btn" style="flex: 1; background: var(--danger); color: white;" onclick="registraScommessa('PERSA')">❌ Persa</button>
         </div>
     </div>
 
-    <!-- Database Storico -->
+    <!-- LISTA PALINSESTO -->
     <div class="card">
-        <div class="card-title">📊 Database Storico Scommesse Concluse</div>
-        <table>
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Data</th>
-                    <th>Match TT</th>
-                    <th>Pronostico & Set</th>
-                    <th>Quota</th>
-                    <th>Totale Scommesso</th>
-                    <th>Profitto Netto</th>
-                </tr>
-            </thead>
-            <tbody id="history-body">
-                <tr>
-                    <td colspan="7" class="empty-state">Nessuna scommessa salvata nello storico.</td>
-                </tr>
-            </tbody>
-        </table>
+        <h2>⚡ Palinsesto Match (Tocca per giocare)</h2>
+        <div id="palinsesto-container">
+            <div class="empty-text">Caricamento palinsesto in corso...</div>
+        </div>
     </div>
-</div>
 
-<script>
-    // Caricamento automatico all'avvio della pagina
-    window.addEventListener('DOMContentLoaded', () => {
-        caricaPalinsestoAutomatico();
-    });
+    <!-- CALENDARIO E ARCHIVIO GIORNALIERO -->
+    <div class="card">
+        <h2>📅 Calendario & Storico Giornaliero</h2>
+        <div id="calendario-container">
+            <div class="empty-text">Nessuna scommessa registrata nello storico</div>
+        </div>
+        <button class="btn btn-secondary" style="margin-top: 10px; width: 100%; font-size: 0.8rem;" onclick="pulisciStorico()">Azzera Storico</button>
+    </div>
 
-    async function caricaPalinsestoAutomatico() {
-        try {
-            const response = await fetch('palinsesto.json?t=' + new Date().getTime());
-            if (!response.ok) {
-                console.log("File palinsesto.json non ancora disponibile.");
-                return;
+    <script>
+        let matchSelezionato = null;
+        let setSelezionato = 1;
+        let listaMatchCache = [];
+
+        async function caricaPalinsesto() {
+            try {
+                const res = await fetch('palinsesto.json?t=' + new Date().getTime());
+                if (!res.ok) throw new Error("File non trovato");
+                const data = await res.json();
+                listaMatchCache = data;
+                mostraPalinsesto(data);
+            } catch (err) {
+                document.getElementById('palinsesto-container').innerHTML = `<div class="empty-text">Attendi il prossimo aggiornamento da GitHub Actions per vedere le partite.</div>`;
             }
-            
-            const partite = await response.json();
-            const tbody = document.getElementById('active-match-body');
-            
-            if (!partite || partite.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="7" class="empty-state">Nessuna partita trovata nel palinsesto.</td></tr>`;
-                return;
-            }
-
-            tbody.innerHTML = '';
-            partite.forEach(p => {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td>${p.orario}</td>
-                    <td>🟢 ${p.match}</td>
-                    <td>${p.pronostico}</td>
-                    <td>@${p.quota}</td>
-                    <td><button class="step-btn" onclick="registraEsito('${p.match}', 'Set 1', 5.00)">Set 1: 5.00 €</button></td>
-                    <td><button class="step-btn" onclick="registraEsito('${p.match}', 'Set 2', 11.76)">Set 2: 11.76 €</button></td>
-                    <td><button class="step-btn" onclick="registraEsito('${p.match}', 'Set 3', 27.50)">Set 3: 27.50 €</button></td>
-                `;
-                tbody.appendChild(tr);
-            });
-            console.log("✅ Palinsesto caricato con successo!");
-        } catch (e) {
-            console.log("Errore nel caricamento del palinsesto: ", e);
         }
-    }
 
-    function pulisciBox() {
-        document.getElementById('active-match-body').innerHTML = `
-            <tr>
-                <td colspan="7" class="empty-state">Nessun match attivo nel box.</td>
-            </tr>
-        `;
-    }
+        function mostraPalinsesto(data) {
+            const container = document.getElementById('palinsesto-container');
+            if (!data || data.length === 0) {
+                container.innerHTML = `<div class="empty-text">Nessun match attivo al momento.</div>`;
+                return;
+            }
+            
+            let html = '';
+            data.forEach((m, index) => {
+                html += `
+                    <div class="match-item" onclick="selezionaMatchPerGiocare(${index})">
+                        <div>
+                            <div class="match-time">🕒 ${m.orario || 'Live'}</div>
+                            <div class="match-info"><b>${m.giocatori}</b></div>
+                        </div>
+                        <div style="color: var(--accent); font-size: 0.8rem; font-weight: bold;">Metti in Gioco ➔</div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
 
-    function registraEsito(match, setTag, importo) {
-        alert("Registrato esito per: " + match + " (" + setTag + ") con puntata di " + importo + "€");
-    }
-</script>
+        function selezionaMatchPerGiocare(index) {
+            matchSelezionato = listaMatchCache[index];
+            document.getElementById('selected-match-title').innerText = "Match: " + matchSelezionato.giocatori;
+            document.getElementById('active-match-panel').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            calcolaRitorno();
+        }
 
+        function selezionaSet(setNum) {
+            setSelezionato = setNum;
+            document.querySelectorAll('.set-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(`btn-set${setNum}`).classList.add('active');
+        }
+
+        function calcolaRitorno() {
+            const quota = parseFloat(document.getElementById('input-quota').value) || 0;
+            const stake = parseFloat(document.getElementById('input-stake').value) || 0;
+            document.getElementById('calc-ritorno').innerText = (quota * stake).toFixed(2) + ' €';
+        }
+
+        function registraScommessa(esito) {
+            if (!matchSelezionato) return;
+            
+            const quota = document.getElementById('input-quota').value;
+            const stake = parseFloat(document.getElementById('input-stake').value);
+            const ora = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            const oggi = new Date().toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit', year: 'numeric' });
+
+            const nuovaGiocata = {
+                id: Date.now(),
+                dataFull: oggi,
+                orario: ora,
+                match: matchSelezionato.giocatori,
+                dettaglio: `Set ${setSelezionato} (Over 18)`,
+                quota: quota,
+                stake: stake,
+                esito: esito
+            };
+
+            let storico = JSON.parse(localStorage.getItem('quantum_storico_calendario')) || [];
+            storico.unshift(nuovaGiocata);
+            localStorage.setItem('quantum_storico_calendario', JSON.stringify(storico));
+
+            aggiornaCalendarioUI();
+            document.getElementById('active-match-panel').style.display = 'none';
+            alert('Giocata registrata e salvata nel calendario!');
+        }
+
+        function aggiornaCalendarioUI() {
+            let storico = JSON.parse(localStorage.getItem('quantum_storico_calendario')) || [];
+            const container = document.getElementById('calendario-container');
+            
+            if (storico.length === 0) {
+                container.innerHTML = `<div class="empty-text">Nessuna scommessa salvata nello storico</div>`;
+                return;
+            }
+
+            // Raggruppa per data (Calendario)
+            let gruppi = {};
+            storico.forEach(s => {
+                if (!gruppi[s.dataFull]) gruppi[s.dataFull] = [];
+                gruppi[s.dataFull].push(s);
+            });
+
+            let html = '';
+            for (let data in gruppi) {
+                let giocateDelGiorno = gruppi[data];
+                let vinte = giocateDelGiorno.filter(g => g.esito === 'VINTA').length;
+                let perse = giocateDelGiorno.filter(g => g.esito === 'PERSA').length;
+
+                html += `
+                    <div class="day-group">
+                        <div class="day-header">
+                            <span>📅 ${data}</span>
+                            <span>Vinte: ${vinte} | Perse: ${perse}</span>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Ora</th>
+                                    <th>Match</th>
+                                    <th>Set</th>
+                                    <th>Q.ta</th>
+                                    <th>Punt.</th>
+                                    <th>Esito</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                `;
+
+                giocateDelGiorno.forEach(g => {
+                    let badgeClass = g.esito === 'VINTA' ? 'badge-win' : 'badge-loss';
+                    html += `
+                        <tr>
+                            <td>${g.orario}</td>
+                            <td><b>${g.match}</b></td>
+                            <td>${g.dettaglio}</td>
+                            <td>${g.quota}</td>
+                            <td>${g.stake}€</td>
+                            <td><span class="${badgeClass}">${g.esito}</span></td>
+                        </tr>
+                    `;
+                });
+
+                html += `</tbody></table></div>`;
+            }
+
+            container.innerHTML = html;
+        }
+
+        function pulisciStorico() {
+            if (confirm("Vuoi davvero azzerare tutto il calendario storico?")) {
+                localStorage.removeItem('quantum_storico_calendario');
+                aggiornaCalendarioUI();
+            }
+        }
+
+        // Avvio automatico
+        caricaPalinsesto();
+        aggiornaCalendarioUI();
+        selezionaSet(1);
+    </script>
 </body>
 </html>
