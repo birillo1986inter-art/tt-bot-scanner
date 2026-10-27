@@ -138,11 +138,14 @@
             
             let html = '';
             data.forEach((m, index) => {
+                let nomeMatch = m.giocatori || m.match || m.titolo || "Match TT Cup";
+                let orarioMatch = m.orario || m.ora || "Live";
+
                 html += `
                     <div class="match-item" onclick="selezionaMatchPerGiocare(${index})">
                         <div>
-                            <div class="match-time">🕒 ${m.orario || 'Live'}</div>
-                            <div class="match-info"><b>${m.giocatori}</b></div>
+                            <div class="match-time">🕒 ${orarioMatch}</div>
+                            <div class="match-info"><b>${nomeMatch}</b></div>
                         </div>
                         <div style="color: var(--accent); font-size: 0.8rem; font-weight: bold;">Metti in Gioco ➔</div>
                     </div>
@@ -153,7 +156,8 @@
 
         function selezionaMatchPerGiocare(index) {
             matchSelezionato = listaMatchCache[index];
-            document.getElementById('selected-match-title').innerText = "Match: " + matchSelezionato.giocatori;
+            let nomeMatch = matchSelezionato.giocatori || matchSelezionato.match || matchSelezionato.titolo || "Match TT Cup";
+            document.getElementById('selected-match-title').innerText = "Match: " + nomeMatch;
             document.getElementById('active-match-panel').style.display = 'block';
             window.scrollTo({ top: 0, behavior: 'smooth' });
             calcolaRitorno();
@@ -174,6 +178,7 @@
         function registraScommessa(esito) {
             if (!matchSelezionato) return;
             
+            let nomeMatch = matchSelezionato.giocatori || matchSelezionato.match || matchSelezionato.titolo || "Match TT Cup";
             const quota = document.getElementById('input-quota').value;
             const stake = parseFloat(document.getElementById('input-stake').value);
             const ora = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -183,7 +188,7 @@
                 id: Date.now(),
                 dataFull: oggi,
                 orario: ora,
-                match: matchSelezionato.giocatori,
+                match: nomeMatch,
                 dettaglio: `Set ${setSelezionato} (Over 18)`,
                 quota: quota,
                 stake: stake,
@@ -208,7 +213,6 @@
                 return;
             }
 
-            // Raggruppa per data (Calendario)
             let gruppi = {};
             storico.forEach(s => {
                 if (!gruppi[s.dataFull]) gruppi[s.dataFull] = [];
@@ -268,7 +272,6 @@
             }
         }
 
-        // Avvio automatico
         caricaPalinsesto();
         aggiornaCalendarioUI();
         selezionaSet(1);
