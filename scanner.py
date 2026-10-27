@@ -57,10 +57,10 @@ def parse_betmonitor():
                             
                             if is_over:
                                 match_item = {
-                                    "time": match_time,
-                                    "match": match_name,
-                                    "odds1": o1,
-                                    "odds2": o2,
+                                    "orario": match_time,
+                                    "giocatori": match_name,
+                                    "quota1": f"{o1:.2f}",
+                                    "quota2": f"{o2:.2f}",
                                     "diff": diff
                                 }
                                 if match_item not in valid_matches:
@@ -76,20 +76,20 @@ def run():
     
     today_str = datetime.now().strftime("%d/%m/%Y")
     
-    # Generazione automatica del file palinsesto.json per la web app
+    # Generazione automatica del file palinsesto.json con le quote pronte per la web app
     partite_per_html = []
     for m in matches:
         partite_per_html.append({
-            "orario": m['time'],
-            "match": m['match'],
-            "pronostico": "TT Cup Over 18.5",
-            "quota": round((m['odds1'] + m['odds2']) / 2, 2)
+            "orario": m['orario'],
+            "giocatori": m['giocatori'],
+            "quota1": m['quota1'],
+            "quota2": m['quota2']
         })
     
     try:
         with open("palinsesto.json", "w", encoding="utf-8") as f:
             json.dump(partite_per_html, f, ensure_ascii=False, indent=2)
-        print("✅ File palinsesto.json salvato con successo!")
+        print("✅ File palinsesto.json salvato con successo con le relative quote!")
     except Exception as e:
         print(f"Errore nel salvataggio del file palinsesto.json: {e}")
 
@@ -98,9 +98,10 @@ def run():
         send_telegram(header_msg)
         
         for m in matches:
+            diff_ val = abs(float(m['quota1']) - float(m['quota2']))
             match_msg = (
-                f"🕒 `{m['time']}` | ⚔️ **{m['match']}**\n"
-                f"📊 Quote: 1: `{m['odds1']:.2f}` | 2: `{m['odds2']:.2f}` (Diff: `{m['diff']:.2f}`)\n"
+                f"🕒 `{m['orario']}` | ⚔️ **{m['giocatori']}**\n"
+                f"📊 Quote: 1: `{m['quota1']}` | 2: `{m['quota2']}` (Diff: `{diff_val:.2f}`)\n"
                 f"🎯 *TT Cup Over 18.5*"
             )
             send_telegram(match_msg)
