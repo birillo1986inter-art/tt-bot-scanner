@@ -244,10 +244,26 @@
                 let orarioMatch = m.orario || m.ora || "Live";
                 let isSelectedClass = (indiceSelezionatoCorrente === index) ? 'selected' : '';
 
-                // Estrae le quote reali da tutte le possibili chiavi generate dallo script Python
-                let q1 = m.quota1 || m.q1 || m.odd1 || m.quota_1 || m.coefficiente1 || "-";
-                let q2 = m.quota2 || m.q2 || m.odd2 || m.quota_2 || m.coefficiente2 || "-";
-                
+                // Estrazione avanzata e universale delle quote da qualsiasi chiave possibile nel JSON
+                let q1 = m.quota1 || m.q1 || m.odd1 || m.odds1 || m.home_odds || m.home_odd || m.c1 || m.coef1 || m.q_1 || m.price1 || (m.quotes && m.quotes[0]) || (m.odds && m.odds[0]) || (m.quote && m.quote[0]) || (m.odds && m.odds.home);
+                let q2 = m.quota2 || m.q2 || m.odd2 || m.odds2 || m.away_odds || m.away_odd || m.c2 || m.coef2 || m.q_2 || m.price2 || (m.quotes && m.quotes[1]) || (m.odds && m.odds[1]) || (m.quote && m.quote[1]) || (m.odds && m.odds.away);
+
+                // Fallback di riserva: se non trova le chiavi standard, cerca nei valori numerici decimali dell'oggetto
+                if (!q1 || !q2) {
+                    let valoriDecimali = [];
+                    for (let key in m) {
+                        let val = parseFloat(m[key]);
+                        if (!isNaN(val) && val >= 1.01 && val <= 10.0) {
+                            valoriDecimali.push(val);
+                        }
+                    }
+                    if (!q1 && valoriDecimali.length > 0) q1 = valoriDecimali[0];
+                    if (!q2 && valoriDecimali.length > 1) q2 = valoriDecimali[1];
+                }
+
+                q1 = q1 ? parseFloat(q1).toFixed(2) : "-";
+                q2 = q2 ? parseFloat(q2).toFixed(2) : "-";
+
                 let diffStr = "-";
                 if (q1 !== "-" && q2 !== "-") {
                     let diff = Math.abs(parseFloat(q1) - parseFloat(q2));
@@ -281,7 +297,8 @@
             document.getElementById('selected-match-title').innerText = nomeMatch;
             document.getElementById('active-match-panel').style.display = 'block';
             
-            let q1Val = matchSelezionato.quota1 || matchSelezionato.q1 || matchSelezionato.odd1 || matchSelezionato.quota_1;
+            // Cerca la quota 1 da pre-caricare nel modulo di puntata
+            let q1Val = matchSelezionato.quota1 || matchSelezionato.q1 || matchSelezionato.odd1 || matchSelezionato.odds1 || matchSelezionato.home_odds;
             if(q1Val && !isNaN(parseFloat(q1Val))) {
                 document.getElementById('input-quota').value = parseFloat(q1Val).toFixed(2);
             }
@@ -461,6 +478,7 @@
                             <tbody>
                 `;
 
+                giocateDelGiorno.forceEach = null; // safe
                 giocateDelGiorno.forEach(g => {
                     let badgeClass = g.esito === 'VINTA' ? 'badge-win' : 'badge-loss';
                     html += `
