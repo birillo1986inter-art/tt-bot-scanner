@@ -68,15 +68,16 @@
             border-bottom: 1px solid var(--border); 
             cursor: pointer; 
             transition: all 0.2s ease; 
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
         }
         .match-item:last-child { border-bottom: none; }
         .match-item:hover { background: var(--accent-glow); border-radius: 8px; }
         .match-item.selected { background: var(--accent-glow); border-left: 4px solid var(--accent); border-radius: 6px; }
-        .match-info { font-size: 0.88rem; font-weight: 700; color: #fff; }
-        .match-time { font-size: 0.72rem; color: var(--text-muted); margin-bottom: 2px; font-weight: 600; display: flex; align-items: center; gap: 4px; }
+        
+        .match-line-1 { display: flex; justify-content: space-between; align-items: center; font-size: 0.88rem; font-weight: 700; color: #fff; margin-bottom: 3px; }
+        .match-line-2 { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 3px; display: flex; justify-content: space-between; }
+        .match-line-3 { font-size: 0.73rem; color: var(--accent); font-weight: 600; display: flex; justify-content: space-between; align-items: center; }
+
+        .diff-badge { background: rgba(16, 185, 129, 0.2); color: var(--success); padding: 1px 5px; border-radius: 4px; font-weight: bold; }
 
         /* Dashboard Attiva */
         #active-match-panel { display: none; border: 2px solid var(--accent); background: #090f1f; box-shadow: 0 0 15px rgba(245, 158, 11, 0.15); }
@@ -155,7 +156,7 @@
 
     <!-- PALINSESTO LIVE -->
     <div class="card">
-        <h2>⚡ Palinsesto Live</h2>
+        <h2>⚡ Palinsesto Live (Over 18)</h2>
         <div id="palinsesto-container">
             <div class="empty-text">Caricamento palinsesto in corso...</div>
         </div>
@@ -194,7 +195,7 @@
         </div>
     </div>
 
-    <!-- CALENDARIO E ARCHIVIO CON FILTRO GIOCATORE -->
+    <!-- CALENDARIO E ARCHIVIO -->
     <div class="card">
         <h2>📅 Calendario & Archivio</h2>
         
@@ -243,13 +244,24 @@
                 let orarioMatch = m.orario || m.ora || "Live";
                 let isSelectedClass = (indiceSelezionatoCorrente === index) ? 'selected' : '';
 
+                // Legge le quote dal JSON (se presenti, altrimenti imposta un default equilibrato)
+                let q1 = m.quota1 || m.q1 || "1.85";
+                let q2 = m.quota2 || m.q2 || "1.85";
+                let diff = (Math.abs(parseFloat(q1) - parseFloat(q2))).toFixed(2);
+
                 html += `
                     <div class="match-item ${isSelectedClass}" onclick="selezionaMatch(${index})">
-                        <div>
-                            <div class="match-time">🕒 ${orarioMatch}</div>
-                            <div class="match-info">${nomeMatch}</div>
+                        <div class="match-line-1">
+                            <span>🕒 ${orarioMatch} | ⚔️ ${nomeMatch}</span>
+                            <span style="color: var(--accent); font-size: 0.75rem;">GIOCA ➔</span>
                         </div>
-                        <div style="color: var(--accent); font-size: 0.8rem; font-weight: 800;">GIOCA ➔</div>
+                        <div class="match-line-2">
+                            <span>📊 1: ${q1} | 2: ${q2}</span>
+                            <span>Diff: <span class="diff-badge">${diff}</span></span>
+                        </div>
+                        <div class="match-line-3">
+                            <span>🎯 Strategia Over 18 Set</span>
+                        </div>
                     </div>
                 `;
             });
@@ -264,6 +276,10 @@
             document.getElementById('selected-match-title').innerText = nomeMatch;
             document.getElementById('active-match-panel').style.display = 'block';
             
+            if(matchSelezionato.quota1) {
+                document.getElementById('input-quota').value = matchSelezionato.quota1;
+            }
+
             mostraPalinsesto(listaMatchCache);
             document.getElementById('active-match-panel').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             calcolaRitorno();
@@ -384,7 +400,6 @@
             const container = document.getElementById('calendario-container');
             const queryFiltro = document.getElementById('filtro-giocatore').value.toLowerCase().trim();
             
-            // Applica il filtro se l'utente ha scritto qualcosa nella barra di ricerca
             let storicoFiltrato = storico;
             if (queryFiltro !== "") {
                 storicoFiltrato = storico.filter(g => g.match.toLowerCase().includes(queryFiltro));
