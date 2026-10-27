@@ -2,8 +2,14 @@
   {
     "orario": "13:25",
     "giocatori": "Petr Chlumsky - David Sochor",
-    "quota1": "1.96",
+    "quota1": "1.94",
     "quota2": "1.76"
+  },
+  {
+    "orario": "13:45",
+    "giocatori": "Michal Macurak - Jan Skvrna",
+    "quota1": "2.00",
+    "quota2": "1.71"
   },
   {
     "orario": "14:10",
@@ -33,7 +39,7 @@
     "orario": "16:45",
     "giocatori": "Borek Moravec - Jan Pribyl",
     "quota1": "1.75",
-    "quota2": "1.95"
+    "quota2": "1.97"
   },
   {
     "orario": "16:55",
@@ -98,7 +104,7 @@
   {
     "orario": "20:50",
     "giocatori": "Michal Nemec - Marek Dlask",
-    "quota1": "2.00",
+    "quota1": "1.98",
     "quota2": "1.75"
   },
   {
