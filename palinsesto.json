@@ -1,33 +1,9 @@
 [
   {
-    "orario": "13:25",
-    "giocatori": "Petr Chlumsky - David Sochor",
-    "quota1": "1.94",
-    "quota2": "1.76"
-  },
-  {
-    "orario": "13:45",
-    "giocatori": "Michal Macurak - Jan Skvrna",
-    "quota1": "2.00",
-    "quota2": "1.71"
-  },
-  {
-    "orario": "14:10",
-    "giocatori": "Tomas Kindl - Lukas Kantor",
-    "quota1": "1.90",
-    "quota2": "1.80"
-  },
-  {
-    "orario": "14:15",
-    "giocatori": "Tomas Krenek - Jan Krupnik",
-    "quota1": "1.74",
-    "quota2": "1.97"
-  },
-  {
     "orario": "14:20",
     "giocatori": "Jan Srnka - Lukas Dominik Rek",
-    "quota1": "1.86",
-    "quota2": "1.84"
+    "quota1": "1.88",
+    "quota2": "1.83"
   },
   {
     "orario": "16:35",
@@ -68,8 +44,8 @@
   {
     "orario": "17:55",
     "giocatori": "David Sykora - Jiri Volek",
-    "quota1": "1.86",
-    "quota2": "1.83"
+    "quota1": "1.89",
+    "quota2": "1.81"
   },
   {
     "orario": "18:20",
@@ -92,7 +68,7 @@
   {
     "orario": "20:10",
     "giocatori": "Jiri Vanous - Patrik Sturma",
-    "quota1": "1.74",
+    "quota1": "1.72",
     "quota2": "2.00"
   },
   {
