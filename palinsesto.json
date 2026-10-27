@@ -1,11 +1,5 @@
 [
   {
-    "orario": "09:25",
-    "match": "Jan Kocab - Pavel Benes",
-    "pronostico": "TT Cup Over 18.5",
-    "quota": 1.85
-  },
-  {
     "orario": "10:25",
     "match": "Vaclav Nadvornik - Jan Kocab",
     "pronostico": "TT Cup Over 18.5",
@@ -20,6 +14,12 @@
   {
     "orario": "12:20",
     "match": "Jan Srnka - Ondrej Knazik",
+    "pronostico": "TT Cup Over 18.5",
+    "quota": 1.85
+  },
+  {
+    "orario": "12:30",
+    "match": "Pawel Gola - Dawid Stapor",
     "pronostico": "TT Cup Over 18.5",
     "quota": 1.85
   },
@@ -45,7 +45,7 @@
     "orario": "14:15",
     "match": "Tomas Krenek - Jan Krupnik",
     "pronostico": "TT Cup Over 18.5",
-    "quota": 1.85
+    "quota": 1.84
   },
   {
     "orario": "14:20",
