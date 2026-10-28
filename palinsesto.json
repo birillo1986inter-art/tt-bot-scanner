@@ -1,92 +1,98 @@
 [
   {
-    "orario": "16:15",
-    "giocatori": "Frantisek Chaloupka - Jan Pribyl",
-    "quota1": "1.82",
-    "quota2": "1.90"
+    "orario": "07:45",
+    "giocatori": "Ondrej Coufal - Jaroslav Sindler",
+    "quota1": "1.73",
+    "quota2": "2.00"
   },
   {
-    "orario": "16:35",
-    "giocatori": "Martin Mastera - Tomas Bartik",
+    "orario": "08:10",
+    "giocatori": "Tomas Lysek - Laurent Lasota",
+    "quota1": "1.97",
+    "quota2": "1.74"
+  },
+  {
+    "orario": "09:00",
+    "giocatori": "Mateusz Galus - Dawid Stapor",
+    "quota1": "1.74",
+    "quota2": "1.95"
+  },
+  {
+    "orario": "09:10",
+    "giocatori": "Jan Przybyla - Tomas Lysek",
+    "quota1": "1.92",
+    "quota2": "1.78"
+  },
+  {
+    "orario": "09:15",
+    "giocatori": "Jaroslav Sindler - Ales Drozd",
+    "quota1": "1.92",
+    "quota2": "1.78"
+  },
+  {
+    "orario": "10:00",
+    "giocatori": "Szymon Radlo - Dawid Stapor",
     "quota1": "2.00",
-    "quota2": "1.73"
+    "quota2": "1.71"
   },
   {
-    "orario": "16:55",
-    "giocatori": "David Sykora - Milan Dvorak",
-    "quota1": "2.01",
+    "orario": "10:10",
+    "giocatori": "Laurent Lasota - Jan Przybyla",
+    "quota1": "1.89",
+    "quota2": "1.82"
+  },
+  {
+    "orario": "10:15",
+    "giocatori": "Petr Chlad - Jaroslav Sindler",
+    "quota1": "2.00",
     "quota2": "1.72"
   },
   {
-    "orario": "17:10",
-    "giocatori": "Radomir Benesz - Filip Mandrysz",
-    "quota1": "1.96",
-    "quota2": "1.76"
-  },
-  {
-    "orario": "17:25",
-    "giocatori": "Petr Moravec - Jiri Volek",
-    "quota1": "1.74",
+    "orario": "10:55",
+    "giocatori": "Robert Jimrich - Martin Filipek",
+    "quota1": "1.73",
     "quota2": "1.97"
   },
   {
-    "orario": "17:40",
-    "giocatori": "Lukas Krupnik Jnr - Filip Mandrysz",
-    "quota1": "1.90",
-    "quota2": "1.81"
-  },
-  {
-    "orario": "17:55",
-    "giocatori": "David Sykora - Jiri Volek",
-    "quota1": "1.93",
-    "quota2": "1.78"
-  },
-  {
-    "orario": "18:00",
-    "giocatori": "Jakub Caban - Arkadiusz Wiekiera",
-    "quota1": "1.93",
-    "quota2": "1.78"
-  },
-  {
-    "orario": "18:20",
-    "giocatori": "Tomas Rein - Jachym Sebl",
-    "quota1": "1.95",
+    "orario": "11:45",
+    "giocatori": "Lukas Zustina - Tomas Stempak",
+    "quota1": "1.97",
     "quota2": "1.76"
   },
   {
-    "orario": "18:25",
-    "giocatori": "Milan Dvorak - Petr Moravec",
+    "orario": "12:50",
+    "giocatori": "Adam Kosacky - Pavel Benes",
     "quota1": "1.95",
     "quota2": "1.77"
   },
   {
-    "orario": "18:30",
-    "giocatori": "Michal Szostak - Jakub Caban",
-    "quota1": "1.77",
-    "quota2": "1.94"
+    "orario": "13:15",
+    "giocatori": "Tomas Stempak - Lukas Krupnik Jnr",
+    "quota1": "1.83",
+    "quota2": "1.86"
   },
   {
-    "orario": "18:50",
-    "giocatori": "Lukas Dominik Rek - Vojtech Koutnik",
-    "quota1": "1.87",
-    "quota2": "1.82"
-  },
-  {
-    "orario": "20:35",
-    "giocatori": "Tomas Krcil - Lubomir Vana",
-    "quota1": "1.76",
-    "quota2": "1.95"
-  },
-  {
-    "orario": "20:50",
-    "giocatori": "Michal Nemec - Marek Dlask",
-    "quota1": "1.98",
+    "orario": "13:20",
+    "giocatori": "Michal Brozek - Pavel Benes",
+    "quota1": "1.97",
     "quota2": "1.75"
   },
   {
-    "orario": "22:15",
-    "giocatori": "Kamil Kleprlik - Ivan Heuman",
-    "quota1": "1.83",
-    "quota2": "1.87"
+    "orario": "13:55",
+    "giocatori": "David Bochnak - Ondrej Kadavy",
+    "quota1": "1.94",
+    "quota2": "1.77"
+  },
+  {
+    "orario": "14:05",
+    "giocatori": "Jakub Hitzger - Dominik Lengal",
+    "quota1": "1.84",
+    "quota2": "1.84"
+  },
+  {
+    "orario": "14:15",
+    "giocatori": "Jakub Lysek - Tomas Stempak",
+    "quota1": "1.87",
+    "quota2": "1.82"
   }
 ]
