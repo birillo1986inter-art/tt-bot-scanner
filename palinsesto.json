@@ -1,68 +1,98 @@
 [
   {
-    "orario": "17:15",
-    "giocatori": "Lukas Dzida - Adam Kanak",
-    "quota1": "1.88",
-    "quota2": "1.83"
+    "orario": "07:40",
+    "giocatori": "Erik Precek - Jan Przybyla",
+    "quota1": "1.73",
+    "quota2": "1.99"
   },
   {
-    "orario": "18:10",
-    "giocatori": "Petr Vicherek - Filip Sikora",
-    "quota1": "1.85",
+    "orario": "08:10",
+    "giocatori": "Lukas Kantor - Laurent Lasota",
+    "quota1": "1.84",
     "quota2": "1.85"
   },
   {
-    "orario": "18:55",
-    "giocatori": "Pavel Rissky - Petr Moravec",
+    "orario": "08:15",
+    "giocatori": "Dominik Pawlik - Tomas Kindl",
     "quota1": "1.81",
-    "quota2": "1.88"
+    "quota2": "1.90"
   },
   {
-    "orario": "19:00",
-    "giocatori": "Jakub Komorowicz - Denys Kovtanyuk",
-    "quota1": "1.77",
-    "quota2": "1.94"
+    "orario": "08:30",
+    "giocatori": "Michal Lysakowski - Pawel Gola",
+    "quota1": "1.75",
+    "quota2": "1.97"
   },
   {
-    "orario": "19:30",
-    "giocatori": "Arkadiusz Wiekiera - Patryk Kiejda",
-    "quota1": "2.00",
-    "quota2": "1.71"
-  },
-  {
-    "orario": "19:40",
-    "giocatori": "David Sarganek - Rene Kowal",
-    "quota1": "1.73",
-    "quota2": "2.00"
-  },
-  {
-    "orario": "19:45",
-    "giocatori": "Jakub Volny - Daniel Branny",
-    "quota1": "1.95",
+    "orario": "09:25",
+    "giocatori": "Marek Kulisek - Michal Brozek",
+    "quota1": "1.96",
     "quota2": "1.75"
   },
   {
-    "orario": "21:15",
-    "giocatori": "Daniel Branny - David Osvald",
-    "quota1": "1.78",
+    "orario": "09:30",
+    "giocatori": "Szymon Radlo - Bartlomiej Molka",
+    "quota1": "1.87",
+    "quota2": "1.84"
+  },
+  {
+    "orario": "10:10",
+    "giocatori": "Laurent Lasota - Jan Przybyla",
+    "quota1": "1.84",
+    "quota2": "1.86"
+  },
+  {
+    "orario": "10:25",
+    "giocatori": "Jan Kocab - Marek Kulisek",
+    "quota1": "1.75",
+    "quota2": "1.98"
+  },
+  {
+    "orario": "12:50",
+    "giocatori": "Josef Vintr - Frantisek Dvorak",
+    "quota1": "1.93",
+    "quota2": "1.78"
+  },
+  {
+    "orario": "13:25",
+    "giocatori": "Vaclav Hejda Jr - Martin Sulc",
+    "quota1": "1.73",
+    "quota2": "2.01"
+  },
+  {
+    "orario": "14:05",
+    "giocatori": "Pavel Chvatal - Jan Lovl",
+    "quota1": "1.97",
+    "quota2": "1.75"
+  },
+  {
+    "orario": "14:10",
+    "giocatori": "Tomas Ogrocki - Jaroslav Sindler",
+    "quota1": "1.80",
+    "quota2": "1.90"
+  },
+  {
+    "orario": "14:15",
+    "giocatori": "Erik Precek - Tomas Kindl",
+    "quota1": "1.79",
     "quota2": "1.92"
   },
   {
-    "orario": "21:50",
-    "giocatori": "Radek Muller - Jaroslav Dohnal",
-    "quota1": "1.93",
-    "quota2": "1.77"
+    "orario": "14:20",
+    "giocatori": "Tomas Cerveny Jr - Josef Vintr",
+    "quota1": "1.84",
+    "quota2": "1.88"
   },
   {
-    "orario": "22:25",
-    "giocatori": "Filip Cernota - Martin Stusek",
-    "quota1": "1.81",
-    "quota2": "1.89"
+    "orario": "14:25",
+    "giocatori": "Ondrej Fiklik - Vaclav Hejda Jr",
+    "quota1": "1.72",
+    "quota2": "2.00"
   },
   {
-    "orario": "22:35",
-    "giocatori": "Milan Flesar - Lubomir Vana",
-    "quota1": "1.92",
-    "quota2": "1.79"
+    "orario": "15:25",
+    "giocatori": "Martin Sulc - Ondrej Fiklik",
+    "quota1": "1.87",
+    "quota2": "1.84"
   }
 ]
