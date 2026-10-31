@@ -1,68 +1,68 @@
 [
   {
-    "orario": "16:55",
-    "giocatori": "Ondrej Kadavy - Tomas Vorisek",
-    "quota1": "1.91",
-    "quota2": "1.80"
+    "orario": "08:15",
+    "giocatori": "Jan Gembala - Frantisek Chaloupka",
+    "quota1": "1.73",
+    "quota2": "1.98"
   },
   {
-    "orario": "17:15",
-    "giocatori": "David Skulina - Michal Macurak",
-    "quota1": "1.82",
-    "quota2": "1.88"
+    "orario": "08:35",
+    "giocatori": "Jan Masternak - Bartlomiej Molka",
+    "quota1": "2.00",
+    "quota2": "1.72"
   },
   {
-    "orario": "17:25",
-    "giocatori": "Martin Stusek - Filip Cernota",
-    "quota1": "1.96",
-    "quota2": "1.75"
+    "orario": "09:35",
+    "giocatori": "Szymon Radlo - Dawid Stapor",
+    "quota1": "1.97",
+    "quota2": "1.78"
   },
   {
-    "orario": "17:50",
-    "giocatori": "Pavel Cibik - Zdenek Dusek",
+    "orario": "09:40",
+    "giocatori": "Radek Benes - Kamil Kleprlik",
+    "quota1": "1.81",
+    "quota2": "1.89"
+  },
+  {
+    "orario": "09:55",
+    "giocatori": "Marek Kulisek - Jan Kocab",
+    "quota1": "1.83",
+    "quota2": "1.85"
+  },
+  {
+    "orario": "11:40",
+    "giocatori": "Lukas Krupnik Jnr - Lukas Stempak",
     "quota1": "1.78",
     "quota2": "1.93"
   },
   {
-    "orario": "17:55",
-    "giocatori": "Ondrej Kadavy - Filip Cernota",
-    "quota1": "1.74",
-    "quota2": "1.97"
+    "orario": "11:45",
+    "giocatori": "Jan Gembala - Tomas Grmela",
+    "quota1": "1.72",
+    "quota2": "2.00"
   },
   {
-    "orario": "18:00",
-    "giocatori": "Michal Szostak - Denys Kovtanyuk",
-    "quota1": "1.73",
-    "quota2": "2.01"
-  },
-  {
-    "orario": "18:25",
-    "giocatori": "Tomas Vorisek - Martin Stusek",
-    "quota1": "1.84",
+    "orario": "12:55",
+    "giocatori": "Zdenek Muhlhauser - Jean-Baptiste Cousin",
+    "quota1": "1.85",
     "quota2": "1.86"
   },
   {
-    "orario": "18:55",
-    "giocatori": "Ondrej Kadavy - Martin Stusek",
-    "quota1": "1.92",
-    "quota2": "1.79"
+    "orario": "14:15",
+    "giocatori": "Erik Precek - Tomas Grmela",
+    "quota1": "1.72",
+    "quota2": "2.00"
   },
   {
-    "orario": "21:25",
-    "giocatori": "Jean-Baptiste Cousin - Radek Muller",
-    "quota1": "1.99",
-    "quota2": "1.73"
+    "orario": "14:55",
+    "giocatori": "Zdenek Muhlhauser - Vojtech Koutnik",
+    "quota1": "1.89",
+    "quota2": "1.81"
   },
   {
-    "orario": "21:55",
-    "giocatori": "Jaroslav Dohnal - Radek Muller",
-    "quota1": "1.74",
-    "quota2": "1.97"
-  },
-  {
-    "orario": "23:25",
-    "giocatori": "Radek Muller - Jan Hendrych",
-    "quota1": "1.81",
-    "quota2": "1.90"
+    "orario": "15:25",
+    "giocatori": "Petr Vodal - Jean-Baptiste Cousin",
+    "quota1": "1.96",
+    "quota2": "1.76"
   }
 ]
