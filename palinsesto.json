@@ -1,68 +1,86 @@
 [
   {
-    "orario": "08:15",
-    "giocatori": "Jan Gembala - Frantisek Chaloupka",
-    "quota1": "1.73",
+    "orario": "16:15",
+    "giocatori": "Tomas Grmela - Adam Kanak",
+    "quota1": "1.81",
+    "quota2": "1.91"
+  },
+  {
+    "orario": "16:45",
+    "giocatori": "Adam Kanak - Lukas Slavik",
+    "quota1": "1.85",
+    "quota2": "1.87"
+  },
+  {
+    "orario": "17:05",
+    "giocatori": "Lukasz Buklat - Bartosz Bilski",
+    "quota1": "1.75",
     "quota2": "1.98"
   },
   {
-    "orario": "08:35",
-    "giocatori": "Jan Masternak - Bartlomiej Molka",
+    "orario": "17:15",
+    "giocatori": "Radek Sedlacek - Tomas Grmela",
     "quota1": "2.00",
+    "quota2": "1.73"
+  },
+  {
+    "orario": "17:45",
+    "giocatori": "Lukas Slavik - Tomas Grmela",
+    "quota1": "1.85",
+    "quota2": "1.84"
+  },
+  {
+    "orario": "18:05",
+    "giocatori": "Tomasz Stachera - Bartosz Bilski",
+    "quota1": "1.99",
     "quota2": "1.72"
   },
   {
-    "orario": "09:35",
-    "giocatori": "Szymon Radlo - Dawid Stapor",
-    "quota1": "1.97",
-    "quota2": "1.78"
-  },
-  {
-    "orario": "09:40",
-    "giocatori": "Radek Benes - Kamil Kleprlik",
-    "quota1": "1.81",
-    "quota2": "1.89"
-  },
-  {
-    "orario": "09:55",
-    "giocatori": "Marek Kulisek - Jan Kocab",
-    "quota1": "1.83",
-    "quota2": "1.85"
-  },
-  {
-    "orario": "11:40",
-    "giocatori": "Lukas Krupnik Jnr - Lukas Stempak",
-    "quota1": "1.78",
-    "quota2": "1.93"
-  },
-  {
-    "orario": "11:45",
-    "giocatori": "Jan Gembala - Tomas Grmela",
-    "quota1": "1.72",
-    "quota2": "2.00"
-  },
-  {
-    "orario": "12:55",
-    "giocatori": "Zdenek Muhlhauser - Jean-Baptiste Cousin",
-    "quota1": "1.85",
-    "quota2": "1.86"
-  },
-  {
-    "orario": "14:15",
-    "giocatori": "Erik Precek - Tomas Grmela",
-    "quota1": "1.72",
-    "quota2": "2.00"
-  },
-  {
-    "orario": "14:55",
-    "giocatori": "Zdenek Muhlhauser - Vojtech Koutnik",
-    "quota1": "1.89",
+    "orario": "18:15",
+    "giocatori": "Adam Kanak - Radek Sedlacek",
+    "quota1": "1.88",
     "quota2": "1.81"
   },
   {
-    "orario": "15:25",
-    "giocatori": "Petr Vodal - Jean-Baptiste Cousin",
-    "quota1": "1.96",
-    "quota2": "1.76"
+    "orario": "19:45",
+    "giocatori": "Adam Kanak - Jan Krupnik",
+    "quota1": "1.93",
+    "quota2": "1.77"
+  },
+  {
+    "orario": "20:15",
+    "giocatori": "Lukas Slavik - Frantisek Chaloupka",
+    "quota1": "1.89",
+    "quota2": "1.83"
+  },
+  {
+    "orario": "20:35",
+    "giocatori": "Martin Chmelicek - Simon Mezlik",
+    "quota1": "1.81",
+    "quota2": "1.90"
+  },
+  {
+    "orario": "20:40",
+    "giocatori": "Dalibor Velky Jnr - Radek Sedlacek",
+    "quota1": "1.93",
+    "quota2": "1.78"
+  },
+  {
+    "orario": "21:15",
+    "giocatori": "Jan Krupnik - Lukas Slavik",
+    "quota1": "1.94",
+    "quota2": "1.77"
+  },
+  {
+    "orario": "21:40",
+    "giocatori": "Dalibor Velky Jnr - Ivan Heuman",
+    "quota1": "1.88",
+    "quota2": "1.81"
+  },
+  {
+    "orario": "23:25",
+    "giocatori": "Ondrej Knazik - Radek Muller",
+    "quota1": "1.75",
+    "quota2": "1.96"
   }
 ]
