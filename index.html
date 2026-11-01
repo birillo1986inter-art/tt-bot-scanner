@@ -169,9 +169,9 @@
         
         <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 6px;">Seleziona il Set di riferimento:</div>
         <div class="set-box">
-            <div class="set-btn" id="btn-set1" onclick="selezionaSet(1)">1° Set</div>
-            <div class="set-btn" id="btn-set2" onclick="selezionaSet(2)">2° Set</div>
-            <div class="set-btn" id="btn-set3" onclick="selezionaSet(3)">3° Set</div>
+            <div class="set-btn" id="btn-set1" onclick="cambiaSetManuale(1)">1° Set</div>
+            <div class="set-btn" id="btn-set2" onclick="cambiaSetManuale(2)">2° Set</div>
+            <div class="set-btn" id="btn-set3" onclick="cambiaSetManuale(3)">3° Set</div>
         </div>
 
         <div class="mm-container">
@@ -226,7 +226,7 @@
                 const data = await res.json();
                 listaMatchCache = data;
                 mostraPalinsesto(data);
-                aggiornaCalendarioUI();
+                aggiornaTutto();
             } catch (err) {
                 document.getElementById('palinsesto-container').innerHTML = `<div class="empty-text">In attesa dell'aggiornamento da GitHub Actions.</div>`;
             }
@@ -311,8 +311,8 @@
         function selezionaMatch(index) {
             indiceSelezionatoCorrente = index;
             matchSelezionato = listaMatchCache[index];
-            setSelezionato = 1; // Default a 1° set
-            selezionaSet(1);
+            setSelezionato = 1; 
+            evidenziaPulsanteSet(1);
 
             let nomeMatch = matchSelezionato.giocatori || matchSelezionato.match || matchSelezionato.titolo || "Match TT Cup";
             
@@ -329,8 +329,12 @@
             calcolaRitorno();
         }
 
-        function selezionaSet(setNum) {
+        function cambiaSetManuale(setNum) {
             setSelezionato = setNum;
+            evidenziaPulsanteSet(setNum);
+        }
+
+        function evidenziaPulsanteSet(setNum) {
             document.querySelectorAll('.set-btn').forEach(b => b.classList.remove('active'));
             const btn = document.getElementById(`btn-set${setNum}`);
             if(btn) btn.classList.add('active');
@@ -370,14 +374,14 @@
 
             aggiornaTutto();
 
-            // LOGICA DI PROGRESSIONE DEI SET
+            // GESTIONE PROGRESSIONE SET CORRETTA
             if (esito === 'PERSA' && setSelezionato < 3) {
-                // Se è perso e siamo al set 1 o 2, AVANZATO AUTOMATICAMENTE AL SET SUCCESSIVO
+                // Passa al set successivo e mantiene aperto il pannello
                 setSelezionato++;
-                selezionaSet(setSelezionato);
+                evidenziaPulsanteSet(setSelezionato);
                 document.getElementById('active-match-panel').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             } else {
-                // Se è VINTA oppure se siamo al 3° set e fa PERSA, la progressione di questo match finisce
+                // Se è VINTA o se siamo al 3° set e fa PERSA, chiude la gestione del match
                 document.getElementById('active-match-panel').style.display = 'none';
                 indiceSelezionatoCorrente = null;
                 mostraPalinsesto(listaMatchCache);
@@ -433,7 +437,6 @@
             document.getElementById('stat-winrate').innerText = winrate.toFixed(1) + "%";
             document.getElementById('stat-tot').innerText = tot;
 
-            // Statistiche set 1, 2, 3
             ['1', '2', '3'].forEach(s => {
                 let sItems = storico.filter(i => String(i.setNum) === s);
                 let sVinte = sItems.filter(i => i.esito === 'VINTA').length;
@@ -442,7 +445,6 @@
                 if(el) el.innerText = `${sVinte} / ${sPerse}`;
             });
 
-            // Calcolo Streak
             let streakCount = 0;
             let streakType = '';
             if (storico.length > 0) {
@@ -472,7 +474,6 @@
                 return;
             }
 
-            // Raggruppa per data
             let raggruppati = {};
             storico.forEach(item => {
                 if (!raggruppati[item.dataFull]) raggruppati[item.dataFull] = [];
@@ -483,7 +484,6 @@
             for (let data in raggruppati) {
                 let giocateGiorno = raggruppati[data];
                 
-                // Calcola bilancio del giorno
                 let bilancioGiorno = 0;
                 giocateGiorno.forEach(i => {
                     let q = parseFloat(i.quota);
@@ -540,7 +540,6 @@
             container.innerHTML = html;
         }
 
-        // Avvio iniziale al caricamento della pagina
         window.onload = function() {
             caricaPalinsesto();
             aggiornaTutto();
