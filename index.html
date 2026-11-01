@@ -374,14 +374,12 @@
 
             aggiornaTutto();
 
-            // LOGICA DI PROGRESSIONE AGGIORNATA
+            // LOGICA DI PROGRESSIONE FORZATA
             if (esito === 'PERSA' && setSelezionato < 3) {
-                // Passa al set successivo e mantiene aperto il pannello
                 setSelezionato++;
                 evidenziaPulsanteSet(setSelezionato);
                 document.getElementById('active-match-panel').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             } else {
-                // Se è VINTA o se siamo al 3° set e fa PERSA, chiude la gestione del match
                 document.getElementById('active-match-panel').style.display = 'none';
                 indiceSelezionatoCorrente = null;
                 mostraPalinsesto(listaMatchCache);
