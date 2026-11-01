@@ -226,6 +226,7 @@
                 const data = await res.json();
                 listaMatchCache = data;
                 mostraPalinsesto(data);
+                aggiornaCalendarioUI();
             } catch (err) {
                 document.getElementById('palinsesto-container').innerHTML = `<div class="empty-text">In attesa dell'aggiornamento da GitHub Actions.</div>`;
             }
@@ -244,11 +245,9 @@
                 let orarioMatch = m.orario || m.ora || "Live";
                 let isSelectedClass = (indiceSelezionatoCorrente === index) ? 'selected' : '';
 
-                // 1. Cerca tra tutte le chiavi possibili per le quote
                 let q1 = m.quota1 || m.q1 || m.odd1 || m.odds1 || m.home_odds || m.home_odd || m.c1 || m.coef1 || m.q_1 || m.price1 || m.quota_1 || (m.quotes && m.quotes[0]) || (m.odds && m.odds[0]) || (m.quote && m.quote[0]);
                 let q2 = m.quota2 || m.q2 || m.odd2 || m.odds2 || m.away_odds || m.away_odd || m.c2 || m.coef2 || m.q_2 || m.price2 || m.quota_2 || (m.quotes && m.quotes[1]) || (m.odds && m.odds[1]) || (m.quote && m.quote[1]);
 
-                // 2. Se non trovate direttamente, cerca all'interno di eventuali stringhe testuali (es. "1.85 - 1.80" o simili dentro l'oggetto)
                 if (!q1 || !q2) {
                     for (let key in m) {
                         let val = m[key];
@@ -267,7 +266,6 @@
                     }
                 }
 
-                // 3. Fallback estremo: estrae i primi due numeri decimali validi trovati nell'oggetto match
                 if (!q1 || !q2 || isNaN(parseFloat(q1)) || isNaN(parseFloat(q2))) {
                     let nums = [];
                     for (let key in m) {
@@ -313,12 +311,14 @@
         function selezionaMatch(index) {
             indiceSelezionatoCorrente = index;
             matchSelezionato = listaMatchCache[index];
+            setSelezionato = 1; // Default a 1° set
+            selezionaSet(1);
+
             let nomeMatch = matchSelezionato.giocatori || matchSelezionato.match || matchSelezionato.titolo || "Match TT Cup";
             
             document.getElementById('selected-match-title').innerText = nomeMatch;
             document.getElementById('active-match-panel').style.display = 'block';
             
-            // Pre-carica la prima quota nel modulo di puntata
             let q1Val = matchSelezionato.quota1 || matchSelezionato.q1 || matchSelezionato.odd1 || matchSelezionato.home_odds;
             if(q1Val && !isNaN(parseFloat(q1Val))) {
                 document.getElementById('input-quota').value = parseFloat(q1Val).toFixed(2);
@@ -332,7 +332,8 @@
         function selezionaSet(setNum) {
             setSelezionato = setNum;
             document.querySelectorAll('.set-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById(`btn-set${setNum}`).classList.add('active');
+            const btn = document.getElementById(`btn-set${setNum}`);
+            if(btn) btn.classList.add('active');
         }
 
         function calcolaRitorno() {
@@ -368,30 +369,55 @@
             localStorage.setItem('quantum_storico_calendario', JSON.stringify(storico));
 
             aggiornaTutto();
-            
-            document.getElementById('active-match-panel').style.display = 'none';
-            indiceSelezionatoCorrente = null;
-            mostraPalinsesto(listaMatchCache);
+
+            // LOGICA DI PROGRESSIONE DEI SET
+            if (esito === 'PERSA' && setSelezionato < 3) {
+                // Se è perso e siamo al set 1 o 2, AVANZATO AUTOMATICAMENTE AL SET SUCCESSIVO
+                setSelezionato++;
+                selezionaSet(setSelezionato);
+                document.getElementById('active-match-panel').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            } else {
+                // Se è VINTA oppure se siamo al 3° set e fa PERSA, la progressione di questo match finisce
+                document.getElementById('active-match-panel').style.display = 'none';
+                indiceSelezionatoCorrente = null;
+                mostraPalinsesto(listaMatchCache);
+            }
         }
 
         function eliminaGiocata(id) {
             if (confirm("Vuoi eliminare questa singola giocata?")) {
                 let storico = JSON.parse(localStorage.getItem('quantum_storico_calendario')) || [];
-                storico = storico.filter(g => g.id !== id);
+                storico = storico.filter(item => item.id !== id);
                 localStorage.setItem('quantum_storico_calendario', JSON.stringify(storico));
                 aggiornaTutto();
             }
         }
 
+        function resetOggi() {
+            if (confirm("Vuoi azzerare le giocate di oggi?")) {
+                const oggi = new Date().toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit', year: 'numeric' });
+                let storico = JSON.parse(localStorage.getItem('quantum_storico_calendario')) || [];
+                storico = storico.filter(item => item.dataFull !== oggi);
+                localStorage.setItem('quantum_storico_calendario', JSON.stringify(storico));
+                aggiornaTutto();
+            }
+        }
+
+        function pulisciStorico() {
+            if (confirm("ATTENZIONE: Vuoi cancellare tutto lo storico delle giocate?")) {
+                localStorage.removeItem('quantum_storico_calendario');
+                aggiornaTutto();
+            }
+        }
+
         function aggiornaTutto() {
-            aggiornaStatistiche();
             aggiornaCalendarioUI();
+            aggiornaStatistiche();
         }
 
         function aggiornaStatistiche() {
             let storico = JSON.parse(localStorage.getItem('quantum_storico_calendario')) || [];
             let tot = storico.length;
-            
             if (tot === 0) {
                 document.getElementById('stat-winrate').innerText = "0.0%";
                 document.getElementById('stat-streak').innerText = "-";
@@ -402,87 +428,77 @@
                 return;
             }
 
-            let vinte = storico.filter(g => g.esito === 'VINTA').length;
-            let winRate = ((vinte / tot) * 100).toFixed(1) + "%";
-            
-            document.getElementById('stat-winrate').innerText = winRate;
+            let vinte = storico.filter(i => i.esito === 'VINTA').length;
+            let winrate = (vinte / tot) * 100;
+            document.getElementById('stat-winrate').innerText = winrate.toFixed(1) + "%";
             document.getElementById('stat-tot').innerText = tot;
 
-            let streakCount = 0;
-            let streakType = storico[0].esito;
-            for (let i = 0; i < storico.length; i++) {
-                if (storico[i].esito === streakType) {
-                    streakCount++;
-                } else {
-                    break;
-                }
-            }
-            let streakText = (streakType === 'VINTA' ? '🟢 +' : '🔴 -') + streakCount;
-            document.getElementById('stat-streak').innerText = streakText;
-
-            let setStats = {
-                1: { v: 0, p: 0 },
-                2: { v: 0, p: 0 },
-                3: { v: 0, p: 0 }
-            };
-
-            storico.forEach(g => {
-                let s = g.setNum || 1;
-                if (setStats[s]) {
-                    if (g.esito === 'VINTA') setStats[s].v++;
-                    else setStats[s].p++;
-                }
+            // Statistiche set 1, 2, 3
+            ['1', '2', '3'].forEach(s => {
+                let sItems = storico.filter(i => String(i.setNum) === s);
+                let sVinte = sItems.filter(i => i.esito === 'VINTA').length;
+                let sPerse = sItems.filter(i => i.esito === 'PERSA').length;
+                const el = document.getElementById(`stat-set${s}`);
+                if(el) el.innerText = `${sVinte} / ${sPerse}`;
             });
 
-            document.getElementById('stat-set1').innerText = `${setStats[1].v} / ${setStats[1].p}`;
-            document.getElementById('stat-set2').innerText = `${setStats[2].v} / ${setStats[2].p}`;
-            document.getElementById('stat-set3').innerText = `${setStats[3].v} / ${setStats[3].p}`;
+            // Calcolo Streak
+            let streakCount = 0;
+            let streakType = '';
+            if (storico.length > 0) {
+                streakType = storico[0].esito;
+                for (let item of storico) {
+                    if (item.esito === streakType) {
+                        streakCount++;
+                    } else {
+                        break;
+                    }
+                }
+            }
+            document.getElementById('stat-streak').innerText = `${streakCount} ${streakType === 'VINTA' ? 'W' : 'L'}`;
         }
 
         function aggiornaCalendarioUI() {
             let storico = JSON.parse(localStorage.getItem('quantum_storico_calendario')) || [];
-            const container = document.getElementById('calendario-container');
-            const queryFiltro = document.getElementById('filtro-giocatore').value.toLowerCase().trim();
+            let filtro = document.getElementById('filtro-giocatore').value.toLowerCase();
             
-            let storicoFiltrato = storico;
-            if (queryFiltro !== "") {
-                storicoFiltrato = storico.filter(g => g.match.toLowerCase().includes(queryFiltro));
+            if (filtro) {
+                storico = storico.filter(i => i.match.toLowerCase().includes(filtro));
             }
 
-            if (storicoFiltrato.length === 0) {
-                container.innerHTML = `<div class="empty-text">Nessuna giocata trovata con questo filtro.</div>`;
+            const container = document.getElementById('calendario-container');
+            if (storico.length === 0) {
+                container.innerHTML = `<div class="empty-text">Nessuna giocata trovata nello storico.</div>`;
                 return;
             }
 
-            let gruppi = {};
-            storicoFiltrato.forEach(s => {
-                if (!gruppi[s.dataFull]) gruppi[s.dataFull] = [];
-                gruppi[s.dataFull].push(s);
+            // Raggruppa per data
+            let raggruppati = {};
+            storico.forEach(item => {
+                if (!raggruppati[item.dataFull]) raggruppati[item.dataFull] = [];
+                raggruppati[item.dataFull].push(item);
             });
 
             let html = '';
-            for (let data in gruppi) {
-                let giocateDelGiorno = gruppi[data];
-                let vinte = giocateDelGiorno.filter(g => g.esito === 'VINTA').length;
-                let perse = giocateDelGiorno.filter(g => g.esito === 'PERSA').length;
-
-                let profittoGiorno = 0;
-                giocateDelGiorno.forEach(g => {
-                    if (g.esito === 'VINTA') {
-                        profittoGiorno += (parseFloat(g.quota) * g.stake) - g.stake;
-                    } else {
-                        profittoGiorno -= g.stake;
-                    }
+            for (let data in raggruppati) {
+                let giocateGiorno = raggruppati[data];
+                
+                // Calcola bilancio del giorno
+                let bilancioGiorno = 0;
+                giocateGiorno.forEach(i => {
+                    let q = parseFloat(i.quota);
+                    let s = parseFloat(i.stake);
+                    if (i.esito === 'VINTA') bilancioGiorno += (q * s) - s;
+                    else bilancioGiorno += -s;
                 });
-
-                let profitClass = profittoGiorno >= 0 ? 'profit-positive' : 'profit-negative';
-                let profitStr = (profittoGiorno >= 0 ? "+" : "") + profittoGiorno.toFixed(2) + " €";
+                let bilancioClass = bilancioGiorno >= 0 ? 'profit-positive' : 'profit-negative';
+                let bilancioStr = (bilancioGiorno >= 0 ? "+" : "") + bilancioGiorno.toFixed(2) + " €";
 
                 html += `
                     <div class="day-group">
                         <div class="day-header">
-                            <span>📅 ${data} &nbsp;|&nbsp; 🟢 ${vinte} ❌ ${perse}</span>
-                            <span class="${profitClass}">Bilancio: ${profitStr}</span>
+                            <span>📅 ${data}</span>
+                            <span class="${bilancioClass}">Bilancio: ${bilancioStr}</span>
                         </div>
                         <table>
                             <thead>
@@ -491,7 +507,7 @@
                                     <th>Match</th>
                                     <th>Set</th>
                                     <th>Q.</th>
-                                    <th>Punt.</th>
+                                    <th>P.</th>
                                     <th>Esito</th>
                                     <th></th>
                                 </tr>
@@ -499,47 +515,36 @@
                             <tbody>
                 `;
 
-                giocateDelGiorno.forEach(g => {
-                    let badgeClass = g.esito === 'VINTA' ? 'badge-win' : 'badge-loss';
+                giocateGiorno.forEach(item => {
+                    let badgeClass = item.esito === 'VINTA' ? 'badge-win' : 'badge-loss';
                     html += `
                         <tr>
-                            <td>${g.orario}</td>
-                            <td><b>${g.match}</b></td>
-                            <td>${g.dettaglio}</td>
-                            <td>${g.quota}</td>
-                            <td>${g.stake}€</td>
-                            <td><span class="${badgeClass}">${g.esito}</span></td>
-                            <td><button class="delete-btn" onclick="eliminaGiocata(${g.id})">❌</button></td>
+                            <td>${item.orario}</td>
+                            <td style="font-weight: bold; max-width: 140px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${item.match}">${item.match}</td>
+                            <td>Set ${item.setNum || 1}</td>
+                            <td>${item.quota}</td>
+                            <td>${item.stake}€</td>
+                            <td><span class="${badgeClass}">${item.esito}</span></td>
+                            <td><button class="delete-btn" onclick="eliminaGiocata(${item.id})">X</button></td>
                         </tr>
                     `;
                 });
 
-                html += `</tbody></table></div>`;
+                html += `
+                            </tbody>
+                        </table>
+                    </div>
+                `;
             }
 
             container.innerHTML = html;
         }
 
-        function resetOggi() {
-            const oggi = new Date().toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit', year: 'numeric' });
-            if (confirm(`Vuoi cancellare tutte le giocate registrate oggi (${oggi})?`)) {
-                let storico = JSON.parse(localStorage.getItem('quantum_storico_calendario')) || [];
-                let filtrato = storico.filter(g => g.dataFull !== oggi);
-                localStorage.setItem('quantum_storico_calendario', JSON.stringify(filtrato));
-                aggiornaTutto();
-            }
-        }
-
-        function pulisciStorico() {
-            if (confirm("ATTENZIONE: Vuoi davvero azzerare tutto il calendario storico e le statistiche di tutti i giorni?")) {
-                localStorage.removeItem('quantum_storico_calendario');
-                aggiornaTutto();
-            }
-        }
-
-        caricaPalinsesto();
-        aggiornaTutto();
-        selezionaSet(1);
+        // Avvio iniziale al caricamento della pagina
+        window.onload = function() {
+            caricaPalinsesto();
+            aggiornaTutto();
+        };
     </script>
 </body>
 </html>
