@@ -115,7 +115,7 @@
     <header>
         <h1>
             <span class="pingpong-icon">🏓</span> 
-            QUANTUM CUP 18 (v100)
+            QUANTUM CUP 18 
             <span class="pingpong-icon" style="transform: scaleX(-1);">🏓</span>
         </h1>
         <button class="btn" onclick="caricaPalinsesto()">Aggiorna</button>
@@ -446,7 +446,7 @@
             let streakCount = 0;
             let streakType = '';
             if (storico.length > 0) {
-                streakType = storico[0].esito;
+                streakType = storico.0.esito;
                 for (let item of storico) {
                     if (item.esito === streakType) {
                         streakCount++;
