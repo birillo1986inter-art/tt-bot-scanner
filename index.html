@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QUANTUM CUP 18 🏓</title>
+    <title>QUANTUM CUP 18 - MM INTEGRATO 🏓</title>
     <style>
         :root {
             --bg-color: #04060b;
@@ -115,7 +115,7 @@
     <header>
         <h1>
             <span class="pingpong-icon">🏓</span> 
-            QUANTUM CUP 18 
+            QUANTUM CUP 18 (MM)
             <span class="pingpong-icon" style="transform: scaleX(-1);">🏓</span>
         </h1>
         <button class="btn" onclick="caricaPalinsesto()">Aggiorna</button>
@@ -162,51 +162,46 @@
         </div>
     </div>
 
-    <!-- DASHBOARD / MONEY MANAGEMENT -->
+    <!-- DASHBOARD / MONEY MANAGEMENT INTEGRATO -->
     <div class="card" id="active-match-panel">
-        <h2>🎯 Gestione Giocata (Over 18 Set)</h2>
+        <h2>🎯 Money Management (Max 3 Step)</h2>
         <div id="selected-match-title" style="font-weight: 700; margin-bottom: 6px; font-size: 0.88rem; color: var(--accent); background: rgba(255,255,255,0.04); padding: 8px; border-radius: 6px; border: 1px solid rgba(245,158,11,0.2);">-</div>
         
-        <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 6px;">Seleziona il Set di riferimento:</div>
+        <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 6px;">Step / Set Corrente:</div>
         <div class="set-box">
-            <div class="set-btn" id="btn-set1" onclick="cambiaSetManuale(1)">1° Set</div>
-            <div class="set-btn" id="btn-set2" onclick="cambiaSetManuale(2)">2° Set</div>
-            <div class="set-btn" id="btn-set3" onclick="cambiaSetManuale(3)">3° Set</div>
+            <div class="set-btn active" id="btn-set1">1° Set (Step 1)</div>
+            <div class="set-btn" id="btn-set2">2° Set (Step 2)</div>
+            <div class="set-btn" id="btn-set3">3° Set (Step 3)</div>
         </div>
 
         <div class="mm-container">
             <div class="mm-row">
-                <span>Quota:</span>
-                <input type="number" id="input-quota" value="1.85" step="0.01" oninput="calcolaRitorno()">
+                <span>Quota Prevista:</span>
+                <input type="number" id="input-quota" value="1.83" step="0.01" oninput="ricalcolaMM()">
             </div>
             <div class="mm-row">
-                <span>Puntata (€):</span>
-                <input type="number" id="input-stake" value="10.00" step="1.00" oninput="calcolaRitorno()">
+                <span>Puntata Consigliata:</span>
+                <input type="number" id="input-stake" value="5.00" step="0.50" oninput="ricalcolaMM()">
             </div>
             <div class="mm-row" style="font-weight: bold; color: var(--success); margin-top: 6px; padding-top: 6px; border-top: 1px solid var(--border);">
                 <span>Utile Netto Previsto:</span>
-                <span id="calc-utile">+8.50 €</span>
+                <span id="calc-utile">+4.15 €</span>
             </div>
         </div>
 
         <div style="display: flex; gap: 8px; margin-top: 12px;">
-            <button class="btn" style="flex: 1; background: var(--success); color: white;" onclick="registraScommessa('VINTA')">✅ Vinta</button>
-            <button class="btn" style="flex: 1; background: var(--danger); color: white;" onclick="registraScommessa('PERSA')">❌ Persa</button>
+            <button class="btn" style="flex: 1; background: var(--success); color: white;" onclick="registraScommessa('VINTA')">✅ Vinta (Chiudi)</button>
+            <button class="btn" style="flex: 1; background: var(--danger); color: white;" onclick="registraScommessa('PERSA')">❌ Persa (Avanti Step)</button>
         </div>
     </div>
 
     <!-- CALENDARIO E ARCHIVIO -->
     <div class="card">
         <h2>📅 Calendario & Archivio</h2>
-        
-        <!-- Barra di ricerca / Filtro Giocatore -->
         <input type="text" id="filtro-giocatore" class="search-box" placeholder="🔍 Filtra per nome giocatore..." oninput="aggiornaCalendarioUI()">
-
         <div id="calendario-container">
             <div class="empty-text">Nessuna giocata registrata nello storico</div>
         </div>
-        
-        <!-- Pulsanti di Reset -->
         <div style="display: flex; gap: 8px; margin-top: 12px;">
             <button class="btn btn-secondary" style="flex: 1; font-size: 0.7rem; padding: 6px;" onclick="resetOggi()">Reset Giornata</button>
             <button class="btn btn-danger" style="flex: 1; font-size: 0.7rem; padding: 6px;" onclick="pulisciStorico()">Azzera Tutto</button>
@@ -215,7 +210,9 @@
 
     <script>
         let matchSelezionato = null;
-        let setSelezionato = 1;
+        let setSelezionato = 1; // 1 = Step 1, 2 = Step 2, 3 = Step 3
+        let puntataBase = 5.00;
+        let storicoStepCorrenti = []; // Tiene traccia delle perdite precedenti nello stesso match per calcolare il recupero
         let listaMatchCache = [];
         let indiceSelezionatoCorrente = null;
 
@@ -245,49 +242,11 @@
                 let orarioMatch = m.orario || m.ora || "Live";
                 let isSelectedClass = (indiceSelezionatoCorrente === index) ? 'selected' : '';
 
-                let q1 = m.quota1 || m.q1 || m.odd1 || m.odds1 || m.home_odds || m.home_odd || m.c1 || m.coef1 || m.q_1 || m.price1 || m.quota_1 || (m.quotes && m.quotes[0]) || (m.odds && m.odds[0]) || (m.quote && m.quote[0]);
-                let q2 = m.quota2 || m.q2 || m.odd2 || m.odds2 || m.away_odds || m.away_odd || m.c2 || m.coef2 || m.q_2 || m.price2 || m.quota_2 || (m.quotes && m.quotes[1]) || (m.odds && m.odds[1]) || (m.quote && m.quote[1]);
+                let q1 = m.quota1 || m.q1 || m.odd1 || m.odds1 || m.home_odds || m.home_odd || 1.83;
+                let q2 = m.quota2 || m.q2 || m.odd2 || m.odds2 || m.away_odds || m.away_odd || 1.83;
 
-                if (!q1 || !q2) {
-                    for (let key in m) {
-                        let val = m[key];
-                        if (typeof val === 'string' && (val.includes('-') || val.includes('/') || val.includes('|'))) {
-                            let parts = val.split(/[-/|]/);
-                            if (parts.length >= 2) {
-                                let p1 = parseFloat(parts[0].trim());
-                                let p2 = parseFloat(parts[1].trim());
-                                if (!isNaN(p1) && !isNaN(p2)) {
-                                    q1 = p1;
-                                    q2 = p2;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
-
-                if (!q1 || !q2 || isNaN(parseFloat(q1)) || isNaN(parseFloat(q2))) {
-                    let nums = [];
-                    for (let key in m) {
-                        let num = parseFloat(m[key]);
-                        if (!isNaN(num) && num > 1.0 && num < 15.0 && key !== 'orario' && key !== 'ora') {
-                            nums.push(num);
-                        }
-                    }
-                    if (nums.length >= 2) {
-                        q1 = nums[0];
-                        q2 = nums[1];
-                    }
-                }
-
-                q1 = (q1 && !isNaN(parseFloat(q1))) ? parseFloat(q1).toFixed(2) : "-";
-                q2 = (q2 && !isNaN(parseFloat(q2))) ? parseFloat(q2).toFixed(2) : "-";
-
-                let diffStr = "-";
-                if (q1 !== "-" && q2 !== "-") {
-                    let diff = Math.abs(parseFloat(q1) - parseFloat(q2));
-                    diffStr = diff.toFixed(2);
-                }
+                q1 = !isNaN(parseFloat(q1)) ? parseFloat(q1).toFixed(2) : "1.83";
+                q2 = !isNaN(parseFloat(q2)) ? parseFloat(q2).toFixed(2) : "1.83";
 
                 html += `
                     <div class="match-item ${isSelectedClass}" onclick="selezionaMatch(${index})">
@@ -297,10 +256,9 @@
                         </div>
                         <div class="match-line-2">
                             <span>📊 1: ${q1} | 2: ${q2}</span>
-                            <span>Diff: <span class="diff-badge">${diffStr}</span></span>
                         </div>
                         <div class="match-line-3">
-                            <span>🎯 Strategia Over 18 Set</span>
+                            <span>🎯 Strategia Over 18 (MM 3 Step)</span>
                         </div>
                     </div>
                 `;
@@ -311,40 +269,51 @@
         function selezionaMatch(index) {
             indiceSelezionatoCorrente = index;
             matchSelezionato = listaMatchCache[index];
-            setSelezionato = 1; 
-            evidenziaPulsanteSet(1);
-
-            let nomeMatch = matchSelezionato.giocatori || matchSelezionato.match || matchSelezionato.titolo || "Match TT Cup";
+            setSelezionato = 1;
+            storicoStepCorrenti = []; // Azzera le perdite precedenti per il nuovo match
             
+            let nomeMatch = matchSelezionato.giocatori || matchSelezionato.match || matchSelezionato.titolo || "Match TT Cup";
             document.getElementById('selected-match-title').innerText = nomeMatch;
             document.getElementById('active-match-panel').style.display = 'block';
             
-            let q1Val = matchSelezionato.quota1 || matchSelezionato.q1 || matchSelezionato.odd1 || matchSelezionato.home_odds;
-            if(q1Val && !isNaN(parseFloat(q1Val))) {
-                document.getElementById('input-quota').value = parseFloat(q1Val).toFixed(2);
-            }
+            let q1Val = matchSelezionato.quota1 || matchSelezionato.q1 || matchSelezionato.odd1 || 1.83;
+            document.getElementById('input-quota').value = parseFloat(q1Val).toFixed(2);
+            document.getElementById('input-stake').value = puntataBase.toFixed(2);
 
+            aggiornaUIStatoSet();
             mostraPalinsesto(listaMatchCache);
             document.getElementById('active-match-panel').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            calcolaRitorno();
+            ricalcolaMM();
         }
 
-        function cambiaSetManuale(setNum) {
-            setSelezionato = setNum;
-            evidenziaPulsanteSet(setNum);
+        function aggiornaUIStatoSet() {
+            document.querySelectorAll('.set-btn').forEach((b, idx) => {
+                if(idx + 1 === setSelezionato) {
+                    b.classList.add('active');
+                    b.style.border = "2px solid var(--accent)";
+                } else {
+                    b.classList.remove('active');
+                    b.style.border = "1px solid var(--border)";
+                }
+            });
         }
 
-        function evidenziaPulsanteSet(setNum) {
-            document.querySelectorAll('.set-btn').forEach(b => b.classList.remove('active'));
-            const btn = document.getElementById(`btn-set${setNum}`);
-            if(btn) btn.classList.add('active');
-        }
+        function ricalcolaMM() {
+            const quota = parseFloat(document.getElementById('input-quota').value) || 1.83;
+            let stake = parseFloat(document.getElementById('input-stake').value) || 5.00;
 
-        function calcolaRitorno() {
-            const quota = parseFloat(document.getElementById('input-quota').value) || 0;
-            const stake = parseFloat(document.getElementById('input-stake').value) || 0;
-            const utile = (quota * stake) - stake;
-            document.getElementById('calc-utile').innerText = (utile >= 0 ? "+" : "") + utile.toFixed(2) + " €";
+            // Calcolo automatico della puntata per recuperare gli step precedenti se siamo allo step 2 o 3
+            if (setSelezionato > 1) {
+                let totalePersoPrecedente = storicoStepCorrenti.reduce((acc, curr) => acc + curr, 0);
+                // Formula recupero: (Perdita Totale + Utile desiderato della base) / (Quota - 1)
+                let utileBaseDesiderato = puntataBase * (quota - 1);
+                let puntataCalcolata = (totalePersoPrecedente + utileBaseDesiderato) / (quota - 1);
+                stake = Math.max(puntataCalcolata, 0.50);
+                document.getElementById('input-stake').value = stake.toFixed(2);
+            }
+
+            const utileNetto = (quota * stake) - stake - storicoStepCorrenti.reduce((acc, curr) => acc + curr, 0);
+            document.getElementById('calc-utile').innerText = (utileNetto >= 0 ? "+" : "") + utileNetto.toFixed(2) + " €";
         }
 
         function registraScommessa(esito) {
@@ -362,7 +331,7 @@
                 orario: ora,
                 match: nomeMatch,
                 setNum: setSelezionato,
-                dettaglio: `Set ${setSelezionato} (Over 18)`,
+                dettaglio: `Step ${setSelezionato} (Set ${setSelezionato})`,
                 quota: quota.toFixed(2),
                 stake: stake,
                 esito: esito
@@ -374,16 +343,31 @@
 
             aggiornaTutto();
 
-            // PROGRESSIONE FORZATA DEI SET
-            if (esito === 'PERSA' && setSelezionato < 3) {
-                setSelezionato++;
-                evidenziaPulsanteSet(setSelezionato);
-                document.getElementById('active-match-panel').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            if (esito === 'PERSA') {
+                storicoStepCorrenti.push(stake); // Registra la perdita per calcolare il prossimo step
+                if (setSelezionato < 3) {
+                    setSelezionato++; // Passa allo step successivo
+                    aggiornaUIStatoSet();
+                    ricalcolaMM();
+                    document.getElementById('active-match-panel').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                } else {
+                    // Fine dei 3 step (persi tutti e 3)
+                    alert("⚠️ Raggiunto il limite di 3 Step per questo match.");
+                    chiudiPannelloMatch();
+                }
             } else {
-                document.getElementById('active-match-panel').style.display = 'none';
-                indiceSelezionatoCorrente = null;
-                mostraPalinsesto(listaMatchCache);
+                // VINTA: chiude il match con successo
+                chiudiPannelloMatch();
             }
+        }
+
+        function chiudiPannelloMatch() {
+            document.getElementById('active-match-panel').style.display = 'none';
+            indiceSelezionatoCorrente = null;
+            matchSelezionato = null;
+            storicoStepCorrenti = [];
+            setSelezionato = 1;
+            mostraPalinsesto(listaMatchCache);
         }
 
         function eliminaGiocata(id) {
@@ -446,7 +430,7 @@
             let streakCount = 0;
             let streakType = '';
             if (storico.length > 0) {
-                streakType = storico.0.esito;
+                streakType = storico[0].esito;
                 for (let item of storico) {
                     if (item.esito === streakType) {
                         streakCount++;
@@ -458,7 +442,7 @@
             document.getElementById('stat-streak').innerText = `${streakCount} ${streakType === 'VINTA' ? 'W' : 'L'}`;
         }
 
-        function aggiornaCalendarioUI() {
+            function aggiornaCalendarioUI() {
             let storico = JSON.parse(localStorage.getItem('quantum_storico_calendario')) || [];
             let filtro = document.getElementById('filtro-giocatore').value.toLowerCase();
             
@@ -503,7 +487,7 @@
                                 <tr>
                                     <th>Ora</th>
                                     <th>Match</th>
-                                    <th>Set</th>
+                                    <th>Step</th>
                                     <th>Q.</th>
                                     <th>P.</th>
                                     <th>Esito</th>
@@ -519,7 +503,7 @@
                         <tr>
                             <td>${item.orario}</td>
                             <td style="font-weight: bold; max-width: 140px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${item.match}">${item.match}</td>
-                            <td>Set ${item.setNum || 1}</td>
+                            <td>Step ${item.setNum || 1}</td>
                             <td>${item.quota}</td>
                             <td>${item.stake}€</td>
                             <td><span class="${badgeClass}">${item.esito}</span></td>
