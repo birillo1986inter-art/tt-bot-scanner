@@ -1,98 +1,135 @@
 [
   {
-    "orario": "07:40",
-    "giocatori": "Ales Cizek - Jan Krupnik",
+    "orario": "16:20",
+    "giocatori": "Petr Vanek - Jan Kocab",
     "quota1": "1.92",
-    "quota2": "1.80"
+    "quota2": "1.79",
+    "set": 1
   },
   {
-    "orario": "08:15",
-    "giocatori": "Antonin Baros - Tomas Krenek",
+    "orario": "16:45",
+    "giocatori": "Dalibor Velky Jnr - Lukas Dzida",
+    "quota1": "1.73",
+    "quota2": "2.00",
+    "set": 1
+  },
+  {
+    "orario": "16:55",
+    "giocatori": "Jakub Dvorak - David Sochor",
+    "quota1": "1.86",
+    "quota2": "1.84",
+    "set": 1
+  },
+  {
+    "orario": "17:05",
+    "giocatori": "Mateusz Burkacki - Jan Masternak",
+    "quota1": "1.92",
+    "quota2": "1.80",
+    "set": 1
+  },
+  {
+    "orario": "17:35",
+    "giocatori": "Pawel Gola - Szymon Radlo",
+    "quota1": "1.78",
+    "quota2": "1.92",
+    "set": 1
+  },
+  {
+    "orario": "17:50",
+    "giocatori": "Jan Kocab - Adam Kosacky",
+    "quota1": "1.75",
+    "quota2": "1.95",
+    "set": 1
+  },
+  {
+    "orario": "18:15",
+    "giocatori": "Lukas Dzida - Daniel Vitasek",
+    "quota1": "1.82",
+    "quota2": "1.89",
+    "set": 1
+  },
+  {
+    "orario": "18:50",
+    "giocatori": "Marek Kulisek - Jan Kocab",
     "quota1": "1.93",
-    "quota2": "1.78"
+    "quota2": "1.76",
+    "set": 1
   },
   {
-    "orario": "08:20",
-    "giocatori": "Vojtech Koutnik - Lukas Dominik Rek",
-    "quota1": "1.84",
-    "quota2": "1.87"
+    "orario": "20:10",
+    "giocatori": "Radomir Benesz - Jan Oleksik",
+    "quota1": "1.81",
+    "quota2": "1.87",
+    "set": 1
   },
   {
-    "orario": "08:40",
-    "giocatori": "Ales Cizek - Jakub Travnicek",
-    "quota1": "1.96",
-    "quota2": "1.75"
+    "orario": "20:15",
+    "giocatori": "Dalibor Velky Jnr - Daniel Vitasek",
+    "quota1": "1.75",
+    "quota2": "1.97",
+    "set": 1
   },
   {
-    "orario": "08:55",
-    "giocatori": "Petr Vodal - Jachym Sebl",
+    "orario": "20:45",
+    "giocatori": "Ivan Heuman - Daniel Vitasek",
+    "quota1": "1.75",
+    "quota2": "1.97",
+    "set": 1
+  },
+  {
+    "orario": "21:10",
+    "giocatori": "Miroslav Dolezal - Radomir Benesz",
     "quota1": "1.88",
-    "quota2": "1.82"
+    "quota2": "1.81",
+    "set": 1
   },
   {
-    "orario": "09:15",
-    "giocatori": "Jan Skvrna - Antonin Baros",
+    "orario": "21:15",
+    "giocatori": "Adam Kanak - Dalibor Velky Jnr",
+    "quota1": "1.88",
+    "quota2": "1.84",
+    "set": 1
+  },
+  {
+    "orario": "21:40",
+    "giocatori": "Jiri Matus - Radomir Benesz",
+    "quota1": "1.75",
+    "quota2": "1.97",
+    "set": 1
+  },
+  {
+    "orario": "21:45",
+    "giocatori": "Ivan Heuman - Dalibor Velky Jnr",
+    "quota1": "1.75",
+    "quota2": "1.96",
+    "set": 1
+  },
+  {
+    "orario": "22:05",
+    "giocatori": "Martin Jirasek - Ladislav Vosyka",
+    "quota1": "1.72",
+    "quota2": "1.99",
+    "set": 1
+  },
+  {
+    "orario": "22:10",
+    "giocatori": "Jan Oleksik - Miroslav Dolezal",
     "quota1": "1.79",
-    "quota2": "1.90"
+    "quota2": "1.92",
+    "set": 1
   },
   {
-    "orario": "09:40",
-    "giocatori": "Ales Cizek - Erik Precek",
-    "quota1": "1.85",
-    "quota2": "1.85"
-  },
-  {
-    "orario": "09:55",
-    "giocatori": "Petr Vodal - Zdenek Muhlhauser",
-    "quota1": "1.93",
-    "quota2": "1.78"
-  },
-  {
-    "orario": "10:10",
-    "giocatori": "Jakub Travnicek - Jan Krupnik",
-    "quota1": "1.87",
-    "quota2": "1.83"
-  },
-  {
-    "orario": "10:15",
-    "giocatori": "Tomas Krenek - Jan Skvrna",
-    "quota1": "1.93",
-    "quota2": "1.76"
-  },
-  {
-    "orario": "10:55",
-    "giocatori": "Petr Vodal - Petr Kubat",
-    "quota1": "1.77",
-    "quota2": "1.95"
-  },
-  {
-    "orario": "12:40",
-    "giocatori": "Ales Cizek - Erik Precek",
-    "quota1": "1.84",
-    "quota2": "1.86"
-  },
-  {
-    "orario": "12:45",
-    "giocatori": "Antonin Baros - Jan Krupnik",
-    "quota1": "1.76",
-    "quota2": "1.97"
-  },
-  {
-    "orario": "13:10",
-    "giocatori": "Lukas Slavik - Tomas Krenek",
-    "quota1": "1.88",
-    "quota2": "1.80"
-  },
-  {
-    "orario": "13:45",
-    "giocatori": "Antonin Baros - Jan Skvrna",
+    "orario": "22:15",
+    "giocatori": "Daniel Vitasek - Adam Kanak",
     "quota1": "1.92",
-    "quota2": "1.79"
+    "quota2": "1.79",
+    "set": 1
   },
   {
-    "orario": "15:25",
-    "giocatori": "Lukas Dominik Rek - Vojtech Koutnik",
+    "orario": "22:35",
+    "giocatori": "Martin Chmelicek - Roman Jonas",
     "quota1": "1.85",
-    "quota2": "1.86"
+    "quota2": "1.85",
+    "set": 1
   }
 ]
