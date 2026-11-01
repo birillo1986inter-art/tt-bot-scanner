@@ -78,13 +78,22 @@
             border-bottom: 1px solid var(--border); 
             cursor: pointer; 
             transition: all 0.2s ease; 
+            margin-bottom: 6px;
+            background: #060911;
+            border-radius: 8px;
         }
-        .match-item:last-child { border-bottom: none; }
-        .match-item:hover { background: var(--accent-glow); border-radius: 8px; }
-        .match-item.selected { background: var(--accent-glow); border-left: 4px solid var(--accent); border-radius: 6px; }
+        .match-item:last-child { margin-bottom: 0; }
+        .match-item:hover { background: var(--accent-glow); }
+        .match-item.selected { background: var(--accent-glow); border-left: 4px solid var(--accent); }
         
+        /* Evidenziazione match con quote uguali */
+        .match-item.balanced-odds {
+            border: 1px solid var(--accent);
+            background: linear-gradient(135deg, #060911 0%, rgba(245, 158, 11, 0.08) 100%);
+        }
+
         .match-line-1 { display: flex; justify-content: space-between; align-items: center; font-size: 0.88rem; font-weight: 700; color: #fff; margin-bottom: 3px; }
-        .match-line-2 { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 3px; display: flex; justify-content: space-between; }
+        .match-line-2 { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 3px; display: flex; justify-content: space-between; align-items: center; }
         .match-line-3 { font-size: 0.73rem; color: var(--accent); font-weight: 600; display: flex; justify-content: space-between; align-items: center; }
 
         /* Dashboard Attiva (MM) */
@@ -96,7 +105,7 @@
         .mm-container { background: #04060b; padding: 10px; border-radius: 8px; margin-top: 8px; font-size: 0.8rem; border: 1px solid var(--border); }
         .mm-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
         .mm-row:last-child { margin-bottom: 0; }
-        input[type="number"], input[type="text"], select { background: #131d35; border: 1px solid var(--border); color: white; padding: 5px 8px; border-radius: 6px; width: 130px; text-align: right; font-size: 0.82rem; font-weight: bold; }
+        input[type="number"], input[type="text"], select { background: #131d35; border: 1px solid var(--border); color: white; padding: 5px 8px; border-radius: 6px; width: 140px; text-align: right; font-size: 0.82rem; font-weight: bold; }
 
         /* Database Giocatori */
         .player-stat-card { background: #060911; border: 1px solid var(--border); border-radius: 8px; padding: 8px; margin-bottom: 6px; font-size: 0.75rem; }
@@ -133,7 +142,7 @@
         <button class="btn" onclick="caricaPalinsesto()">Aggiorna</button>
     </header>
 
-    <!-- GESTIONE BANKROLL & OBIETTIVO GIORNALIERO -->
+    <!-- GESTIONE BANKROLL & OBIETTIVO -->
     <div class="card">
         <h2>💰 Bankroll & Obiettivo</h2>
         <div class="stats-grid" style="grid-template-columns: repeat(2, 1fr); margin-bottom: 8px;">
@@ -187,7 +196,7 @@
         </div>
     </div>
 
-    <!-- PALINSESTO LIVE CON FILTRI -->
+    <!-- PALINSESTO LIVE CON FILTRI & EVIDENZIAZIONE QUOTE UGUALI -->
     <div class="card">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
             <h2>⚡ Palinsesto Live (<span id="palinsesto-count">0</span>)</h2>
@@ -201,7 +210,7 @@
         </div>
     </div>
 
-    <!-- DASHBOARD MONEY MANAGEMENT CON PROGRESSIONI PERSONALI -->
+    <!-- DASHBOARD MONEY MANAGEMENT -->
     <div class="card" id="active-match-panel">
         <h2>🎯 Inserisci Risultato Set (MM 3 Step)</h2>
         <div id="selected-match-title" style="font-weight: 700; margin-bottom: 6px; font-size: 0.88rem; color: var(--accent); background: rgba(255,255,255,0.04); padding: 8px; border-radius: 6px; border: 1px solid rgba(245,158,11,0.2);">-</div>
@@ -245,7 +254,7 @@
         </div>
     </div>
 
-    <!-- DATABASE STATISTICO GIOCATORI CON FORMA (HOT/COLD) -->
+    <!-- DATABASE STATISTICO GIOCATORI -->
     <div class="card">
         <h2>📊 Database Statistico Giocatori</h2>
         <input type="text" id="filtro-db-giocatore" class="search-box" placeholder="🔍 Cerca giocatore per vedere le statistiche..." oninput="renderDatabaseGiocatori()">
@@ -344,14 +353,19 @@
                 q1 = !isNaN(parseFloat(q1)) ? parseFloat(q1).toFixed(2) : "1.83";
                 q2 = !isNaN(parseFloat(q2)) ? parseFloat(q2).toFixed(2) : "1.83";
 
+                // Controllo se le quote sono uguali (o molto vicine, es. scarto < 0.02)
+                let quoteUguali = Math.abs(parseFloat(q1) - parseFloat(q2)) < 0.02;
+                let balancedClass = quoteUguali ? 'balanced-odds' : '';
+                let badgeQuotaPari = quoteUguali ? `<span style="background: var(--accent); color: #000; padding: 1px 5px; border-radius: 4px; font-size: 0.65rem; font-weight: 900;">🎯 QUOTA PARI</span>` : `<span>📊 1: ${q1} | 2: ${q2}</span>`;
+
                 html += `
-                    <div class="match-item ${isSelectedClass}" onclick="selezionaMatch(${index})">
+                    <div class="match-item ${isSelectedClass} ${balancedClass}" onclick="selezionaMatch(${index})">
                         <div class="match-line-1">
                             <span>🕒 ${orarioMatch} | ⚔️ ${nomeMatch}</span>
                             <span style="color: var(--accent); font-size: 0.75rem;">GIOCA ➔</span>
                         </div>
                         <div class="match-line-2">
-                            <span>📊 1: ${q1} | 2: ${q2}</span>
+                            ${badgeQuotaPari}
                         </div>
                         <div class="match-line-3">
                             <span>🎯 Strategia Over 18 (MM 3 Step)</span>
@@ -663,7 +677,6 @@
             document.getElementById('stat-roi').innerText = (roi >= 0 ? "+" : "") + roi.toFixed(1) + "%";
             document.getElementById('stat-cassa-attuale').innerText = cassaAttuale.toFixed(2) + " €";
 
-            // Controllo Target Stop-Win
             let alertBox = document.getElementById('alert-obiettivo');
             if (profittoTotale >= targetProfitto) {
                 alertBox.style.display = 'block';
@@ -709,7 +722,6 @@
                 let wr = ((stat.vinte / stat.giocate) * 100).toFixed(0);
                 let mediaPunti = (stat.sommaTotalePunti / stat.giocate).toFixed(1);
 
-                // Indicatore di forma (Hot 🔥 se winrate >= 70% o freddo ❄️)
                 let badgeForma = wr >= 70 ? "🔥 Hot" : (wr <= 40 ? "❄️ Cold" : "⚖️ Normale");
 
                 html += `
