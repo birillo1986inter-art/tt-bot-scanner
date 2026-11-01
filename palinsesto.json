@@ -1,86 +1,98 @@
 [
   {
-    "orario": "16:15",
-    "giocatori": "Tomas Grmela - Adam Kanak",
-    "quota1": "1.81",
-    "quota2": "1.91"
+    "orario": "07:40",
+    "giocatori": "Ales Cizek - Jan Krupnik",
+    "quota1": "1.92",
+    "quota2": "1.80"
   },
   {
-    "orario": "16:45",
-    "giocatori": "Adam Kanak - Lukas Slavik",
-    "quota1": "1.85",
-    "quota2": "1.87"
-  },
-  {
-    "orario": "17:05",
-    "giocatori": "Lukasz Buklat - Bartosz Bilski",
-    "quota1": "1.75",
-    "quota2": "1.98"
-  },
-  {
-    "orario": "17:15",
-    "giocatori": "Radek Sedlacek - Tomas Grmela",
-    "quota1": "2.00",
-    "quota2": "1.73"
-  },
-  {
-    "orario": "17:45",
-    "giocatori": "Lukas Slavik - Tomas Grmela",
-    "quota1": "1.85",
-    "quota2": "1.84"
-  },
-  {
-    "orario": "18:05",
-    "giocatori": "Tomasz Stachera - Bartosz Bilski",
-    "quota1": "1.99",
-    "quota2": "1.72"
-  },
-  {
-    "orario": "18:15",
-    "giocatori": "Adam Kanak - Radek Sedlacek",
-    "quota1": "1.88",
-    "quota2": "1.81"
-  },
-  {
-    "orario": "19:45",
-    "giocatori": "Adam Kanak - Jan Krupnik",
-    "quota1": "1.93",
-    "quota2": "1.77"
-  },
-  {
-    "orario": "20:15",
-    "giocatori": "Lukas Slavik - Frantisek Chaloupka",
-    "quota1": "1.89",
-    "quota2": "1.83"
-  },
-  {
-    "orario": "20:35",
-    "giocatori": "Martin Chmelicek - Simon Mezlik",
-    "quota1": "1.81",
-    "quota2": "1.90"
-  },
-  {
-    "orario": "20:40",
-    "giocatori": "Dalibor Velky Jnr - Radek Sedlacek",
+    "orario": "08:15",
+    "giocatori": "Antonin Baros - Tomas Krenek",
     "quota1": "1.93",
     "quota2": "1.78"
   },
   {
-    "orario": "21:15",
-    "giocatori": "Jan Krupnik - Lukas Slavik",
-    "quota1": "1.94",
-    "quota2": "1.77"
+    "orario": "08:20",
+    "giocatori": "Vojtech Koutnik - Lukas Dominik Rek",
+    "quota1": "1.84",
+    "quota2": "1.87"
   },
   {
-    "orario": "21:40",
-    "giocatori": "Dalibor Velky Jnr - Ivan Heuman",
+    "orario": "08:40",
+    "giocatori": "Ales Cizek - Jakub Travnicek",
+    "quota1": "1.96",
+    "quota2": "1.75"
+  },
+  {
+    "orario": "08:55",
+    "giocatori": "Petr Vodal - Jachym Sebl",
     "quota1": "1.88",
-    "quota2": "1.81"
+    "quota2": "1.82"
   },
   {
-    "orario": "23:25",
-    "giocatori": "Ondrej Knazik - Radek Muller",
-    "quota1": "1.75",
-    "quota2": "1.96"
+    "orario": "09:15",
+    "giocatori": "Jan Skvrna - Antonin Baros",
+    "quota1": "1.79",
+    "quota2": "1.90"
+  },
+  {
+    "orario": "09:40",
+    "giocatori": "Ales Cizek - Erik Precek",
+    "quota1": "1.85",
+    "quota2": "1.85"
+  },
+  {
+    "orario": "09:55",
+    "giocatori": "Petr Vodal - Zdenek Muhlhauser",
+    "quota1": "1.93",
+    "quota2": "1.78"
+  },
+  {
+    "orario": "10:10",
+    "giocatori": "Jakub Travnicek - Jan Krupnik",
+    "quota1": "1.87",
+    "quota2": "1.83"
+  },
+  {
+    "orario": "10:15",
+    "giocatori": "Tomas Krenek - Jan Skvrna",
+    "quota1": "1.93",
+    "quota2": "1.76"
+  },
+  {
+    "orario": "10:55",
+    "giocatori": "Petr Vodal - Petr Kubat",
+    "quota1": "1.77",
+    "quota2": "1.95"
+  },
+  {
+    "orario": "12:40",
+    "giocatori": "Ales Cizek - Erik Precek",
+    "quota1": "1.84",
+    "quota2": "1.86"
+  },
+  {
+    "orario": "12:45",
+    "giocatori": "Antonin Baros - Jan Krupnik",
+    "quota1": "1.76",
+    "quota2": "1.97"
+  },
+  {
+    "orario": "13:10",
+    "giocatori": "Lukas Slavik - Tomas Krenek",
+    "quota1": "1.88",
+    "quota2": "1.80"
+  },
+  {
+    "orario": "13:45",
+    "giocatori": "Antonin Baros - Jan Skvrna",
+    "quota1": "1.92",
+    "quota2": "1.79"
+  },
+  {
+    "orario": "15:25",
+    "giocatori": "Lukas Dominik Rek - Vojtech Koutnik",
+    "quota1": "1.85",
+    "quota2": "1.86"
   }
 ]
