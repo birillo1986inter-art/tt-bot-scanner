@@ -10,11 +10,28 @@ TELEGRAM_CHAT_ID = os.environ.get('TELEGRAM_CHAT_ID')
 
 # Link specifico TT Cup
 URL_BETMONITOR = "https://www.betmonitor.com/mobile/odds-comparison/table-tennis/ukraine-tt-cup/10007095"
+STATO_FILE = "stato_partite.json"
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Linux; Android 10; Mobile) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Mobile Safari/537.36",
     "Accept-Language": "en-US,en;q=0.9"
 }
+
+def carica_stato():
+    if os.path.exists(STATO_FILE):
+        try:
+            with open(STATO_FILE, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except:
+            return {}
+    return {}
+
+def salva_stato(stato):
+    try:
+        with open(STATO_FILE, "w", encoding="utf-8") as f:
+            json.dump(stato, f, ensure_ascii=False, indent=2)
+    except Exception as e:
+        print(f"Errore salvataggio stato: {e}")
 
 def send_telegram(message):
     if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
@@ -71,42 +88,73 @@ def parse_betmonitor():
     return valid_matches
 
 def run():
-    print("Generazione palinsesto TT Cup Over 18.5...")
+    print("Generazione palinsesto TT Cup Over 18.5 con progressione set...")
     matches = parse_betmonitor()
+    stato_corrente = carica_stato()
+    oggi_str = datetime.now().strftime("%Y-%m-%d")
     
-    today_str = datetime.now().strftime("%d/%m/%Y")
-    
-    partite_per_html = []
+    # Pulizia vecchi stati se cambia giorno
+    if stato_corrente.get("data") != oggi_str:
+        stato_corrente = {"data": oggi_str, "partite": {}}
+
+    partite_da_notificare = []
+
     for m in matches:
-        partite_per_html.append({
-            "orario": m['orario'],
-            "giocatori": m['giocatori'],
-            "quota1": m['quota1'],
-            "quota2": m['quota2']
-        })
+        match_id = m['giocatori']
+        
+        # Inizializza la partita se non esiste nello stato di oggi
+        if match_id not in stato_corrente["partite"]:
+            stato_corrente["partite"][match_id] = {
+                "set_corrente": 1,
+                "notificato_set": 0
+            }
+        
+        info_partita = stato_corrente["partite"][match_id]
+        set_attivo = info_partita["set_corrente"]
+        
+        # Gestiamo fino a un massimo di 3 set
+        if set_attivo <= 3 and info_partita["notificato_set"] < set_attivo:
+            m['set_num'] = set_attivo
+            partite_da_notificare.append(m)
+            # Segnamo che questo set è stato gestito/notificato
+            info_partita["notificato_set"] = set_attivo
+
+    salva_stato(stato_corrente)
+
+    # Salvataggio palinsesto JSON standard
+    partite_per_html = [{
+        "orario": m['orario'],
+        "giocatori": m['giocatori'],
+        "quota1": m['quota1'],
+        "quota2": m['quota2'],
+        "set": m.get('set_num', 1)
+    } for m in matches]
     
     try:
         with open("palinsesto.json", "w", encoding="utf-8") as f:
             json.dump(partite_per_html, f, ensure_ascii=False, indent=2)
-        print("✅ File palinsesto.json salvato con successo con le relative quote!")
+        print("✅ File palinsesto.json salvato con successo!")
     except Exception as e:
         print(f"Errore nel salvataggio del file palinsesto.json: {e}")
 
-    if matches:
-        header_msg = f"📋 **PALINSESTO TT CUP - OVER 18.5**\n📅 *Data: {today_str}*\nTrovati **{len(matches)} match** ideali:"
+    today_str_display = datetime.now().strftime("%d/%m/%Y")
+
+    if partite_da_notificare:
+        header_msg = f"📋 **QUANTUM CUP - OVER 18.5 (SET PROGRESSION)**\n📅 *Data: {today_str_display}*\nSegnalazioni attive ({len(partite_da_notificare)}):"
         send_telegram(header_msg)
         
-        for m in matches:
+        for m in partite_da_notificare:
             diff_val = abs(float(m['quota1']) - float(m['quota2']))
+            set_corrente = m.get('set_num', 1)
             match_msg = (
                 f"🕒 `{m['orario']}` | ⚔️ **{m['giocatori']}**\n"
+                f"📌 **SET {set_corrente} / 3**\n"
                 f"📊 Quote: 1: `{m['quota1']}` | 2: `{m['quota2']}` (Diff: `{diff_val:.2f}`)\n"
-                f"🎯 *TT Cup Over 18.5*"
+                f"🎯 *Quantum Cup Over 18.5*"
             )
             send_telegram(match_msg)
     else:
-        msg = f"📋 **PALINSESTO TT CUP - OVER 18.5**\n📅 *Data: {today_str}*\n\nNessun match rispetta i criteri al momento della scansione."
-        send_telegram(msg)
+        print("Nessuna nuova segnalazione di set da inviare in questo ciclo.")
 
 if __name__ == "__main__":
     run()
