@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QUANTUM CUP 18 - MM INTEGRATO 🏓</title>
+    <title>QUANTUM CUP 18 - PUNTEGGIO ESATTO 🏓</title>
     <style>
         :root {
             --bg-color: #04060b;
@@ -52,14 +52,14 @@
         .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 12px; margin-bottom: 12px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3); }
         h2 { font-size: 0.85rem; margin-bottom: 8px; color: var(--accent); display: flex; align-items: center; gap: 6px; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 700; }
         
-        /* Statistiche Avanzate */
+        /* Statistiche & Bankroll */
         .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 8px; }
         .stat-box { background: #060911; border: 1px solid var(--border); border-radius: 8px; padding: 8px; text-align: center; }
         .stat-value { font-size: 0.95rem; font-weight: 900; color: #fff; margin-top: 2px; }
         .stat-label { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; }
 
-        /* Barra di Ricerca Giocatore */
-        .search-box { width: 100%; background: #060911; border: 1px solid var(--border); color: white; padding: 8px 12px; border-radius: 8px; font-size: 0.85rem; margin-bottom: 10px; }
+        /* Input generali & Ricerca */
+        .search-box { width: 100%; background: #060911; border: 1px solid var(--border); color: white; padding: 8px 12px; border-radius: 8px; font-size: 0.85rem; margin-bottom: 8px; }
         .search-box:focus { outline: none; border-color: var(--accent); }
 
         /* Palinsesto Match */
@@ -77,18 +77,20 @@
         .match-line-2 { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 3px; display: flex; justify-content: space-between; }
         .match-line-3 { font-size: 0.73rem; color: var(--accent); font-weight: 600; display: flex; justify-content: space-between; align-items: center; }
 
-        .diff-badge { background: rgba(16, 185, 129, 0.2); color: var(--success); padding: 1px 5px; border-radius: 4px; font-weight: bold; }
-
-        /* Dashboard Attiva */
+        /* Dashboard Attiva (MM) */
         #active-match-panel { display: none; border: 2px solid var(--accent); background: #090f1f; box-shadow: 0 0 15px rgba(245, 158, 11, 0.15); }
         .set-box { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin: 10px 0; }
-        .set-btn { background: #131d35; border: 1px solid var(--border); color: var(--text-main); padding: 8px; border-radius: 8px; text-align: center; cursor: pointer; font-size: 0.8rem; font-weight: 800; transition: all 0.2s; }
+        .set-btn { background: #131d35; border: 1px solid var(--border); color: var(--text-main); padding: 8px; border-radius: 8px; text-align: center; cursor: pointer; font-size: 0.8rem; font-weight: 800; }
         .set-btn.active { border-color: var(--accent); background: rgba(245, 158, 11, 0.25); color: var(--accent); box-shadow: 0 0 8px rgba(245,158,11,0.3); }
         
         .mm-container { background: #04060b; padding: 10px; border-radius: 8px; margin-top: 8px; font-size: 0.8rem; border: 1px solid var(--border); }
         .mm-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
         .mm-row:last-child { margin-bottom: 0; }
-        input[type="number"] { background: #131d35; border: 1px solid var(--border); color: white; padding: 5px 8px; border-radius: 6px; width: 80px; text-align: right; font-size: 0.85rem; font-weight: bold; }
+        input[type="number"], input[type="text"] { background: #131d35; border: 1px solid var(--border); color: white; padding: 5px 8px; border-radius: 6px; width: 100px; text-align: right; font-size: 0.85rem; font-weight: bold; }
+
+        /* Database Giocatori */
+        .player-stat-card { background: #060911; border: 1px solid var(--border); border-radius: 8px; padding: 8px; margin-bottom: 6px; font-size: 0.75rem; }
+        .player-stat-header { font-weight: bold; color: var(--accent); margin-bottom: 4px; display: flex; justify-content: space-between; }
 
         /* Calendario & Storico */
         .day-group { margin-bottom: 12px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
@@ -115,41 +117,37 @@
     <header>
         <h1>
             <span class="pingpong-icon">🏓</span> 
-            QUANTUM CUP 18 (MM)
+            QUANTUM CUP 18 
             <span class="pingpong-icon" style="transform: scaleX(-1);">🏓</span>
         </h1>
         <button class="btn" onclick="caricaPalinsesto()">Aggiorna</button>
     </header>
 
-    <!-- STATISTICHE E ANALISI AVANZATA -->
+    <!-- GESTIONE BANKROLL & CASSA -->
     <div class="card">
-        <h2>📈 Statistiche & Win Rate</h2>
+        <h2>💰 Bankroll & Cassa</h2>
+        <div class="stats-grid" style="grid-template-columns: repeat(2, 1fr); margin-bottom: 8px;">
+            <div class="stat-box">
+                <div class="stat-label">Cassa Iniziale (€)</div>
+                <input type="number" id="input-cassa-iniziale" value="100.00" step="10.00" oninput="salvaCassaIniziale()" style="width: 100%; margin-top: 4px; text-align: center;">
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">Cassa Attuale</div>
+                <div class="stat-value" id="stat-cassa-attuale" style="color: var(--success);">100.00 €</div>
+            </div>
+        </div>
         <div class="stats-grid">
+            <div class="stat-box">
+                <div class="stat-label">Profitto Netto</div>
+                <div class="stat-value" id="stat-profitto">+0.00 €</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">ROI</div>
+                <div class="stat-value" id="stat-roi">0.0%</div>
+            </div>
             <div class="stat-box">
                 <div class="stat-label">Win Rate</div>
                 <div class="stat-value" id="stat-winrate" style="color: var(--accent);">0.0%</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-label">Streak</div>
-                <div class="stat-value" id="stat-streak">-</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-label">Tot. Giocate</div>
-                <div class="stat-value" id="stat-tot">0</div>
-            </div>
-        </div>
-        <div class="stats-grid" style="grid-template-columns: repeat(3, 1fr); margin-bottom: 0;">
-            <div class="stat-box">
-                <div class="stat-label">1° Set (V/P)</div>
-                <div class="stat-value" id="stat-set1" style="font-size: 0.85rem;">0 / 0</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-label">2° Set (V/P)</div>
-                <div class="stat-value" id="stat-set2" style="font-size: 0.85rem;">0 / 0</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-label">3° Set (V/P)</div>
-                <div class="stat-value" id="stat-set3" style="font-size: 0.85rem;">0 / 0</div>
             </div>
         </div>
     </div>
@@ -162,9 +160,9 @@
         </div>
     </div>
 
-    <!-- DASHBOARD / MONEY MANAGEMENT INTEGRATO -->
+    <!-- DASHBOARD MONEY MANAGEMENT (MAX 3 STEP) -->
     <div class="card" id="active-match-panel">
-        <h2>🎯 Money Management (Max 3 Step)</h2>
+        <h2>🎯 Inserisci Risultato Set (MM 3 Step)</h2>
         <div id="selected-match-title" style="font-weight: 700; margin-bottom: 6px; font-size: 0.88rem; color: var(--accent); background: rgba(255,255,255,0.04); padding: 8px; border-radius: 6px; border: 1px solid rgba(245,158,11,0.2);">-</div>
         
         <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 6px;">Step / Set Corrente:</div>
@@ -183,6 +181,10 @@
                 <span>Puntata Consigliata:</span>
                 <input type="number" id="input-stake" value="5.00" step="0.50" oninput="ricalcolaMM()">
             </div>
+            <div class="mm-row" style="margin-top: 8px; padding-top: 6px; border-top: 1px solid var(--border);">
+                <span>Punteggio Set (es. 11-8):</span>
+                <input type="text" id="input-punteggio" placeholder="11-8" style="text-align: center; font-weight: 900;">
+            </div>
             <div class="mm-row" style="font-weight: bold; color: var(--success); margin-top: 6px; padding-top: 6px; border-top: 1px solid var(--border);">
                 <span>Utile Netto Previsto:</span>
                 <span id="calc-utile">+4.15 €</span>
@@ -190,15 +192,23 @@
         </div>
 
         <div style="display: flex; gap: 8px; margin-top: 12px;">
-            <button class="btn" style="flex: 1; background: var(--success); color: white;" onclick="registraScommessa('VINTA')">✅ Vinta (Chiudi)</button>
-            <button class="btn" style="flex: 1; background: var(--danger); color: white;" onclick="registraScommessa('PERSA')">❌ Persa (Avanti Step)</button>
+            <button class="btn" style="flex: 1; background: var(--success); color: white;" onclick="registraConPunteggio()">💾 Registra Esito & Punteggio</button>
+        </div>
+    </div>
+
+    <!-- DATABASE STATISTICO GIOCATORI -->
+    <div class="card">
+        <h2>📊 Database Statistico Giocatori</h2>
+        <input type="text" id="filtro-db-giocatore" class="search-box" placeholder="🔍 Cerca giocatore per vedere le statistiche..." oninput="renderDatabaseGiocatori()">
+        <div id="db-giocatori-container">
+            <div class="empty-text">Nessun dato registrato sui giocatori</div>
         </div>
     </div>
 
     <!-- CALENDARIO E ARCHIVIO -->
     <div class="card">
         <h2>📅 Calendario & Archivio</h2>
-        <input type="text" id="filtro-giocatore" class="search-box" placeholder="🔍 Filtra per nome giocatore..." oninput="aggiornaCalendarioUI()">
+        <input type="text" id="filtro-giocatore" class="search-box" placeholder="🔍 Filtra storico per giocatore..." oninput="aggiornaCalendarioUI()">
         <div id="calendario-container">
             <div class="empty-text">Nessuna giocata registrata nello storico</div>
         </div>
@@ -210,9 +220,9 @@
 
     <script>
         let matchSelezionato = null;
-        let setSelezionato = 1; // 1 = Step 1, 2 = Step 2, 3 = Step 3
+        let setSelezionato = 1; 
         let puntataBase = 5.00;
-        let storicoStepCorrenti = []; // Tiene traccia delle perdite precedenti nello stesso match per calcolare il recupero
+        let storicoStepCorrenti = []; 
         let listaMatchCache = [];
         let indiceSelezionatoCorrente = null;
 
@@ -242,8 +252,8 @@
                 let orarioMatch = m.orario || m.ora || "Live";
                 let isSelectedClass = (indiceSelezionatoCorrente === index) ? 'selected' : '';
 
-                let q1 = m.quota1 || m.q1 || m.odd1 || m.odds1 || m.home_odds || m.home_odd || 1.83;
-                let q2 = m.quota2 || m.q2 || m.odd2 || m.odds2 || m.away_odds || m.away_odd || 1.83;
+                let q1 = m.quota1 || m.q1 || m.odd1 || m.odds1 || 1.83;
+                let q2 = m.quota2 || m.q2 || m.odd2 || m.odds2 || 1.83;
 
                 q1 = !isNaN(parseFloat(q1)) ? parseFloat(q1).toFixed(2) : "1.83";
                 q2 = !isNaN(parseFloat(q2)) ? parseFloat(q2).toFixed(2) : "1.83";
@@ -270,7 +280,7 @@
             indiceSelezionatoCorrente = index;
             matchSelezionato = listaMatchCache[index];
             setSelezionato = 1;
-            storicoStepCorrenti = []; // Azzera le perdite precedenti per il nuovo match
+            storicoStepCorrenti = []; 
             
             let nomeMatch = matchSelezionato.giocatori || matchSelezionato.match || matchSelezionato.titolo || "Match TT Cup";
             document.getElementById('selected-match-title').innerText = nomeMatch;
@@ -279,6 +289,7 @@
             let q1Val = matchSelezionato.quota1 || matchSelezionato.q1 || matchSelezionato.odd1 || 1.83;
             document.getElementById('input-quota').value = parseFloat(q1Val).toFixed(2);
             document.getElementById('input-stake').value = puntataBase.toFixed(2);
+            document.getElementById('input-punteggio').value = "";
 
             aggiornaUIStatoSet();
             mostraPalinsesto(listaMatchCache);
@@ -302,10 +313,8 @@
             const quota = parseFloat(document.getElementById('input-quota').value) || 1.83;
             let stake = parseFloat(document.getElementById('input-stake').value) || 5.00;
 
-            // Calcolo automatico della puntata per recuperare gli step precedenti se siamo allo step 2 o 3
             if (setSelezionato > 1) {
                 let totalePersoPrecedente = storicoStepCorrenti.reduce((acc, curr) => acc + curr, 0);
-                // Formula recupero: (Perdita Totale + Utile desiderato della base) / (Quota - 1)
                 let utileBaseDesiderato = puntataBase * (quota - 1);
                 let puntataCalcolata = (totalePersoPrecedente + utileBaseDesiderato) / (quota - 1);
                 stake = Math.max(puntataCalcolata, 0.50);
@@ -316,9 +325,27 @@
             document.getElementById('calc-utile').innerText = (utileNetto >= 0 ? "+" : "") + utileNetto.toFixed(2) + " €";
         }
 
-        function registraScommessa(esito) {
+        function registraConPunteggio() {
             if (!matchSelezionato) return;
             
+            let pStr = document.getElementById('input-punteggio').value.trim();
+            if (!pStr.includes('-')) {
+                alert("Inserisci un punteggio valido nel formato es. 11-8");
+                return;
+            }
+
+            let parti = pStr.split('-');
+            let p1 = parseInt(parti[0].trim());
+            let p2 = parseInt(parti[1].trim());
+
+            if (isNaN(p1) || isNaN(p2)) {
+                alert("Formato punteggio non valido. Usa ad esempio 11-8");
+                return;
+            }
+
+            let sommaPunti = p1 + p2;
+            let esito = sommaPunti > 18 ? 'VINTA' : 'PERSA';
+
             let nomeMatch = matchSelezionato.giocatori || matchSelezionato.match || matchSelezionato.titolo || "Match TT Cup";
             const quota = parseFloat(document.getElementById('input-quota').value);
             const stake = parseFloat(document.getElementById('input-stake').value);
@@ -331,7 +358,8 @@
                 orario: ora,
                 match: nomeMatch,
                 setNum: setSelezionato,
-                dettaglio: `Step ${setSelezionato} (Set ${setSelezionato})`,
+                punteggio: pStr,
+                somma: sommaPunti,
                 quota: quota.toFixed(2),
                 stake: stake,
                 esito: esito
@@ -344,19 +372,19 @@
             aggiornaTutto();
 
             if (esito === 'PERSA') {
-                storicoStepCorrenti.push(stake); // Registra la perdita per calcolare il prossimo step
+                storicoStepCorrenti.push(stake); 
                 if (setSelezionato < 3) {
-                    setSelezionato++; // Passa allo step successivo
+                    setSelezionato++; 
                     aggiornaUIStatoSet();
+                    document.getElementById('input-punteggio').value = "";
                     ricalcolaMM();
                     document.getElementById('active-match-panel').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 } else {
-                    // Fine dei 3 step (persi tutti e 3)
-                    alert("⚠️ Raggiunto il limite di 3 Step per questo match.");
+                    alert("⚠️ Set chiuso Under (Somma: " + sommaPunti + "). Raggiunto il limite di 3 Step.");
                     chiudiPannelloMatch();
                 }
             } else {
-                // VINTA: chiude il match con successo
+                alert("🎉 Set Over 18 superato! Somma punti: " + sommaPunti + " (Vinta)");
                 chiudiPannelloMatch();
             }
         }
@@ -368,6 +396,12 @@
             storicoStepCorrenti = [];
             setSelezionato = 1;
             mostraPalinsesto(listaMatchCache);
+        }
+
+        function salvaCassaIniziale() {
+            let cassaIniziale = parseFloat(document.getElementById('input-cassa-iniziale').value) || 100.00;
+            localStorage.setItem('quantum_cassa_iniziale', cassaIniziale);
+            aggiornaStatistiche();
         }
 
         function eliminaGiocata(id) {
@@ -399,50 +433,104 @@
         function aggiornaTutto() {
             aggiornaCalendarioUI();
             aggiornaStatistiche();
+            renderDatabaseGiocatori();
         }
 
         function aggiornaStatistiche() {
             let storico = JSON.parse(localStorage.getItem('quantum_storico_calendario')) || [];
+            let cassaIniziale = parseFloat(localStorage.getItem('quantum_cassa_iniziale')) || 100.00;
+            document.getElementById('input-cassa-iniziale').value = cassaIniziale.toFixed(2);
+
             let tot = storico.length;
             if (tot === 0) {
                 document.getElementById('stat-winrate').innerText = "0.0%";
-                document.getElementById('stat-streak').innerText = "-";
-                document.getElementById('stat-tot').innerText = "0";
-                document.getElementById('stat-set1').innerText = "0 / 0";
-                document.getElementById('stat-set2').innerText = "0 / 0";
-                document.getElementById('stat-set3').innerText = "0 / 0";
+                document.getElementById('stat-profitto').innerText = "+0.00 €";
+                document.getElementById('stat-roi').innerText = "0.0%";
+                document.getElementById('stat-cassa-attuale').innerText = cassaIniziale.toFixed(2) + " €";
                 return;
             }
 
             let vinte = storico.filter(i => i.esito === 'VINTA').length;
             let winrate = (vinte / tot) * 100;
             document.getElementById('stat-winrate').innerText = winrate.toFixed(1) + "%";
-            document.getElementById('stat-tot').innerText = tot;
 
-            ['1', '2', '3'].forEach(s => {
-                let sItems = storico.filter(i => String(i.setNum) === s);
-                let sVinte = sItems.filter(i => i.esito === 'VINTA').length;
-                let sPerse = sItems.filter(i => i.esito === 'PERSA').length;
-                const el = document.getElementById(`stat-set${s}`);
-                if(el) el.innerText = `${sVinte} / ${sPerse}`;
+            let profittoTotale = 0;
+            let spesaTotale = 0;
+            storico.forEach(i => {
+                let q = parseFloat(i.quota);
+                let s = parseFloat(i.stake);
+                spesaTotale += s;
+                if (i.esito === 'VINTA') {
+                    profittoTotale += (q * s) - s;
+                } else {
+                    profittoTotale -= s;
+                }
             });
 
-            let streakCount = 0;
-            let streakType = '';
-            if (storico.length > 0) {
-                streakType = storico[0].esito;
-                for (let item of storico) {
-                    if (item.esito === streakType) {
-                        streakCount++;
-                    } else {
-                        break;
-                    }
-                }
-            }
-            document.getElementById('stat-streak').innerText = `${streakCount} ${streakType === 'VINTA' ? 'W' : 'L'}`;
+            let cassaAttuale = cassaIniziale + profittoTotale;
+            let roi = spesaTotale > 0 ? (profittoTotale / spesaTotale) * 100 : 0;
+
+            document.getElementById('stat-profitto').innerText = (profittoTotale >= 0 ? "+" : "") + profittoTotale.toFixed(2) + " €";
+            document.getElementById('stat-profitto').className = "stat-value " + (profittoTotale >= 0 ? "profit-positive" : "profit-negative");
+            
+            document.getElementById('stat-roi').innerText = (roi >= 0 ? "+" : "") + roi.toFixed(1) + "%";
+            document.getElementById('stat-cassa-attuale').innerText = cassaAttuale.toFixed(2) + " €";
         }
 
-            function aggiornaCalendarioUI() {
+        function renderDatabaseGiocatori() {
+            let storico = JSON.parse(localStorage.getItem('quantum_storico_calendario')) || [];
+            let filtro = document.getElementById('filtro-db-giocatore').value.toLowerCase();
+            let container = document.getElementById('db-giocatori-container');
+
+            if (storico.length === 0) {
+                container.innerHTML = `<div class="empty-text">Nessun dato registrato.</div>`;
+                return;
+            }
+
+            let giocatoriStats = {};
+            storico.forEach(i => {
+                let nome = i.match;
+                if (!giocatoriStats[nome]) {
+                    giocatoriStats[nome] = { giocate: 0, vinte: 0, set1: 0, set2: 0, set3: 0, punteggi: [] };
+                }
+                giocatoriStats[nome].giocate++;
+                if (i.punteggio) giocatoriStats[nome].punteggi.push(`Set ${i.setNum}: ${i.punteggio}`);
+                
+                if (i.esito === 'VINTA') {
+                    giocatoriStats[nome].vinte++;
+                    if (i.setNum === 1) giocatoriStats[nome].set1++;
+                    if (i.setNum === 2) giocatoriStats[nome].set2++;
+                    if (i.setNum === 3) giocatoriStats[nome].set3++;
+                }
+            });
+
+            let html = '';
+            for (let g in giocatoriStats) {
+                if (filtro && !g.toLowerCase().includes(filtro)) continue;
+                let stat = giocatoriStats[g];
+                let wr = ((stat.vinte / stat.giocate) * 100).toFixed(0);
+
+                html += `
+                    <div class="player-stat-card">
+                        <div class="player-stat-header">
+                            <span>⚔️ ${g}</span>
+                            <span>Win Rate: ${wr}% (${stat.vinte}/${stat.giocate})</span>
+                        </div>
+                        <div style="color: var(--text-muted); margin-bottom: 4px;">
+                            Over 18 per Set: 
+                            <span style="color: var(--success);">1° Set (${stat.set1})</span> | 
+                            <span style="color: var(--info);">2° Set (${stat.set2})</span> | 
+                            <span style="color: var(--accent);">3° Set (${stat.set3})</span>
+                        </div>
+                        <div style="color: #64748b; font-size: 0.7rem;">Ultimi score: ${stat.punteggi.slice(-3).join(' | ')}</div>
+                    </div>
+                `;
+            }
+
+            container.innerHTML = html || `<div class="empty-text">Nessun giocatore trovato con questo nome.</div>`;
+        }
+
+        function aggiornaCalendarioUI() {
             let storico = JSON.parse(localStorage.getItem('quantum_storico_calendario')) || [];
             let filtro = document.getElementById('filtro-giocatore').value.toLowerCase();
             
@@ -487,7 +575,8 @@
                                 <tr>
                                     <th>Ora</th>
                                     <th>Match</th>
-                                    <th>Step</th>
+                                    <th>Set</th>
+                                    <th>Score</th>
                                     <th>Q.</th>
                                     <th>P.</th>
                                     <th>Esito</th>
@@ -502,8 +591,9 @@
                     html += `
                         <tr>
                             <td>${item.orario}</td>
-                            <td style="font-weight: bold; max-width: 140px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${item.match}">${item.match}</td>
-                            <td>Step ${item.setNum || 1}</td>
+                            <td style="font-weight: bold; max-width: 120px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${item.match}">${item.match}</td>
+                            <td>Set ${item.setNum || 1}</td>
+                            <td style="color: var(--accent); font-weight: bold;">${item.punteggio || '-'}</td>
                             <td>${item.quota}</td>
                             <td>${item.stake}€</td>
                             <td><span class="${badgeClass}">${item.esito}</span></td>
