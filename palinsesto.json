@@ -1,135 +1,79 @@
 [
   {
-    "orario": "16:40",
-    "giocatori": "Daniel Vitasek - Lukas Dzida",
-    "quota1": "1.78",
-    "quota2": "1.95",
+    "orario": "08:20",
+    "giocatori": "Jan Benak - Jan Kocab",
+    "quota1": "2.01",
+    "quota2": "1.71",
     "set": 1
   },
   {
-    "orario": "16:45",
-    "giocatori": "David Stusek - Borek Moravec",
-    "quota1": "1.90",
-    "quota2": "1.79",
+    "orario": "09:20",
+    "giocatori": "Jan Benak - Adam Kosacky",
+    "quota1": "1.79",
+    "quota2": "1.91",
     "set": 1
   },
   {
-    "orario": "16:50",
-    "giocatori": "Simon Holik - Lukas Dominik Rek",
-    "quota1": "1.83",
-    "quota2": "1.85",
-    "set": 1
-  },
-  {
-    "orario": "17:10",
-    "giocatori": "Jakub Volny - Ales Cizek",
-    "quota1": "1.98",
-    "quota2": "1.73",
-    "set": 1
-  },
-  {
-    "orario": "17:15",
-    "giocatori": "Frantisek Chaloupka - Jan Gembala",
+    "orario": "10:15",
+    "giocatori": "Erik Precek - Radek Benes",
     "quota1": "1.97",
-    "quota2": "1.75",
+    "quota2": "1.74",
     "set": 1
   },
   {
-    "orario": "17:30",
-    "giocatori": "Piotr Odelski - Bartosz Bilski",
+    "orario": "11:40",
+    "giocatori": "Bruno Mrowetz - Lukas Dzida",
     "quota1": "1.73",
-    "quota2": "2.00",
+    "quota2": "1.98",
     "set": 1
   },
   {
-    "orario": "17:35",
-    "giocatori": "Jan Ruzicka - Tomas Beran 2000",
-    "quota1": "1.85",
-    "quota2": "1.88",
-    "set": 1
-  },
-  {
-    "orario": "17:40",
-    "giocatori": "Daniel Vitasek - Ales Cizek",
-    "quota1": "1.82",
-    "quota2": "1.88",
-    "set": 1
-  },
-  {
-    "orario": "17:50",
-    "giocatori": "Frantisek Dvorak - Simon Holik",
-    "quota1": "1.93",
-    "quota2": "1.77",
-    "set": 1
-  },
-  {
-    "orario": "18:20",
-    "giocatori": "Jan Osmera - Simon Holik",
+    "orario": "11:45",
+    "giocatori": "Tomas Krenek - Jan Skvrna",
     "quota1": "1.90",
-    "quota2": "1.81",
+    "quota2": "1.80",
     "set": 1
   },
   {
-    "orario": "18:30",
-    "giocatori": "Lukasz Buklat - Krzysztof Zapala",
-    "quota1": "1.92",
-    "quota2": "1.78",
-    "set": 1
-  },
-  {
-    "orario": "18:55",
-    "giocatori": "Filip Strejc - Tomas Flicek",
+    "orario": "12:15",
+    "giocatori": "Jan Krupnik - Radek Benes",
     "quota1": "1.83",
     "quota2": "1.86",
     "set": 1
   },
   {
-    "orario": "19:00",
-    "giocatori": "Karol Guzy - Piotr Odelski",
-    "quota1": "1.92",
-    "quota2": "1.82",
+    "orario": "13:10",
+    "giocatori": "Lukas Dzida - Erik Precek",
+    "quota1": "1.81",
+    "quota2": "1.88",
     "set": 1
   },
   {
-    "orario": "19:25",
-    "giocatori": "Ondrej Kadavy - Tomas Vorisek",
-    "quota1": "1.96",
-    "quota2": "1.75",
+    "orario": "13:40",
+    "giocatori": "Bruno Mrowetz - Erik Precek",
+    "quota1": "1.78",
+    "quota2": "1.93",
     "set": 1
   },
   {
-    "orario": "19:40",
-    "giocatori": "Adam Kanak - Ivan Heuman",
+    "orario": "13:45",
+    "giocatori": "Tomas Krenek - Jan Krupnik",
+    "quota1": "1.75",
+    "quota2": "1.97",
+    "set": 1
+  },
+  {
+    "orario": "14:15",
+    "giocatori": "Radek Benes - Jan Skvrna",
     "quota1": "1.90",
     "quota2": "1.80",
     "set": 1
   },
   {
-    "orario": "20:40",
-    "giocatori": "Adam Kanak - Daniel Vitasek",
-    "quota1": "1.83",
-    "quota2": "1.85",
-    "set": 1
-  },
-  {
-    "orario": "20:45",
-    "giocatori": "Tomas Ogrocki - Daniel Branny",
-    "quota1": "1.89",
-    "quota2": "1.80",
-    "set": 1
-  },
-  {
-    "orario": "21:45",
-    "giocatori": "Tomas Ogrocki - Filip Theodor",
-    "quota1": "1.95",
-    "quota2": "1.75",
-    "set": 1
-  },
-  {
-    "orario": "22:10",
-    "giocatori": "Daniel Vitasek - Ivan Heuman",
-    "quota1": "1.81",
-    "quota2": "1.90",
+    "orario": "14:55",
+    "giocatori": "Martin Filipek - Adam Kral",
+    "quota1": "1.72",
+    "quota2": "2.00",
     "set": 1
   }
 ]
