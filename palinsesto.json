@@ -1,149 +1,93 @@
 [
   {
-    "orario": "16:45",
-    "giocatori": "Kamil Przeczek - Peter Chvojka",
-    "quota1": "1.77",
-    "quota2": "1.94",
-    "set": 1
-  },
-  {
-    "orario": "16:55",
-    "giocatori": "Adam Martin Rek - David Sochor",
-    "quota1": "1.77",
-    "quota2": "1.94",
-    "set": 1
-  },
-  {
-    "orario": "17:10",
-    "giocatori": "Ales Drozd - Karel Baros",
-    "quota1": "1.88",
-    "quota2": "1.82",
-    "set": 1
-  },
-  {
-    "orario": "17:25",
-    "giocatori": "Miroslav Sochor - Martin Sulc",
-    "quota1": "1.98",
-    "quota2": "1.74",
-    "set": 1
-  },
-  {
-    "orario": "17:30",
-    "giocatori": "Mateusz Szymanski - Karol Guzy",
-    "quota1": "1.81",
-    "quota2": "1.87",
-    "set": 1
-  },
-  {
-    "orario": "17:40",
-    "giocatori": "Ondrej Coufal - Karel Baros",
-    "quota1": "1.80",
-    "quota2": "1.89",
-    "set": 1
-  },
-  {
-    "orario": "18:05",
-    "giocatori": "Richard Vavricka - Martin Chmelicek",
-    "quota1": "1.73",
-    "quota2": "1.97",
-    "set": 1
-  },
-  {
-    "orario": "18:10",
-    "giocatori": "Tomas Ogrocki - Ales Drozd",
-    "quota1": "1.85",
-    "quota2": "1.83",
-    "set": 1
-  },
-  {
-    "orario": "18:25",
-    "giocatori": "David Sochor - Miroslav Sochor",
-    "quota1": "1.90",
-    "quota2": "1.81",
-    "set": 1
-  },
-  {
-    "orario": "18:30",
-    "giocatori": "Krzysztof Zapala - Damian Bucko",
-    "quota1": "1.83",
-    "quota2": "1.90",
-    "set": 1
-  },
-  {
-    "orario": "18:35",
-    "giocatori": "Ondrej Pros - Simon Mezlik",
-    "quota1": "1.75",
-    "quota2": "1.98",
-    "set": 1
-  },
-  {
-    "orario": "18:50",
-    "giocatori": "Jan Fiala - Tomas Hnizdil",
-    "quota1": "1.87",
-    "quota2": "1.82",
-    "set": 1
-  },
-  {
-    "orario": "19:40",
-    "giocatori": "Kamil Kleprlik - Ales Cizek",
-    "quota1": "1.80",
-    "quota2": "1.89",
-    "set": 1
-  },
-  {
-    "orario": "19:45",
-    "giocatori": "Jiri Vanous - Ivan Jemelka",
-    "quota1": "1.86",
-    "quota2": "1.83",
-    "set": 1
-  },
-  {
-    "orario": "20:20",
-    "giocatori": "Filip Strejc - Martin Stusek",
-    "quota1": "1.89",
-    "quota2": "1.81",
-    "set": 1
-  },
-  {
-    "orario": "20:40",
-    "giocatori": "Kamil Kleprlik - Ivan Heuman",
-    "quota1": "1.91",
-    "quota2": "1.81",
-    "set": 1
-  },
-  {
-    "orario": "21:10",
-    "giocatori": "Ales Cizek - Jakub Travnicek",
-    "quota1": "1.93",
-    "quota2": "1.77",
-    "set": 1
-  },
-  {
-    "orario": "21:35",
-    "giocatori": "Jan Vidourek - Martin Chmelicek",
+    "orario": "07:40",
+    "giocatori": "Tomas Ogrocki - Adam Strelec",
     "quota1": "1.79",
     "quota2": "1.90",
     "set": 1
   },
   {
-    "orario": "22:10",
-    "giocatori": "Ivan Heuman - Ales Cizek",
-    "quota1": "1.85",
-    "quota2": "1.83",
+    "orario": "08:10",
+    "giocatori": "Ondrej Kus - Vladislav Reska",
+    "quota1": "1.99",
+    "quota2": "1.71",
     "set": 1
   },
   {
-    "orario": "22:35",
-    "giocatori": "Simon Mezlik - Jan Vidourek",
+    "orario": "09:35",
+    "giocatori": "Karel Filip - Jan Rambousek",
+    "quota1": "1.90",
+    "quota2": "1.80",
+    "set": 1
+  },
+  {
+    "orario": "09:40",
+    "giocatori": "Tomas Ogrocki - Ondrej Kus",
     "quota1": "2.01",
     "quota2": "1.72",
     "set": 1
   },
   {
-    "orario": "22:50",
-    "giocatori": "Tomas Vorisek - Martin Stusek",
-    "quota1": "1.83",
+    "orario": "09:45",
+    "giocatori": "David Stusek - Anton Veliiev",
+    "quota1": "1.84",
     "quota2": "1.85",
+    "set": 1
+  },
+  {
+    "orario": "10:15",
+    "giocatori": "Adam Kanak - Bruno Mrowetz",
+    "quota1": "1.93",
+    "quota2": "1.77",
+    "set": 1
+  },
+  {
+    "orario": "11:25",
+    "giocatori": "David Vesecky - Vaclav Nadvornik",
+    "quota1": "1.84",
+    "quota2": "1.85",
+    "set": 1
+  },
+  {
+    "orario": "11:40",
+    "giocatori": "Jiri Matus - Lukas Stempak",
+    "quota1": "1.91",
+    "quota2": "1.80",
+    "set": 1
+  },
+  {
+    "orario": "11:45",
+    "giocatori": "Jiri Skalicky - Frantisek Chaloupka",
+    "quota1": "1.87",
+    "quota2": "1.82",
+    "set": 1
+  },
+  {
+    "orario": "12:45",
+    "giocatori": "Jiri Skalicky - Bruno Mrowetz",
+    "quota1": "1.77",
+    "quota2": "1.95",
+    "set": 1
+  },
+  {
+    "orario": "13:05",
+    "giocatori": "Dominik Lengal - Jan Rambousek",
+    "quota1": "1.81",
+    "quota2": "1.90",
+    "set": 1
+  },
+  {
+    "orario": "13:25",
+    "giocatori": "Simon Holik - Petr Vodal",
+    "quota1": "1.76",
+    "quota2": "1.96",
+    "set": 1
+  },
+  {
+    "orario": "13:55",
+    "giocatori": "Ondrej Knazik - Petr Vodal",
+    "quota1": "1.84",
+    "quota2": "1.86",
     "set": 1
   }
 ]
