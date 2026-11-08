@@ -1,114 +1,114 @@
 [
   {
-    "orario": "16:05",
-    "giocatori": "Tomas Palan - Radek Neterda",
-    "quota1": "1.80",
-    "quota2": "1.91",
-    "set": 1
-  },
-  {
-    "orario": "16:55",
-    "giocatori": "Ondrej Varecka - Jonas Kulveit",
-    "quota1": "1.78",
-    "quota2": "1.92",
-    "set": 1
-  },
-  {
-    "orario": "17:05",
-    "giocatori": "Mateusz Szymanski - Karol Guzy",
-    "quota1": "1.87",
-    "quota2": "1.83",
-    "set": 1
-  },
-  {
-    "orario": "17:05",
-    "giocatori": "Tomas Palan - Jan Ruzicka",
-    "quota1": "1.76",
-    "quota2": "1.96",
-    "set": 1
-  },
-  {
-    "orario": "18:05",
-    "giocatori": "Mateusz Szymanski - Adam Duch",
-    "quota1": "1.96",
-    "quota2": "1.75",
-    "set": 1
-  },
-  {
-    "orario": "18:05",
-    "giocatori": "Tomas Palan - Matej Holub",
-    "quota1": "1.78",
-    "quota2": "1.93",
-    "set": 1
-  },
-  {
-    "orario": "20:15",
-    "giocatori": "Jakub Travnicek - Ivan Heuman",
-    "quota1": "1.74",
-    "quota2": "1.98",
-    "set": 1
-  },
-  {
-    "orario": "20:35",
-    "giocatori": "Richard Vavricka - Jakub Horky",
-    "quota1": "1.76",
-    "quota2": "1.96",
-    "set": 1
-  },
-  {
-    "orario": "20:40",
-    "giocatori": "Jiri Vanous - Ivan Jemelka",
-    "quota1": "1.75",
-    "quota2": "1.96",
-    "set": 1
-  },
-  {
-    "orario": "20:45",
-    "giocatori": "Tomas Molin - Ivan Heuman",
-    "quota1": "1.77",
-    "quota2": "1.95",
-    "set": 1
-  },
-  {
-    "orario": "21:15",
-    "giocatori": "Daniel Vitasek - Jakub Travnicek",
-    "quota1": "1.77",
-    "quota2": "1.93",
-    "set": 1
-  },
-  {
-    "orario": "21:35",
-    "giocatori": "Tomas Motacek - Richard Vavricka",
-    "quota1": "1.98",
+    "orario": "08:05",
+    "giocatori": "Lukasz Buklat - Piotr Odelski",
+    "quota1": "1.99",
     "quota2": "1.73",
     "set": 1
   },
   {
-    "orario": "21:45",
-    "giocatori": "Tomas Molin - Jakub Travnicek",
-    "quota1": "1.94",
-    "quota2": "1.78",
+    "orario": "08:10",
+    "giocatori": "Erik Precek - Jiri Palat",
+    "quota1": "1.73",
+    "quota2": "2.00",
     "set": 1
   },
   {
-    "orario": "22:05",
-    "giocatori": "Milan Flesar - Richard Vavricka",
-    "quota1": "1.87",
-    "quota2": "1.85",
+    "orario": "08:20",
+    "giocatori": "Adam Kral - Jakub Dvorak",
+    "quota1": "1.92",
+    "quota2": "1.77",
     "set": 1
   },
   {
-    "orario": "22:15",
-    "giocatori": "Daniel Vitasek - Ivan Heuman",
-    "quota1": "1.90",
+    "orario": "09:45",
+    "giocatori": "Kamil Kleprlik - Frantisek Chaloupka",
+    "quota1": "1.96",
+    "quota2": "1.76",
+    "set": 1
+  },
+  {
+    "orario": "10:05",
+    "giocatori": "Simon Mezlik - Petr Pesout",
+    "quota1": "1.91",
+    "quota2": "1.82",
+    "set": 1
+  },
+  {
+    "orario": "10:10",
+    "giocatori": "Jiri Palat - Michal Raska",
+    "quota1": "1.73",
+    "quota2": "1.98",
+    "set": 1
+  },
+  {
+    "orario": "10:35",
+    "giocatori": "Vlastimil Kaisler - Miloslav Dvorak",
+    "quota1": "1.76",
+    "quota2": "1.96",
+    "set": 1
+  },
+  {
+    "orario": "11:40",
+    "giocatori": "Adam Kanak - Lukas Dzida",
+    "quota1": "1.88",
+    "quota2": "1.82",
+    "set": 1
+  },
+  {
+    "orario": "12:35",
+    "giocatori": "Matej Holub - Radek Neterda",
+    "quota1": "1.88",
     "quota2": "1.81",
     "set": 1
   },
   {
-    "orario": "22:35",
-    "giocatori": "Jakub Horky - Tomas Motacek",
-    "quota1": "1.78",
+    "orario": "12:40",
+    "giocatori": "Adam Kanak - Erik Precek",
+    "quota1": "1.99",
+    "quota2": "1.73",
+    "set": 1
+  },
+  {
+    "orario": "12:45",
+    "giocatori": "Michal Moravec - Tomas Grmela",
+    "quota1": "1.85",
+    "quota2": "1.85",
+    "set": 1
+  },
+  {
+    "orario": "13:05",
+    "giocatori": "Radek Fnukal - Radek Neterda",
+    "quota1": "1.79",
     "quota2": "1.92",
+    "set": 1
+  },
+  {
+    "orario": "13:10",
+    "giocatori": "Lukas Dzida - Jan Krupnik",
+    "quota1": "1.72",
+    "quota2": "2.01",
+    "set": 1
+  },
+  {
+    "orario": "13:40",
+    "giocatori": "Adam Kanak - Jan Krupnik",
+    "quota1": "1.92",
+    "quota2": "1.78",
+    "set": 1
+  },
+  {
+    "orario": "14:05",
+    "giocatori": "Radek Fnukal - Matej Holub",
+    "quota1": "1.85",
+    "quota2": "1.86",
+    "set": 1
+  },
+  {
+    "orario": "14:10",
+    "giocatori": "Erik Precek - Lukas Dzida",
+    "quota1": "1.83",
+    "quota2": "1.87",
     "set": 1
   }
 ]
