@@ -1,128 +1,107 @@
 [
   {
-    "orario": "16:05",
-    "giocatori": "Jan Rambousek - Martin Mastera",
-    "quota1": "1.72",
-    "quota2": "2.01",
-    "set": 1
-  },
-  {
-    "orario": "16:10",
-    "giocatori": "Lukas Dzida - Adam Kanak",
-    "quota1": "1.96",
-    "quota2": "1.75",
-    "set": 1
-  },
-  {
-    "orario": "16:45",
-    "giocatori": "Tomas Molin - Ales Cizek",
-    "quota1": "2.00",
-    "quota2": "1.73",
-    "set": 1
-  },
-  {
-    "orario": "17:05",
-    "giocatori": "Jan Rambousek - Karel Filip",
-    "quota1": "1.85",
-    "quota2": "1.85",
-    "set": 1
-  },
-  {
-    "orario": "17:10",
-    "giocatori": "Daniel Vitasek - Lukas Dzida",
-    "quota1": "2.01",
-    "quota2": "1.72",
-    "set": 1
-  },
-  {
-    "orario": "17:45",
-    "giocatori": "Tomas Molin - David Skulina",
-    "quota1": "2.00",
-    "quota2": "1.72",
-    "set": 1
-  },
-  {
-    "orario": "17:50",
-    "giocatori": "Jaroslav Dohnal - Jean-Baptiste Cousin",
-    "quota1": "1.73",
-    "quota2": "1.99",
-    "set": 1
-  },
-  {
-    "orario": "18:05",
-    "giocatori": "Jan Masternak - Sylwester Wloszek",
-    "quota1": "1.98",
+    "orario": "08:10",
+    "giocatori": "Erik Precek - Radek Benes",
+    "quota1": "1.97",
     "quota2": "1.74",
     "set": 1
   },
   {
-    "orario": "18:10",
-    "giocatori": "Adam Kanak - Daniel Vitasek",
-    "quota1": "1.89",
-    "quota2": "1.80",
+    "orario": "08:15",
+    "giocatori": "Tomas Kindl - Michal Raska",
+    "quota1": "1.71",
+    "quota2": "1.99",
     "set": 1
   },
   {
-    "orario": "18:20",
-    "giocatori": "Petr Vodal - Jean-Baptiste Cousin",
+    "orario": "08:40",
+    "giocatori": "Anton Veliiev - Radek Benes",
     "quota1": "1.88",
     "quota2": "1.83",
     "set": 1
   },
   {
-    "orario": "18:35",
-    "giocatori": "Karel Filip - Martin Mastera",
-    "quota1": "1.82",
-    "quota2": "1.87",
-    "set": 1
-  },
-  {
-    "orario": "18:50",
-    "giocatori": "Simon Holik - Jaroslav Dohnal",
-    "quota1": "1.84",
-    "quota2": "1.85",
-    "set": 1
-  },
-  {
-    "orario": "18:55",
-    "giocatori": "Jonas Kulveit - Jiri Melichar",
-    "quota1": "1.85",
-    "quota2": "1.84",
-    "set": 1
-  },
-  {
-    "orario": "19:25",
-    "giocatori": "Dominik Pasek - Zdenek Zahradka",
-    "quota1": "2.00",
-    "quota2": "1.71",
-    "set": 1
-  },
-  {
-    "orario": "20:15",
-    "giocatori": "Dalibor Velky Jnr - Daniel Vitasek",
-    "quota1": "1.74",
-    "quota2": "1.98",
-    "set": 1
-  },
-  {
-    "orario": "21:10",
-    "giocatori": "Jan Oleksik - Lukas Krupnik Jnr",
+    "orario": "09:10",
+    "giocatori": "Ivan Heuman - Erik Precek",
     "quota1": "2.01",
     "quota2": "1.72",
     "set": 1
   },
   {
-    "orario": "21:20",
-    "giocatori": "Lukas Vich - Petr Kubat",
-    "quota1": "1.74",
-    "quota2": "1.98",
+    "orario": "09:40",
+    "giocatori": "Anton Veliiev - Erik Precek",
+    "quota1": "1.79",
+    "quota2": "1.92",
     "set": 1
   },
   {
-    "orario": "22:15",
-    "giocatori": "Daniel Vitasek - Patrik Marsalek",
-    "quota1": "1.81",
+    "orario": "10:15",
+    "giocatori": "Michal Raska - Laurent Lasota",
+    "quota1": "1.78",
+    "quota2": "1.92",
+    "set": 1
+  },
+  {
+    "orario": "11:25",
+    "giocatori": "Martin Cerny - Vaclav Nadvornik",
+    "quota1": "1.80",
+    "quota2": "1.89",
+    "set": 1
+  },
+  {
+    "orario": "12:45",
+    "giocatori": "Lukas Dzida - Tomas Kindl",
+    "quota1": "1.73",
+    "quota2": "1.99",
+    "set": 1
+  },
+  {
+    "orario": "12:50",
+    "giocatori": "David Sochor - Jan Vonasek",
+    "quota1": "1.95",
+    "quota2": "1.77",
+    "set": 1
+  },
+  {
+    "orario": "12:55",
+    "giocatori": "David Vesecky - Maksim Ovcharenko",
+    "quota1": "1.94",
+    "quota2": "1.77",
+    "set": 1
+  },
+  {
+    "orario": "13:10",
+    "giocatori": "Radek Benes - Anton Veliiev",
+    "quota1": "1.82",
     "quota2": "1.88",
+    "set": 1
+  },
+  {
+    "orario": "13:45",
+    "giocatori": "Lukas Dzida - Jan Krupnik",
+    "quota1": "1.95",
+    "quota2": "1.76",
+    "set": 1
+  },
+  {
+    "orario": "13:50",
+    "giocatori": "Ondrej Fiklik - David Sochor",
+    "quota1": "1.82",
+    "quota2": "1.87",
+    "set": 1
+  },
+  {
+    "orario": "14:20",
+    "giocatori": "Vaclav Hejda Jr - David Sochor",
+    "quota1": "1.97",
+    "quota2": "1.75",
+    "set": 1
+  },
+  {
+    "orario": "15:25",
+    "giocatori": "Martin Cerny - Maksim Ovcharenko",
+    "quota1": "1.73",
+    "quota2": "1.99",
     "set": 1
   }
 ]
