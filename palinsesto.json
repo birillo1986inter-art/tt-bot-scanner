@@ -1,107 +1,114 @@
 [
   {
-    "orario": "08:10",
-    "giocatori": "Erik Precek - Radek Benes",
-    "quota1": "1.97",
+    "orario": "16:30",
+    "giocatori": "Maksim Ovcharenko - David Bochnak",
+    "quota1": "1.99",
     "quota2": "1.74",
     "set": 1
   },
   {
-    "orario": "08:15",
-    "giocatori": "Tomas Kindl - Michal Raska",
-    "quota1": "1.71",
-    "quota2": "1.99",
-    "set": 1
-  },
-  {
-    "orario": "08:40",
-    "giocatori": "Anton Veliiev - Radek Benes",
-    "quota1": "1.88",
-    "quota2": "1.83",
-    "set": 1
-  },
-  {
-    "orario": "09:10",
-    "giocatori": "Ivan Heuman - Erik Precek",
-    "quota1": "2.01",
-    "quota2": "1.72",
-    "set": 1
-  },
-  {
-    "orario": "09:40",
-    "giocatori": "Anton Veliiev - Erik Precek",
-    "quota1": "1.79",
-    "quota2": "1.92",
-    "set": 1
-  },
-  {
-    "orario": "10:15",
-    "giocatori": "Michal Raska - Laurent Lasota",
-    "quota1": "1.78",
-    "quota2": "1.92",
-    "set": 1
-  },
-  {
-    "orario": "11:25",
-    "giocatori": "Martin Cerny - Vaclav Nadvornik",
-    "quota1": "1.80",
-    "quota2": "1.89",
-    "set": 1
-  },
-  {
-    "orario": "12:45",
-    "giocatori": "Lukas Dzida - Tomas Kindl",
+    "orario": "16:55",
+    "giocatori": "Filip Strejc - Maksim Ovcharenko",
     "quota1": "1.73",
-    "quota2": "1.99",
+    "quota2": "2.01",
     "set": 1
   },
   {
-    "orario": "12:50",
-    "giocatori": "David Sochor - Jan Vonasek",
-    "quota1": "1.95",
+    "orario": "17:00",
+    "giocatori": "Kamil Kos - Patryk Kiejda",
+    "quota1": "1.89",
+    "quota2": "1.82",
+    "set": 1
+  },
+  {
+    "orario": "17:20",
+    "giocatori": "Zdenek Zahradka - Frantisek Balcar",
+    "quota1": "1.78",
+    "quota2": "1.94",
+    "set": 1
+  },
+  {
+    "orario": "17:30",
+    "giocatori": "Jakub Caban - Arkadiusz Wiekiera",
+    "quota1": "1.98",
+    "quota2": "1.73",
+    "set": 1
+  },
+  {
+    "orario": "18:15",
+    "giocatori": "Petr Vicherek - Filip Sikora",
+    "quota1": "1.93",
     "quota2": "1.77",
     "set": 1
   },
   {
-    "orario": "12:55",
-    "giocatori": "David Vesecky - Maksim Ovcharenko",
+    "orario": "18:30",
+    "giocatori": "Jakub Komorowicz - Rokita Gracjan",
+    "quota1": "1.78",
+    "quota2": "1.93",
+    "set": 1
+  },
+  {
+    "orario": "18:55",
+    "giocatori": "Filip Strejc - Martin Stusek",
     "quota1": "1.94",
     "quota2": "1.77",
     "set": 1
   },
   {
-    "orario": "13:10",
-    "giocatori": "Radek Benes - Anton Veliiev",
+    "orario": "20:35",
+    "giocatori": "Martin Chmelicek - Jan Vidourek",
+    "quota1": "1.90",
+    "quota2": "1.78",
+    "set": 1
+  },
+  {
+    "orario": "21:05",
+    "giocatori": "Martin Jirasek - Jan Vidourek",
+    "quota1": "1.75",
+    "quota2": "1.96",
+    "set": 1
+  },
+  {
+    "orario": "21:35",
+    "giocatori": "Simon Mezlik - Martin Chmelicek",
+    "quota1": "1.98",
+    "quota2": "1.75",
+    "set": 1
+  },
+  {
+    "orario": "21:40",
+    "giocatori": "Tomas Ogrocki - Ondrej Kus",
+    "quota1": "1.78",
+    "quota2": "1.93",
+    "set": 1
+  },
+  {
+    "orario": "22:25",
+    "giocatori": "Marek Dlask - Ondrej Sebek",
     "quota1": "1.82",
     "quota2": "1.88",
     "set": 1
   },
   {
-    "orario": "13:45",
-    "giocatori": "Lukas Dzida - Jan Krupnik",
-    "quota1": "1.95",
-    "quota2": "1.76",
+    "orario": "22:35",
+    "giocatori": "Jan Vidourek - Simon Mezlik",
+    "quota1": "1.77",
+    "quota2": "1.94",
     "set": 1
   },
   {
-    "orario": "13:50",
-    "giocatori": "Ondrej Fiklik - David Sochor",
-    "quota1": "1.82",
-    "quota2": "1.87",
+    "orario": "22:55",
+    "giocatori": "Tomas Krejci - Ondrej Sebek",
+    "quota1": "1.92",
+    "quota2": "1.79",
     "set": 1
   },
   {
-    "orario": "14:20",
-    "giocatori": "Vaclav Hejda Jr - David Sochor",
-    "quota1": "1.97",
-    "quota2": "1.75",
-    "set": 1
-  },
-  {
-    "orario": "15:25",
-    "giocatori": "Martin Cerny - Maksim Ovcharenko",
-    "quota1": "1.73",
-    "quota2": "1.99",
+    "orario": "23:25",
+    "giocatori": "Michal Nemec - Marek Dlask",
+    "quota1": "1.92",
+    "quota2": "1.78",
     "set": 1
   }
 ]
