@@ -1,149 +1,100 @@
 [
   {
-    "orario": "16:15",
-    "giocatori": "David Sarganek - Filip Sikora",
-    "quota1": "1.84",
-    "quota2": "1.86",
+    "orario": "08:00",
+    "giocatori": "Szymon Radlo - Dawid Stapor",
+    "quota1": "1.96",
+    "quota2": "1.73",
     "set": 1
   },
   {
-    "orario": "16:25",
-    "giocatori": "Frantisek Balcar - Martin Filipek",
-    "quota1": "1.73",
-    "quota2": "1.99",
+    "orario": "08:10",
+    "giocatori": "Ales Drozd - Patrik Jokiel",
+    "quota1": "1.79",
+    "quota2": "1.92",
     "set": 1
   },
   {
-    "orario": "16:40",
-    "giocatori": "Jakub Volny - Laurent Lasota",
-    "quota1": "1.91",
-    "quota2": "1.79",
+    "orario": "08:45",
+    "giocatori": "Patrik Sturma - Jiri Matus",
+    "quota1": "1.97",
+    "quota2": "1.74",
     "set": 1
   },
   {
-    "orario": "16:45",
-    "giocatori": "Petr Vicherek - Filip Sikora",
-    "quota1": "1.89",
+    "orario": "08:55",
+    "giocatori": "Petr Chlumsky - Ondrej Fiklik",
+    "quota1": "1.97",
+    "quota2": "1.74",
+    "set": 1
+  },
+  {
+    "orario": "09:15",
+    "giocatori": "Radek Zajac - Lukas Krupnik Snr",
+    "quota1": "1.85",
     "quota2": "1.82",
     "set": 1
   },
   {
-    "orario": "16:50",
-    "giocatori": "Martin Dvorak - Michal Cesak",
-    "quota1": "1.74",
-    "quota2": "1.99",
-    "set": 1
-  },
-  {
-    "orario": "17:15",
-    "giocatori": "Marek Zaskodny - David Sarganek",
-    "quota1": "1.91",
-    "quota2": "1.78",
-    "set": 1
-  },
-  {
-    "orario": "18:25",
-    "giocatori": "Jiri Volek - Miroslav Sochor",
-    "quota1": "1.80",
-    "quota2": "1.91",
-    "set": 1
-  },
-  {
-    "orario": "19:25",
-    "giocatori": "Petr Moravec - Jiri Volek",
-    "quota1": "1.84",
-    "quota2": "1.84",
-    "set": 1
-  },
-  {
-    "orario": "19:40",
-    "giocatori": "Daniel Branny - Jan Przybyla",
-    "quota1": "1.84",
-    "quota2": "1.84",
-    "set": 1
-  },
-  {
-    "orario": "19:45",
-    "giocatori": "Jakub Travnicek - Tomas Fojtik",
-    "quota1": "1.80",
-    "quota2": "1.90",
-    "set": 1
-  },
-  {
-    "orario": "20:15",
-    "giocatori": "Daniel Vitasek - Ales Cizek",
-    "quota1": "1.73",
-    "quota2": "2.00",
-    "set": 1
-  },
-  {
-    "orario": "20:45",
-    "giocatori": "Jakub Travnicek - Ales Cizek",
-    "quota1": "1.80",
-    "quota2": "1.90",
-    "set": 1
-  },
-  {
-    "orario": "20:50",
-    "giocatori": "Martin Boltik - Jean-Baptiste Cousin",
-    "quota1": "1.71",
-    "quota2": "2.00",
-    "set": 1
-  },
-  {
-    "orario": "21:10",
-    "giocatori": "Jan Przybyla - Tomas Ogrocki",
+    "orario": "09:45",
+    "giocatori": "Patrik Sturma - Lukas Krupnik Snr",
     "quota1": "1.77",
+    "quota2": "1.92",
+    "set": 1
+  },
+  {
+    "orario": "12:45",
+    "giocatori": "Daniel Vitasek - Jan Krupnik",
+    "quota1": "1.78",
     "quota2": "1.94",
     "set": 1
   },
   {
-    "orario": "21:15",
-    "giocatori": "Tomas Fojtik - Daniel Vitasek",
-    "quota1": "1.84",
-    "quota2": "1.84",
-    "set": 1
-  },
-  {
-    "orario": "21:40",
-    "giocatori": "Daniel Branny - Tomas Ogrocki",
-    "quota1": "1.84",
-    "quota2": "1.84",
-    "set": 1
-  },
-  {
-    "orario": "21:45",
-    "giocatori": "Jakub Travnicek - Daniel Vitasek",
-    "quota1": "1.90",
+    "orario": "13:10",
+    "giocatori": "Lukas Zustina - Patrik Jokiel",
+    "quota1": "1.91",
     "quota2": "1.80",
     "set": 1
   },
   {
-    "orario": "21:55",
-    "giocatori": "Ondrej Fiklik - Marek Kulisek",
+    "orario": "13:15",
+    "giocatori": "Radek Benes - Jan Skvrna",
+    "quota1": "1.96",
+    "quota2": "1.76",
+    "set": 1
+  },
+  {
+    "orario": "13:40",
+    "giocatori": "Jaroslav Sindler - Patrik Jokiel",
     "quota1": "2.00",
     "quota2": "1.72",
     "set": 1
   },
   {
-    "orario": "22:10",
-    "giocatori": "Ondrej Kus - Jan Przybyla",
-    "quota1": "1.81",
-    "quota2": "1.90",
+    "orario": "13:50",
+    "giocatori": "Ondrej Knazik - Jan Srnka",
+    "quota1": "1.79",
+    "quota2": "1.93",
     "set": 1
   },
   {
-    "orario": "22:15",
-    "giocatori": "Ales Cizek - Tomas Fojtik",
-    "quota1": "1.75",
-    "quota2": "1.97",
-    "set": 1
-  },
-  {
-    "orario": "22:55",
-    "giocatori": "Ondrej Fiklik - Martin Sulc",
-    "quota1": "1.84",
+    "orario": "14:10",
+    "giocatori": "Filip Mandrysz - Lukas Zustina",
+    "quota1": "1.87",
     "quota2": "1.84",
+    "set": 1
+  },
+  {
+    "orario": "14:15",
+    "giocatori": "Jan Krupnik - Radek Benes",
+    "quota1": "1.86",
+    "quota2": "1.85",
+    "set": 1
+  },
+  {
+    "orario": "14:25",
+    "giocatori": "David Sochor - Jan Vonasek",
+    "quota1": "1.90",
+    "quota2": "1.80",
     "set": 1
   }
 ]
