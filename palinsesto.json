@@ -1,149 +1,177 @@
 [
   {
-    "orario": "08:15",
-    "giocatori": "Ales Drozd - Adam Strelec",
-    "quota1": "1.83",
-    "quota2": "1.87",
-    "set": 1
-  },
-  {
-    "orario": "08:30",
-    "giocatori": "Szymon Radlo - Dawid Stapor",
-    "quota1": "1.88",
-    "quota2": "1.80",
-    "set": 1
-  },
-  {
-    "orario": "08:55",
-    "giocatori": "Vaclav Nadvornik - Martin Cerny",
-    "quota1": "1.82",
-    "quota2": "1.86",
-    "set": 1
-  },
-  {
-    "orario": "09:45",
-    "giocatori": "Petr Chlad - Ales Drozd",
-    "quota1": "1.91",
-    "quota2": "1.80",
-    "set": 1
-  },
-  {
-    "orario": "10:00",
-    "giocatori": "Szymon Radlo - Sylwester Wloszek",
-    "quota1": "1.78",
-    "quota2": "1.93",
-    "set": 1
-  },
-  {
-    "orario": "10:10",
-    "giocatori": "Dalibor Velky Jnr - Jan Krupnik",
-    "quota1": "1.77",
-    "quota2": "1.92",
-    "set": 1
-  },
-  {
-    "orario": "10:15",
-    "giocatori": "Adam Strelec - Lukas Zustina",
-    "quota1": "1.81",
-    "quota2": "1.89",
-    "set": 1
-  },
-  {
-    "orario": "10:25",
-    "giocatori": "Martin Cerny - David Vesecky",
+    "orario": "16:45",
+    "giocatori": "Karel Baros - Jan Przybyla",
     "quota1": "1.76",
     "quota2": "1.95",
     "set": 1
   },
   {
-    "orario": "10:30",
-    "giocatori": "Marcin Stepien - Dawid Stapor",
-    "quota1": "1.91",
-    "quota2": "1.78",
+    "orario": "16:55",
+    "giocatori": "Robert Jamrich - Matej Beran",
+    "quota1": "2.00",
+    "quota2": "1.73",
     "set": 1
   },
   {
-    "orario": "10:55",
-    "giocatori": "Vaclav Nadvornik - David Vesecky",
-    "quota1": "1.83",
-    "quota2": "1.85",
+    "orario": "17:05",
+    "giocatori": "Martin Mastera - Tomas Nevrtal",
+    "quota1": "1.81",
+    "quota2": "1.87",
     "set": 1
   },
   {
-    "orario": "11:40",
-    "giocatori": "Erik Precek - Bruno Mrowetz",
-    "quota1": "1.78",
-    "quota2": "1.95",
-    "set": 1
-  },
-  {
-    "orario": "12:35",
-    "giocatori": "Jan Ruzicka - Jan Lovl",
+    "orario": "17:15",
+    "giocatori": "Filip Theodor - Tomas Ogrocki",
     "quota1": "1.94",
-    "quota2": "1.78",
+    "quota2": "1.77",
     "set": 1
   },
   {
-    "orario": "12:55",
-    "giocatori": "Martin Filipek - Adam Kral",
-    "quota1": "1.80",
+    "orario": "17:25",
+    "giocatori": "Jan Hrncir - Petr Moravec",
+    "quota1": "1.86",
+    "quota2": "1.84",
+    "set": 1
+  },
+  {
+    "orario": "17:35",
+    "giocatori": "Tomas Trnka - Tomas Beran 2000",
+    "quota1": "1.83",
+    "quota2": "1.86",
+    "set": 1
+  },
+  {
+    "orario": "17:40",
+    "giocatori": "Patrik Sturma - Tadeas Slivka",
+    "quota1": "1.83",
+    "quota2": "1.86",
+    "set": 1
+  },
+  {
+    "orario": "17:50",
+    "giocatori": "Petr Vanek - Pavel Benes",
+    "quota1": "1.81",
+    "quota2": "1.88",
+    "set": 1
+  },
+  {
+    "orario": "18:05",
+    "giocatori": "Martin Mastera - Tomas Beran 2000",
+    "quota1": "1.81",
+    "quota2": "1.91",
+    "set": 1
+  },
+  {
+    "orario": "18:25",
+    "giocatori": "Matej Beran - Jan Hrncir",
+    "quota1": "1.95",
+    "quota2": "1.76",
+    "set": 1
+  },
+  {
+    "orario": "18:30",
+    "giocatori": "Damian Bucko - Krzysztof Zapala",
+    "quota1": "1.81",
     "quota2": "1.90",
     "set": 1
   },
   {
-    "orario": "13:10",
-    "giocatori": "Bruno Mrowetz - Tomas Krenek",
-    "quota1": "1.96",
-    "quota2": "1.75",
+    "orario": "18:35",
+    "giocatori": "Tomas Nevrtal - Tomas Trnka",
+    "quota1": "1.79",
+    "quota2": "1.92",
     "set": 1
   },
   {
-    "orario": "13:45",
-    "giocatori": "Lukas Dzida - Dalibor Velky Jnr",
-    "quota1": "1.88",
-    "quota2": "1.81",
+    "orario": "18:50",
+    "giocatori": "Petr Dvorak - Petr Vanek",
+    "quota1": "1.85",
+    "quota2": "1.86",
     "set": 1
   },
   {
-    "orario": "13:55",
-    "giocatori": "Martin Filipek - Filip Marat",
-    "quota1": "1.94",
-    "quota2": "1.78",
+    "orario": "19:25",
+    "giocatori": "Petr Moravec - Matej Beran",
+    "quota1": "1.81",
+    "quota2": "1.89",
     "set": 1
   },
   {
-    "orario": "14:10",
-    "giocatori": "Kamil Kleprlik - Bruno Mrowetz",
+    "orario": "20:05",
+    "giocatori": "Martin Jirasek - Ladislav Vosyka",
+    "quota1": "1.86",
+    "quota2": "1.83",
+    "set": 1
+  },
+  {
+    "orario": "20:10",
+    "giocatori": "Tomas Ogrocki - David Osvald",
+    "quota1": "1.75",
+    "quota2": "1.98",
+    "set": 1
+  },
+  {
+    "orario": "20:20",
+    "giocatori": "Pavel Cibik - Lukas Vich",
     "quota1": "1.85",
     "quota2": "1.85",
     "set": 1
   },
   {
-    "orario": "14:15",
-    "giocatori": "Tomas Kindl - Michal Raska",
+    "orario": "20:40",
+    "giocatori": "Vladislav Reska - David Osvald",
+    "quota1": "1.87",
+    "quota2": "1.82",
+    "set": 1
+  },
+  {
+    "orario": "20:50",
+    "giocatori": "Radek Zeman - Zbynek Vyskocil",
     "quota1": "1.80",
     "quota2": "1.90",
     "set": 1
   },
   {
-    "orario": "14:20",
-    "giocatori": "Tomas Cerveny Jr - Josef Vintr",
-    "quota1": "1.72",
-    "quota2": "2.00",
-    "set": 1
-  },
-  {
-    "orario": "14:50",
-    "giocatori": "Ondrej Knazik - Daniel Vojna",
-    "quota1": "1.87",
-    "quota2": "1.84",
-    "set": 1
-  },
-  {
-    "orario": "14:55",
-    "giocatori": "Martin Filipek - Ladislav Moravec",
+    "orario": "21:20",
+    "giocatori": "Pavel Cibik - Zbynek Vyskocil",
     "quota1": "1.80",
-    "quota2": "1.91",
+    "quota2": "1.90",
+    "set": 1
+  },
+  {
+    "orario": "22:10",
+    "giocatori": "David Osvald - Ivan Jemelka",
+    "quota1": "1.77",
+    "quota2": "1.94",
+    "set": 1
+  },
+  {
+    "orario": "22:25",
+    "giocatori": "Tomas Vorisek - Martin Stusek",
+    "quota1": "1.85",
+    "quota2": "1.83",
+    "set": 1
+  },
+  {
+    "orario": "22:35",
+    "giocatori": "David Hons - Ladislav Vosyka",
+    "quota1": "1.81",
+    "quota2": "1.89",
+    "set": 1
+  },
+  {
+    "orario": "22:50",
+    "giocatori": "Zbynek Vyskocil - Lukas Vich",
+    "quota1": "1.94",
+    "quota2": "1.77",
+    "set": 1
+  },
+  {
+    "orario": "22:55",
+    "giocatori": "Ondrej Kadavy - Martin Stusek",
+    "quota1": "1.87",
+    "quota2": "1.82",
     "set": 1
   }
 ]
