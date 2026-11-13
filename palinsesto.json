@@ -1,177 +1,142 @@
 [
   {
-    "orario": "16:45",
-    "giocatori": "Karel Baros - Jan Przybyla",
-    "quota1": "1.76",
-    "quota2": "1.95",
-    "set": 1
-  },
-  {
-    "orario": "16:55",
-    "giocatori": "Robert Jamrich - Matej Beran",
-    "quota1": "2.00",
-    "quota2": "1.73",
-    "set": 1
-  },
-  {
-    "orario": "17:05",
-    "giocatori": "Martin Mastera - Tomas Nevrtal",
-    "quota1": "1.81",
-    "quota2": "1.87",
-    "set": 1
-  },
-  {
-    "orario": "17:15",
-    "giocatori": "Filip Theodor - Tomas Ogrocki",
-    "quota1": "1.94",
-    "quota2": "1.77",
-    "set": 1
-  },
-  {
-    "orario": "17:25",
-    "giocatori": "Jan Hrncir - Petr Moravec",
-    "quota1": "1.86",
-    "quota2": "1.84",
-    "set": 1
-  },
-  {
-    "orario": "17:35",
-    "giocatori": "Tomas Trnka - Tomas Beran 2000",
-    "quota1": "1.83",
-    "quota2": "1.86",
-    "set": 1
-  },
-  {
-    "orario": "17:40",
-    "giocatori": "Patrik Sturma - Tadeas Slivka",
-    "quota1": "1.83",
-    "quota2": "1.86",
-    "set": 1
-  },
-  {
-    "orario": "17:50",
-    "giocatori": "Petr Vanek - Pavel Benes",
-    "quota1": "1.81",
-    "quota2": "1.88",
-    "set": 1
-  },
-  {
-    "orario": "18:05",
-    "giocatori": "Martin Mastera - Tomas Beran 2000",
-    "quota1": "1.81",
-    "quota2": "1.91",
-    "set": 1
-  },
-  {
-    "orario": "18:25",
-    "giocatori": "Matej Beran - Jan Hrncir",
-    "quota1": "1.95",
-    "quota2": "1.76",
-    "set": 1
-  },
-  {
-    "orario": "18:30",
-    "giocatori": "Damian Bucko - Krzysztof Zapala",
-    "quota1": "1.81",
-    "quota2": "1.90",
-    "set": 1
-  },
-  {
-    "orario": "18:35",
-    "giocatori": "Tomas Nevrtal - Tomas Trnka",
-    "quota1": "1.79",
-    "quota2": "1.92",
-    "set": 1
-  },
-  {
-    "orario": "18:50",
-    "giocatori": "Petr Dvorak - Petr Vanek",
-    "quota1": "1.85",
-    "quota2": "1.86",
-    "set": 1
-  },
-  {
-    "orario": "19:25",
-    "giocatori": "Petr Moravec - Matej Beran",
-    "quota1": "1.81",
-    "quota2": "1.89",
-    "set": 1
-  },
-  {
-    "orario": "20:05",
-    "giocatori": "Martin Jirasek - Ladislav Vosyka",
-    "quota1": "1.86",
-    "quota2": "1.83",
-    "set": 1
-  },
-  {
-    "orario": "20:10",
-    "giocatori": "Tomas Ogrocki - David Osvald",
-    "quota1": "1.75",
+    "orario": "08:10",
+    "giocatori": "Radek Benes - Michal Raska",
+    "quota1": "1.74",
     "quota2": "1.98",
     "set": 1
   },
   {
-    "orario": "20:20",
-    "giocatori": "Pavel Cibik - Lukas Vich",
+    "orario": "09:00",
+    "giocatori": "Dawid Stapor - Pawel Gola",
+    "quota1": "1.74",
+    "quota2": "1.97",
+    "set": 1
+  },
+  {
+    "orario": "09:10",
+    "giocatori": "Radek Benes - Bruno Mrowetz",
+    "quota1": "1.90",
+    "quota2": "1.81",
+    "set": 1
+  },
+  {
+    "orario": "09:25",
+    "giocatori": "Vaclav Nadvornik - Martin Cerny",
+    "quota1": "1.88",
+    "quota2": "1.82",
+    "set": 1
+  },
+  {
+    "orario": "09:30",
+    "giocatori": "Jakub Chojnacki - Dawid Stapor",
+    "quota1": "1.92",
+    "quota2": "1.79",
+    "set": 1
+  },
+  {
+    "orario": "09:40",
+    "giocatori": "Erik Precek - Radek Benes",
+    "quota1": "1.89",
+    "quota2": "1.81",
+    "set": 1
+  },
+  {
+    "orario": "09:45",
+    "giocatori": "Petr Chlad - Ales Drozd",
+    "quota1": "1.92",
+    "quota2": "1.79",
+    "set": 1
+  },
+  {
+    "orario": "10:05",
+    "giocatori": "Petr Pesout - Jaroslav Hajek",
     "quota1": "1.85",
     "quota2": "1.85",
     "set": 1
   },
   {
-    "orario": "20:40",
-    "giocatori": "Vladislav Reska - David Osvald",
-    "quota1": "1.87",
-    "quota2": "1.82",
+    "orario": "10:25",
+    "giocatori": "Jan Kocab - Vaclav Nadvornik",
+    "quota1": "1.97",
+    "quota2": "1.75",
     "set": 1
   },
   {
-    "orario": "20:50",
-    "giocatori": "Radek Zeman - Zbynek Vyskocil",
-    "quota1": "1.80",
-    "quota2": "1.90",
-    "set": 1
-  },
-  {
-    "orario": "21:20",
-    "giocatori": "Pavel Cibik - Zbynek Vyskocil",
-    "quota1": "1.80",
-    "quota2": "1.90",
-    "set": 1
-  },
-  {
-    "orario": "22:10",
-    "giocatori": "David Osvald - Ivan Jemelka",
-    "quota1": "1.77",
-    "quota2": "1.94",
-    "set": 1
-  },
-  {
-    "orario": "22:25",
-    "giocatori": "Tomas Vorisek - Martin Stusek",
-    "quota1": "1.85",
-    "quota2": "1.83",
-    "set": 1
-  },
-  {
-    "orario": "22:35",
-    "giocatori": "David Hons - Ladislav Vosyka",
+    "orario": "10:35",
+    "giocatori": "Matyas Rojka - Vlastimil Kaisler",
     "quota1": "1.81",
     "quota2": "1.89",
     "set": 1
   },
   {
-    "orario": "22:50",
-    "giocatori": "Zbynek Vyskocil - Lukas Vich",
+    "orario": "10:55",
+    "giocatori": "David Vesecky - Vaclav Nadvornik",
+    "quota1": "1.82",
+    "quota2": "1.86",
+    "set": 1
+  },
+  {
+    "orario": "11:40",
+    "giocatori": "Lukas Slavik - Bruno Mrowetz",
+    "quota1": "1.78",
+    "quota2": "1.94",
+    "set": 1
+  },
+  {
+    "orario": "12:40",
+    "giocatori": "Lukas Slavik - Radek Benes",
+    "quota1": "1.87",
+    "quota2": "1.83",
+    "set": 1
+  },
+  {
+    "orario": "12:55",
+    "giocatori": "Ondrej Fiklik - Jan Vonasek",
+    "quota1": "1.88",
+    "quota2": "1.83",
+    "set": 1
+  },
+  {
+    "orario": "13:10",
+    "giocatori": "Bruno Mrowetz - Michal Moravec",
+    "quota1": "1.95",
+    "quota2": "1.77",
+    "set": 1
+  },
+  {
+    "orario": "13:20",
+    "giocatori": "Tomas Cerveny Jr - Martin Dolezal",
+    "quota1": "1.91",
+    "quota2": "1.79",
+    "set": 1
+  },
+  {
+    "orario": "13:45",
+    "giocatori": "Vladislav Reska - Petr Chlad",
+    "quota1": "1.76",
+    "quota2": "1.94",
+    "set": 1
+  },
+  {
+    "orario": "13:55",
+    "giocatori": "Ondrej Fiklik - David Sochor",
+    "quota1": "1.88",
+    "quota2": "1.82",
+    "set": 1
+  },
+  {
+    "orario": "14:10",
+    "giocatori": "Radek Benes - Bruno Mrowetz",
     "quota1": "1.94",
     "quota2": "1.77",
     "set": 1
   },
   {
-    "orario": "22:55",
-    "giocatori": "Ondrej Kadavy - Martin Stusek",
-    "quota1": "1.87",
-    "quota2": "1.82",
+    "orario": "14:50",
+    "giocatori": "Martin Dolezal - Ondrej Knazik",
+    "quota1": "1.89",
+    "quota2": "1.81",
     "set": 1
   }
 ]
