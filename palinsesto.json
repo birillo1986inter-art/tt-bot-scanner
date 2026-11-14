@@ -1,93 +1,121 @@
 [
   {
-    "orario": "16:10",
-    "giocatori": "Michal Macurak - David Skulina",
-    "quota1": "1.94",
-    "quota2": "1.78",
+    "orario": "07:40",
+    "giocatori": "Kamil Kleprlik - Ivan Heuman",
+    "quota1": "1.80",
+    "quota2": "1.91",
     "set": 1
   },
   {
-    "orario": "16:30",
-    "giocatori": "Jakub Komorowicz - Bartosz Matachowski",
+    "orario": "08:10",
+    "giocatori": "Michal Moravec - Radek Benes",
+    "quota1": "1.75",
+    "quota2": "1.96",
+    "set": 1
+  },
+  {
+    "orario": "08:40",
+    "giocatori": "Kamil Kleprlik - Radek Benes",
+    "quota1": "1.83",
+    "quota2": "1.87",
+    "set": 1
+  },
+  {
+    "orario": "08:55",
+    "giocatori": "Filip Marat - Jan Hendrych",
+    "quota1": "1.95",
+    "quota2": "1.76",
+    "set": 1
+  },
+  {
+    "orario": "09:05",
+    "giocatori": "Jan Masternak - Szymon Radlo",
     "quota1": "1.91",
     "quota2": "1.79",
     "set": 1
   },
   {
-    "orario": "16:35",
-    "giocatori": "Jan Rambousek - Oldrich Stehlik",
-    "quota1": "2.00",
-    "quota2": "1.72",
+    "orario": "09:10",
+    "giocatori": "Ivan Heuman - Michal Moravec",
+    "quota1": "1.93",
+    "quota2": "1.77",
     "set": 1
   },
   {
-    "orario": "17:35",
-    "giocatori": "Ondrej Polak - Jan Rambousek",
-    "quota1": "2.00",
-    "quota2": "1.72",
+    "orario": "09:35",
+    "giocatori": "Sylwester Wloszek - Bartlomiej Molka",
+    "quota1": "1.95",
+    "quota2": "1.76",
     "set": 1
   },
   {
-    "orario": "17:45",
-    "giocatori": "Karel Baros - Michal Henzel",
-    "quota1": "1.85",
-    "quota2": "1.84",
+    "orario": "10:10",
+    "giocatori": "Radek Benes - Ivan Heuman",
+    "quota1": "1.74",
+    "quota2": "1.98",
     "set": 1
   },
   {
-    "orario": "17:50",
-    "giocatori": "Martin Dolezal - Lukas Dominik Rek",
-    "quota1": "1.83",
+    "orario": "10:15",
+    "giocatori": "Dalibor Velky Jnr - Adam Kanak",
+    "quota1": "1.82",
     "quota2": "1.90",
     "set": 1
   },
   {
-    "orario": "18:35",
-    "giocatori": "Oldrich Stehlik - Ondrej Polak",
-    "quota1": "1.92",
-    "quota2": "1.79",
+    "orario": "11:25",
+    "giocatori": "Frantisek Balcar - Jan Hendrych",
+    "quota1": "2.00",
+    "quota2": "1.72",
     "set": 1
   },
   {
-    "orario": "20:05",
-    "giocatori": "Martin Chmelicek - Simon Mezlik",
-    "quota1": "1.77",
-    "quota2": "1.96",
+    "orario": "11:45",
+    "giocatori": "Jan Skvrna - Tomas Grmela",
+    "quota1": "1.84",
+    "quota2": "1.84",
     "set": 1
   },
   {
-    "orario": "20:40",
-    "giocatori": "Jaroslav Baca - Jan Gembala",
-    "quota1": "1.73",
+    "orario": "12:10",
+    "giocatori": "Dalibor Velky Jnr - Adam Kanak",
+    "quota1": "1.79",
+    "quota2": "1.94",
+    "set": 1
+  },
+  {
+    "orario": "12:40",
+    "giocatori": "Patrik Marsalek - Adam Kanak",
+    "quota1": "1.75",
     "quota2": "2.00",
     "set": 1
   },
   {
-    "orario": "20:50",
-    "giocatori": "Lukas Vich - Pavel Cibik",
-    "quota1": "1.79",
-    "quota2": "1.92",
+    "orario": "13:40",
+    "giocatori": "Patrik Marsalek - Dalibor Velky Jnr",
+    "quota1": "1.86",
+    "quota2": "1.85",
     "set": 1
   },
   {
-    "orario": "21:45",
-    "giocatori": "Frantisek Chaloupka - Michal Macurak",
-    "quota1": "1.74",
+    "orario": "13:45",
+    "giocatori": "Jan Skvrna - Jan Gembala",
+    "quota1": "1.85",
+    "quota2": "1.85",
+    "set": 1
+  },
+  {
+    "orario": "14:25",
+    "giocatori": "Jean-Baptiste Cousin - Zdenek Muhlhauser",
+    "quota1": "1.84",
+    "quota2": "1.87",
+    "set": 1
+  },
+  {
+    "orario": "14:55",
+    "giocatori": "Vojtech Koutnik - Zdenek Muhlhauser",
+    "quota1": "1.75",
     "quota2": "1.97",
-    "set": 1
-  },
-  {
-    "orario": "22:10",
-    "giocatori": "Jan Gembala - Marek Zaskodny",
-    "quota1": "1.85",
-    "quota2": "1.84",
-    "set": 1
-  },
-  {
-    "orario": "22:50",
-    "giocatori": "Pavel Cibik - Zdenek Dusek",
-    "quota1": "1.85",
-    "quota2": "1.84",
     "set": 1
   }
 ]
