@@ -1,121 +1,72 @@
 [
   {
-    "orario": "07:40",
-    "giocatori": "Kamil Kleprlik - Ivan Heuman",
-    "quota1": "1.80",
-    "quota2": "1.91",
-    "set": 1
-  },
-  {
-    "orario": "08:10",
-    "giocatori": "Michal Moravec - Radek Benes",
-    "quota1": "1.75",
-    "quota2": "1.96",
-    "set": 1
-  },
-  {
-    "orario": "08:40",
-    "giocatori": "Kamil Kleprlik - Radek Benes",
-    "quota1": "1.83",
-    "quota2": "1.87",
-    "set": 1
-  },
-  {
-    "orario": "08:55",
-    "giocatori": "Filip Marat - Jan Hendrych",
+    "orario": "16:15",
+    "giocatori": "Jan Skvrna - Tomas Grmela",
     "quota1": "1.95",
     "quota2": "1.76",
     "set": 1
   },
   {
-    "orario": "09:05",
-    "giocatori": "Jan Masternak - Szymon Radlo",
-    "quota1": "1.91",
-    "quota2": "1.79",
+    "orario": "16:15",
+    "giocatori": "Szymon Radlo - Jan Masternak",
+    "quota1": "1.71",
+    "quota2": "2.00",
     "set": 1
   },
   {
-    "orario": "09:10",
-    "giocatori": "Ivan Heuman - Michal Moravec",
+    "orario": "16:45",
+    "giocatori": "Michal Macurak - Tomas Grmela",
     "quota1": "1.93",
     "quota2": "1.77",
     "set": 1
   },
   {
-    "orario": "09:35",
-    "giocatori": "Sylwester Wloszek - Bartlomiej Molka",
-    "quota1": "1.95",
-    "quota2": "1.76",
+    "orario": "16:55",
+    "giocatori": "Martin Filipek - Adam Kral",
+    "quota1": "1.78",
+    "quota2": "1.91",
     "set": 1
   },
   {
-    "orario": "10:10",
-    "giocatori": "Radek Benes - Ivan Heuman",
-    "quota1": "1.74",
-    "quota2": "1.98",
+    "orario": "17:25",
+    "giocatori": "Frantisek Balcar - Matej Beran",
+    "quota1": "1.90",
+    "quota2": "1.81",
     "set": 1
   },
   {
-    "orario": "10:15",
-    "giocatori": "Dalibor Velky Jnr - Adam Kanak",
-    "quota1": "1.82",
-    "quota2": "1.90",
-    "set": 1
-  },
-  {
-    "orario": "11:25",
-    "giocatori": "Frantisek Balcar - Jan Hendrych",
-    "quota1": "2.00",
-    "quota2": "1.72",
-    "set": 1
-  },
-  {
-    "orario": "11:45",
-    "giocatori": "Jan Skvrna - Tomas Grmela",
-    "quota1": "1.84",
-    "quota2": "1.84",
-    "set": 1
-  },
-  {
-    "orario": "12:10",
-    "giocatori": "Dalibor Velky Jnr - Adam Kanak",
+    "orario": "18:25",
+    "giocatori": "Adam Kral - Frantisek Balcar",
     "quota1": "1.79",
-    "quota2": "1.94",
+    "quota2": "1.91",
     "set": 1
   },
   {
-    "orario": "12:40",
-    "giocatori": "Patrik Marsalek - Adam Kanak",
-    "quota1": "1.75",
-    "quota2": "2.00",
+    "orario": "19:25",
+    "giocatori": "Matej Beran - Adam Kral",
+    "quota1": "1.97",
+    "quota2": "1.74",
     "set": 1
   },
   {
-    "orario": "13:40",
-    "giocatori": "Patrik Marsalek - Dalibor Velky Jnr",
-    "quota1": "1.86",
-    "quota2": "1.85",
+    "orario": "19:45",
+    "giocatori": "Daniel Vitasek - Ales Cizek",
+    "quota1": "1.83",
+    "quota2": "1.86",
     "set": 1
   },
   {
-    "orario": "13:45",
-    "giocatori": "Jan Skvrna - Jan Gembala",
-    "quota1": "1.85",
-    "quota2": "1.85",
+    "orario": "22:15",
+    "giocatori": "Radek Sedlacek - Ales Cizek",
+    "quota1": "1.81",
+    "quota2": "1.89",
     "set": 1
   },
   {
-    "orario": "14:25",
-    "giocatori": "Jean-Baptiste Cousin - Zdenek Muhlhauser",
-    "quota1": "1.84",
-    "quota2": "1.87",
-    "set": 1
-  },
-  {
-    "orario": "14:55",
-    "giocatori": "Vojtech Koutnik - Zdenek Muhlhauser",
-    "quota1": "1.75",
-    "quota2": "1.97",
+    "orario": "23:25",
+    "giocatori": "Tomas Krejci - Pavel Cibik",
+    "quota1": "1.81",
+    "quota2": "1.89",
     "set": 1
   }
 ]
