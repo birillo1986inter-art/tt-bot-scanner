@@ -1,1 +1,114 @@
-[]
+[
+  {
+    "orario": "09:10",
+    "giocatori": "Jaroslav Sindler - Patrik Jokiel",
+    "quota1": "1.90",
+    "quota2": "1.80",
+    "set": 1
+  },
+  {
+    "orario": "09:40",
+    "giocatori": "Ales Drozd - Patrik Jokiel",
+    "quota1": "1.80",
+    "quota2": "1.90",
+    "set": 1
+  },
+  {
+    "orario": "10:10",
+    "giocatori": "Adam Strelec - Jaroslav Sindler",
+    "quota1": "1.91",
+    "quota2": "1.80",
+    "set": 1
+  },
+  {
+    "orario": "10:25",
+    "giocatori": "Petr Dvorak - David Sochor",
+    "quota1": "1.73",
+    "quota2": "1.99",
+    "set": 1
+  },
+  {
+    "orario": "10:55",
+    "giocatori": "Jan Vonasek - David Sochor",
+    "quota1": "1.74",
+    "quota2": "1.98",
+    "set": 1
+  },
+  {
+    "orario": "11:30",
+    "giocatori": "Bartlomiej Molka - Jakub Chojnacki",
+    "quota1": "1.89",
+    "quota2": "1.84",
+    "set": 1
+  },
+  {
+    "orario": "11:40",
+    "giocatori": "Lukas Slavik - Erik Precek",
+    "quota1": "1.73",
+    "quota2": "1.99",
+    "set": 1
+  },
+  {
+    "orario": "12:10",
+    "giocatori": "Michal Moravec - Dalibor Velky Jnr",
+    "quota1": "1.73",
+    "quota2": "2.01",
+    "set": 1
+  },
+  {
+    "orario": "12:15",
+    "giocatori": "Lukas Dzida - Radek Sedlacek",
+    "quota1": "1.85",
+    "quota2": "1.83",
+    "set": 1
+  },
+  {
+    "orario": "12:40",
+    "giocatori": "Lukas Slavik - Dalibor Velky Jnr",
+    "quota1": "1.85",
+    "quota2": "1.84",
+    "set": 1
+  },
+  {
+    "orario": "12:50",
+    "giocatori": "Josef Vintr - Tomas Cerveny Jr",
+    "quota1": "1.84",
+    "quota2": "1.84",
+    "set": 1
+  },
+  {
+    "orario": "12:55",
+    "giocatori": "Vaclav Nadvornik - Martin Cerny",
+    "quota1": "1.90",
+    "quota2": "1.80",
+    "set": 1
+  },
+  {
+    "orario": "13:45",
+    "giocatori": "Ales Cizek - Lukas Dzida",
+    "quota1": "1.84",
+    "quota2": "1.85",
+    "set": 1
+  },
+  {
+    "orario": "14:10",
+    "giocatori": "Dalibor Velky Jnr - Erik Precek",
+    "quota1": "1.80",
+    "quota2": "1.90",
+    "set": 1
+  },
+  {
+    "orario": "14:25",
+    "giocatori": "Martin Cerny - David Vesecky",
+    "quota1": "1.84",
+    "quota2": "1.85",
+    "set": 1
+  },
+  {
+    "orario": "14:55",
+    "giocatori": "Vaclav Nadvornik - David Vesecky",
+    "quota1": "1.89",
+    "quota2": "1.80",
+    "set": 1
+  }
+]
