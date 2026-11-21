@@ -1,58 +1,37 @@
 [
   {
-    "orario": "08:40",
-    "giocatori": "Jan Krupnik - Bruno Mrowetz",
-    "quota1": "1.83",
-    "quota2": "1.87",
-    "set": 1
-  },
-  {
-    "orario": "08:45",
-    "giocatori": "Jan Gembala - Adam Vitasek",
-    "quota1": "1.79",
-    "quota2": "1.91",
-    "set": 1
-  },
-  {
-    "orario": "08:55",
-    "giocatori": "Tomas Vorisek - David Jicha",
-    "quota1": "1.97",
-    "quota2": "1.74",
-    "set": 1
-  },
-  {
     "orario": "10:05",
     "giocatori": "Denys Kovtanyuk - Jakub Komorowicz",
-    "quota1": "1.97",
-    "quota2": "1.75",
+    "quota1": "2.00",
+    "quota2": "1.71",
     "set": 1
   },
   {
     "orario": "10:10",
     "giocatori": "Bruno Mrowetz - Adam Kanak",
-    "quota1": "1.87",
-    "quota2": "1.84",
+    "quota1": "1.80",
+    "quota2": "1.90",
     "set": 1
   },
   {
     "orario": "10:35",
     "giocatori": "Milan Flesar - David Hons",
     "quota1": "2.00",
-    "quota2": "1.74",
+    "quota2": "1.72",
     "set": 1
   },
   {
     "orario": "10:55",
     "giocatori": "Tomas Vorisek - Filip Strejc",
-    "quota1": "1.77",
-    "quota2": "1.94",
+    "quota1": "1.83",
+    "quota2": "1.88",
     "set": 1
   },
   {
     "orario": "12:15",
     "giocatori": "Bruno Mrowetz - Adam Kanak",
     "quota1": "1.79",
-    "quota2": "1.92",
+    "quota2": "1.90",
     "set": 1
   },
   {
