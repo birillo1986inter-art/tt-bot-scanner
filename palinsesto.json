@@ -1,16 +1,9 @@
 [
   {
-    "orario": "10:05",
-    "giocatori": "Denys Kovtanyuk - Jakub Komorowicz",
-    "quota1": "2.00",
-    "quota2": "1.71",
-    "set": 1
-  },
-  {
     "orario": "10:10",
     "giocatori": "Bruno Mrowetz - Adam Kanak",
-    "quota1": "1.80",
-    "quota2": "1.90",
+    "quota1": "1.78",
+    "quota2": "1.92",
     "set": 1
   },
   {
@@ -30,7 +23,7 @@
   {
     "orario": "12:15",
     "giocatori": "Bruno Mrowetz - Adam Kanak",
-    "quota1": "1.79",
+    "quota1": "1.81",
     "quota2": "1.90",
     "set": 1
   },
