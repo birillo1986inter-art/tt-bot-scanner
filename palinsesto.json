@@ -1,12 +1,5 @@
 [
   {
-    "orario": "16:10",
-    "giocatori": "Erik Precek - Tomas Molin",
-    "quota1": "1.91",
-    "quota2": "1.79",
-    "set": 1
-  },
-  {
     "orario": "16:35",
     "giocatori": "Martin Chmelicek - Simon Mezlik",
     "quota1": "1.82",
@@ -37,22 +30,22 @@
   {
     "orario": "18:10",
     "giocatori": "Tomas Molin - Tomas Fojtik",
-    "quota1": "1.73",
-    "quota2": "2.01",
+    "quota1": "1.79",
+    "quota2": "1.94",
     "set": 1
   },
   {
     "orario": "20:40",
     "giocatori": "Jakub Travnicek - Daniel Vitasek",
-    "quota1": "1.92",
-    "quota2": "1.77",
+    "quota1": "2.00",
+    "quota2": "1.73",
     "set": 1
   },
   {
     "orario": "21:10",
     "giocatori": "Kamil Kleprlik - Frantisek Chaloupka",
-    "quota1": "1.92",
-    "quota2": "1.78",
+    "quota1": "1.96",
+    "quota2": "1.74",
     "set": 1
   },
   {
