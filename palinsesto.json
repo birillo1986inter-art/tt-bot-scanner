@@ -1,51 +1,79 @@
 [
   {
-    "orario": "10:10",
-    "giocatori": "Bruno Mrowetz - Adam Kanak",
-    "quota1": "1.78",
-    "quota2": "1.92",
-    "set": 1
-  },
-  {
-    "orario": "10:35",
-    "giocatori": "Milan Flesar - David Hons",
-    "quota1": "2.00",
-    "quota2": "1.72",
-    "set": 1
-  },
-  {
-    "orario": "10:55",
-    "giocatori": "Tomas Vorisek - Filip Strejc",
-    "quota1": "1.83",
-    "quota2": "1.88",
-    "set": 1
-  },
-  {
-    "orario": "12:15",
-    "giocatori": "Bruno Mrowetz - Adam Kanak",
-    "quota1": "1.81",
-    "quota2": "1.90",
-    "set": 1
-  },
-  {
-    "orario": "13:05",
-    "giocatori": "Oldrich Stehlik - Ondrej Polak",
+    "orario": "16:10",
+    "giocatori": "Erik Precek - Tomas Molin",
     "quota1": "1.91",
     "quota2": "1.79",
     "set": 1
   },
   {
-    "orario": "13:10",
-    "giocatori": "Dalibor Velky Jnr - Jan Krupnik",
-    "quota1": "2.00",
-    "quota2": "1.73",
+    "orario": "16:35",
+    "giocatori": "Martin Chmelicek - Simon Mezlik",
+    "quota1": "1.82",
+    "quota2": "1.86",
     "set": 1
   },
   {
-    "orario": "13:55",
-    "giocatori": "Martin Filipek - Vojtech Koutnik",
-    "quota1": "1.84",
-    "quota2": "1.86",
+    "orario": "16:40",
+    "giocatori": "Daniel Vitasek - Tomas Molin",
+    "quota1": "1.93",
+    "quota2": "1.78",
+    "set": 1
+  },
+  {
+    "orario": "16:55",
+    "giocatori": "Jonas Kulveit - Jiri Melichar",
+    "quota1": "1.76",
+    "quota2": "1.94",
+    "set": 1
+  },
+  {
+    "orario": "17:40",
+    "giocatori": "Daniel Vitasek - Erik Precek",
+    "quota1": "1.88",
+    "quota2": "1.82",
+    "set": 1
+  },
+  {
+    "orario": "18:10",
+    "giocatori": "Tomas Molin - Tomas Fojtik",
+    "quota1": "1.73",
+    "quota2": "2.01",
+    "set": 1
+  },
+  {
+    "orario": "20:40",
+    "giocatori": "Jakub Travnicek - Daniel Vitasek",
+    "quota1": "1.92",
+    "quota2": "1.77",
+    "set": 1
+  },
+  {
+    "orario": "21:10",
+    "giocatori": "Kamil Kleprlik - Frantisek Chaloupka",
+    "quota1": "1.92",
+    "quota2": "1.78",
+    "set": 1
+  },
+  {
+    "orario": "21:55",
+    "giocatori": "Tomas Krejci - Radek Zeman",
+    "quota1": "1.96",
+    "quota2": "1.76",
+    "set": 1
+  },
+  {
+    "orario": "22:05",
+    "giocatori": "Milan Flesar - David Hons",
+    "quota1": "1.85",
+    "quota2": "1.85",
+    "set": 1
+  },
+  {
+    "orario": "22:25",
+    "giocatori": "Zbynek Vyskocil - Pavel Cibik",
+    "quota1": "1.90",
+    "quota2": "1.81",
     "set": 1
   }
 ]
