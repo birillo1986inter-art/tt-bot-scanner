@@ -2,9 +2,9 @@ name: run-scanner
 
 on:
   schedule:
-    # 08:03 ora italiana (07:03 UTC)
-    - cron: '3 7 * * *'
-    # 16:03 ora italiana (15:03 UTC)
+    # 08:30 ora italiana (07:30 UTC - ora solare)
+    - cron: '30 7 * * *'
+    # 16:03 ora italiana (15:03 UTC - ora solare)
     - cron: '3 15 * * *'
   workflow_dispatch:
 
