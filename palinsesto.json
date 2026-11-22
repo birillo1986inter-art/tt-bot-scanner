@@ -1,149 +1,156 @@
 [
   {
-    "orario": "08:05",
-    "giocatori": "Oldrich Stehlik - Martin Kucera",
-    "quota1": "1.81",
-    "quota2": "1.90",
+    "orario": "16:00",
+    "giocatori": "Jean-Baptiste Cousin - Ondrej Knazik",
+    "quota1": "1.82",
+    "quota2": "1.88",
     "set": 1
   },
   {
-    "orario": "08:10",
-    "giocatori": "Michal Macurak - Jiri Skalicky",
-    "quota1": "1.85",
-    "quota2": "1.83",
-    "set": 1
-  },
-  {
-    "orario": "08:20",
-    "giocatori": "Adam Kral - Jan Fiala",
-    "quota1": "1.80",
-    "quota2": "1.90",
-    "set": 1
-  },
-  {
-    "orario": "08:35",
-    "giocatori": "Damian Bucko - Krzysztof Zapala",
-    "quota1": "1.79",
+    "orario": "16:15",
+    "giocatori": "Piotr Odelski - Krzysztof Zapala",
+    "quota1": "1.78",
     "quota2": "1.91",
     "set": 1
   },
   {
-    "orario": "08:45",
-    "giocatori": "Jan Krupnik - Bruno Mrowetz",
+    "orario": "16:15",
+    "giocatori": "Martin Lorenc - Petr Chlad",
+    "quota1": "1.79",
+    "quota2": "1.93",
+    "set": 1
+  },
+  {
+    "orario": "16:20",
+    "giocatori": "Pavel Cibik - Ales Brandtl Jr",
     "quota1": "1.85",
     "quota2": "1.85",
     "set": 1
   },
   {
-    "orario": "09:25",
-    "giocatori": "Tomas Vorisek - Ondrej Kadavy",
+    "orario": "16:45",
+    "giocatori": "Karol Guzy - Damian Bucko",
+    "quota1": "1.85",
+    "quota2": "1.82",
+    "set": 1
+  },
+  {
+    "orario": "16:55",
+    "giocatori": "Lukas Dominik Rek - Jaroslav Dohnal",
+    "quota1": "1.86",
+    "quota2": "1.84",
+    "set": 1
+  },
+  {
+    "orario": "17:40",
+    "giocatori": "Lukas Krupnik Jnr - Filip Mandrysz",
+    "quota1": "1.86",
+    "quota2": "1.85",
+    "set": 1
+  },
+  {
+    "orario": "17:45",
+    "giocatori": "Ondrej Skvor - Martin Lorenc",
+    "quota1": "1.85",
+    "quota2": "1.85",
+    "set": 1
+  },
+  {
+    "orario": "17:50",
+    "giocatori": "Ales Brandtl Jr - Radek Zeman",
     "quota1": "1.76",
-    "quota2": "1.94",
+    "quota2": "1.96",
     "set": 1
   },
   {
-    "orario": "09:35",
-    "giocatori": "Karol Guzy - Mateusz Szymanski",
-    "quota1": "1.94",
-    "quota2": "1.77",
+    "orario": "18:05",
+    "giocatori": "Szymon Radlo - Jan Masternak",
+    "quota1": "1.79",
+    "quota2": "1.90",
     "set": 1
   },
   {
-    "orario": "09:40",
-    "giocatori": "Dominik Pawlik - Michal Macurak",
+    "orario": "18:10",
+    "giocatori": "Jakub Lysek - Martin Sobota",
+    "quota1": "1.97",
+    "quota2": "1.74",
+    "set": 1
+  },
+  {
+    "orario": "18:25",
+    "giocatori": "Jaroslav Dohnal - Vojtech Koutnik",
+    "quota1": "1.73",
+    "quota2": "2.00",
+    "set": 1
+  },
+  {
+    "orario": "19:25",
+    "giocatori": "Zdenek Muhlhauser - Jaroslav Dohnal",
     "quota1": "1.90",
     "quota2": "1.81",
     "set": 1
   },
   {
-    "orario": "09:45",
-    "giocatori": "Jan Krupnik - Ales Cizek",
-    "quota1": "1.72",
-    "quota2": "1.99",
-    "set": 1
-  },
-  {
-    "orario": "10:25",
-    "giocatori": "Martin Stusek - Tomas Vorisek",
-    "quota1": "1.94",
+    "orario": "19:45",
+    "giocatori": "Richard Jancak - Ivan Jemelka",
+    "quota1": "1.98",
     "quota2": "1.76",
     "set": 1
   },
   {
-    "orario": "11:25",
-    "giocatori": "Ondrej Kadavy - Martin Stusek",
-    "quota1": "1.80",
-    "quota2": "1.90",
-    "set": 1
-  },
-  {
-    "orario": "12:20",
-    "giocatori": "Petr Vodal - Daniel Vojna",
-    "quota1": "1.83",
-    "quota2": "1.87",
-    "set": 1
-  },
-  {
-    "orario": "12:50",
-    "giocatori": "Jean-Baptiste Cousin - Ondrej Knazik",
-    "quota1": "1.82",
-    "quota2": "1.86",
-    "set": 1
-  },
-  {
-    "orario": "12:55",
-    "giocatori": "Michal Prochazka - Martin Cerny",
-    "quota1": "1.94",
-    "quota2": "1.76",
-    "set": 1
-  },
-  {
-    "orario": "13:20",
-    "giocatori": "Petr Vodal - Ondrej Knazik",
-    "quota1": "1.96",
-    "quota2": "1.74",
-    "set": 1
-  },
-  {
-    "orario": "13:45",
-    "giocatori": "Lukas Dzida - Bruno Mrowetz",
-    "quota1": "1.73",
-    "quota2": "1.98",
-    "set": 1
-  },
-  {
-    "orario": "14:10",
-    "giocatori": "Michal Macurak - Radek Benes",
-    "quota1": "1.81",
-    "quota2": "1.89",
-    "set": 1
-  },
-  {
-    "orario": "14:20",
-    "giocatori": "Petr Vodal - Jean-Baptiste Cousin",
+    "orario": "20:50",
+    "giocatori": "Ondrej Fiklik - Petr Dvorak",
     "quota1": "2.00",
     "quota2": "1.72",
     "set": 1
   },
   {
-    "orario": "14:25",
-    "giocatori": "Martin Cerny - Vaclav Nadvornik",
-    "quota1": "1.83",
-    "quota2": "1.86",
+    "orario": "20:55",
+    "giocatori": "Lukas Vich - Zbynek Vyskocil",
+    "quota1": "1.72",
+    "quota2": "2.00",
     "set": 1
   },
   {
-    "orario": "14:50",
-    "giocatori": "Ondrej Knazik - Daniel Vojna",
-    "quota1": "1.96",
-    "quota2": "1.76",
+    "orario": "21:05",
+    "giocatori": "Martin Jirasek - Ladislav Vosyka",
+    "quota1": "1.90",
+    "quota2": "1.81",
     "set": 1
   },
   {
-    "orario": "14:55",
-    "giocatori": "Michal Prochazka - Vaclav Nadvornik",
+    "orario": "22:10",
+    "giocatori": "Jan Oleksik - Radomir Benesz",
+    "quota1": "1.93",
+    "quota2": "1.78",
+    "set": 1
+  },
+  {
+    "orario": "22:20",
+    "giocatori": "Martin Sulc - Ondrej Fiklik",
+    "quota1": "1.77",
+    "quota2": "1.94",
+    "set": 1
+  },
+  {
+    "orario": "22:25",
+    "giocatori": "Zbynek Vyskocil - Pavel Cibik",
+    "quota1": "1.81",
+    "quota2": "1.90",
+    "set": 1
+  },
+  {
+    "orario": "22:50",
+    "giocatori": "Petr Dvorak - Petr Vanek",
     "quota1": "2.00",
-    "quota2": "1.73",
+    "quota2": "1.72",
+    "set": 1
+  },
+  {
+    "orario": "22:55",
+    "giocatori": "Lukas Vich - Pavel Cibik",
+    "quota1": "1.77",
+    "quota2": "1.95",
     "set": 1
   }
 ]
