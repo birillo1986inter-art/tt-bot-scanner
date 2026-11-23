@@ -1,72 +1,107 @@
 [
   {
-    "orario": "22:10",
-    "giocatori": "Jan Oleksik - Radomir Benesz",
-    "quota1": "1.95",
-    "quota2": "1.76",
+    "orario": "08:10",
+    "giocatori": "Jaroslav Sindler - Jiri Matus",
+    "quota1": "1.79",
+    "quota2": "1.92",
     "set": 1
   },
   {
-    "orario": "22:20",
-    "giocatori": "Martin Sulc - Ondrej Fiklik",
-    "quota1": "1.80",
-    "quota2": "1.88",
-    "set": 1
-  },
-  {
-    "orario": "22:25",
-    "giocatori": "Zbynek Vyskocil - Pavel Cibik",
+    "orario": "08:15",
+    "giocatori": "Tomas Krenek - Lukas Slavik",
     "quota1": "1.78",
     "quota2": "1.93",
     "set": 1
   },
   {
-    "orario": "22:50",
-    "giocatori": "Petr Dvorak - Petr Vanek",
-    "quota1": "2.00",
-    "quota2": "1.72",
-    "set": 1
-  },
-  {
-    "orario": "22:55",
-    "giocatori": "Lukas Vich - Pavel Cibik",
-    "quota1": "1.77",
-    "quota2": "1.92",
-    "set": 1
-  },
-  {
-    "orario": "07:45",
-    "giocatori": "Daniel Vitasek - Dalibor Velky Jnr",
-    "quota1": "1.93",
-    "quota2": "1.78",
+    "orario": "08:30",
+    "giocatori": "Dawid Stapor - Szymon Radlo",
+    "quota1": "1.81",
+    "quota2": "1.85",
     "set": 1
   },
   {
     "orario": "09:40",
     "giocatori": "Petr Chlad - Jaroslav Sindler",
-    "quota1": "1.80",
-    "quota2": "1.90",
+    "quota1": "1.83",
+    "quota2": "1.85",
+    "set": 1
+  },
+  {
+    "orario": "09:50",
+    "giocatori": "Simon Holik - Martin Dolezal",
+    "quota1": "2.01",
+    "quota2": "1.71",
+    "set": 1
+  },
+  {
+    "orario": "10:00",
+    "giocatori": "Dawid Stapor - Pawel Gola",
+    "quota1": "1.76",
+    "quota2": "1.95",
+    "set": 1
+  },
+  {
+    "orario": "10:10",
+    "giocatori": "Jiri Matus - Adam Strelec",
+    "quota1": "1.85",
+    "quota2": "1.84",
     "set": 1
   },
   {
     "orario": "10:15",
     "giocatori": "Lukas Slavik - Dalibor Velky Jnr",
-    "quota1": "1.84",
+    "quota1": "1.85",
+    "quota2": "1.84",
+    "set": 1
+  },
+  {
+    "orario": "11:40",
+    "giocatori": "Lukas Kantor - Laurent Lasota",
+    "quota1": "1.85",
     "quota2": "1.84",
     "set": 1
   },
   {
     "orario": "12:10",
     "giocatori": "Tomas Kindl - Radek Sedlacek",
+    "quota1": "1.98",
+    "quota2": "1.72",
+    "set": 1
+  },
+  {
+    "orario": "12:15",
+    "giocatori": "Tomas Krenek - Radek Benes",
     "quota1": "1.80",
     "quota2": "1.91",
     "set": 1
   },
   {
+    "orario": "13:10",
+    "giocatori": "Laurent Lasota - Tomas Kindl",
+    "quota1": "1.88",
+    "quota2": "1.80",
+    "set": 1
+  },
+  {
     "orario": "13:45",
     "giocatori": "Jan Skvrna - Tomas Krenek",
-    "quota1": "1.84",
+    "quota1": "1.82",
+    "quota2": "1.88",
+    "set": 1
+  },
+  {
+    "orario": "14:15",
+    "giocatori": "Radek Benes - Dalibor Velky Jnr",
+    "quota1": "1.85",
     "quota2": "1.84",
+    "set": 1
+  },
+  {
+    "orario": "14:20",
+    "giocatori": "Tomas Rein - Josef Vintr",
+    "quota1": "1.77",
+    "quota2": "1.94",
     "set": 1
   }
 ]
