@@ -1,100 +1,23 @@
 [
   {
-    "orario": "16:40",
-    "giocatori": "Filip Sikora - Rene Kowal",
+    "orario": "20:00",
+    "giocatori": "Damian Bucko - Karol Guzy",
     "quota1": "1.83",
-    "quota2": "1.85",
+    "quota2": "1.87",
     "set": 1
   },
   {
-    "orario": "17:00",
-    "giocatori": "Pawel Kos - Blazej Gola",
-    "quota1": "1.91",
-    "quota2": "1.79",
-    "set": 1
-  },
-  {
-    "orario": "17:20",
-    "giocatori": "Ales Brandtl Jr - Christian Kratochvil",
-    "quota1": "1.84",
-    "quota2": "1.85",
-    "set": 1
-  },
-  {
-    "orario": "17:30",
-    "giocatori": "Piotr Odelski - Karol Guzy",
+    "orario": "20:05",
+    "giocatori": "Arkadiusz Wiekiera - Patryk Kiejda",
     "quota1": "2.00",
     "quota2": "1.73",
     "set": 1
   },
   {
-    "orario": "17:40",
-    "giocatori": "Filip Sikora - David Sarganek",
-    "quota1": "1.96",
-    "quota2": "1.76",
-    "set": 1
-  },
-  {
-    "orario": "18:00",
-    "giocatori": "Krzysztof Zapala - Piotr Odelski",
-    "quota1": "1.95",
-    "quota2": "1.76",
-    "set": 1
-  },
-  {
-    "orario": "18:05",
-    "giocatori": "Arkadiusz Wiekiera - Kamil Kos",
-    "quota1": "1.97",
-    "quota2": "1.74",
-    "set": 1
-  },
-  {
-    "orario": "18:10",
-    "giocatori": "Rene Kowal - Petr Vicherek",
-    "quota1": "1.73",
-    "quota2": "1.99",
-    "set": 1
-  },
-  {
-    "orario": "18:15",
-    "giocatori": "Kamil Kleprlik - Frantisek Chaloupka",
-    "quota1": "1.93",
-    "quota2": "1.78",
-    "set": 1
-  },
-  {
-    "orario": "18:30",
-    "giocatori": "Damian Bucko - Krzysztof Zapala",
-    "quota1": "1.87",
-    "quota2": "1.86",
-    "set": 1
-  },
-  {
-    "orario": "19:25",
-    "giocatori": "Petr Vanek - Martin Cerny",
-    "quota1": "1.74",
-    "quota2": "1.98",
-    "set": 1
-  },
-  {
-    "orario": "19:45",
-    "giocatori": "Ivan Heuman - Jakub Travnicek",
-    "quota1": "1.96",
-    "quota2": "1.76",
-    "set": 1
-  },
-  {
     "orario": "21:15",
     "giocatori": "Ivan Heuman - Jan Skvrna",
-    "quota1": "1.97",
+    "quota1": "1.98",
     "quota2": "1.75",
-    "set": 1
-  },
-  {
-    "orario": "21:20",
-    "giocatori": "Lukas Jirka - Jean-Baptiste Cousin",
-    "quota1": "2.00",
-    "quota2": "1.72",
     "set": 1
   },
   {
