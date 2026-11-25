@@ -1,58 +1,100 @@
 [
   {
-    "orario": "19:05",
-    "giocatori": "Bruno Mrowetz - Daniel Vitasek",
-    "quota1": "1.85",
+    "orario": "07:45",
+    "giocatori": "Dominik Pawlik - Erik Precek",
+    "quota1": "1.78",
+    "quota2": "1.94",
+    "set": 1
+  },
+  {
+    "orario": "08:10",
+    "giocatori": "Jaroslav Sindler - Jiri Matus",
+    "quota1": "1.79",
+    "quota2": "1.92",
+    "set": 1
+  },
+  {
+    "orario": "08:55",
+    "giocatori": "Vaclav Nadvornik - Martin Cerny",
+    "quota1": "1.94",
+    "quota2": "1.77",
+    "set": 1
+  },
+  {
+    "orario": "09:25",
+    "giocatori": "Jachym Zacharda - Jan Kocab",
+    "quota1": "1.89",
+    "quota2": "1.82",
+    "set": 1
+  },
+  {
+    "orario": "09:40",
+    "giocatori": "Ondrej Skvor - Jaroslav Sindler",
+    "quota1": "1.79",
+    "quota2": "1.90",
+    "set": 1
+  },
+  {
+    "orario": "09:45",
+    "giocatori": "Dominik Pawlik - David Stusek",
+    "quota1": "2.00",
+    "quota2": "1.73",
+    "set": 1
+  },
+  {
+    "orario": "09:55",
+    "giocatori": "Vaclav Nadvornik - Jan Kocab",
+    "quota1": "1.74",
+    "quota2": "1.98",
+    "set": 1
+  },
+  {
+    "orario": "10:05",
+    "giocatori": "Jan Lovl - Jan Ruzicka",
+    "quota1": "1.72",
+    "quota2": "2.00",
+    "set": 1
+  },
+  {
+    "orario": "10:10",
+    "giocatori": "Jiri Matus - Adam Strelec",
+    "quota1": "1.91",
+    "quota2": "1.79",
+    "set": 1
+  },
+  {
+    "orario": "12:10",
+    "giocatori": "Ondrej Skvor - Jaroslav Sindler",
+    "quota1": "1.79",
+    "quota2": "1.92",
+    "set": 1
+  },
+  {
+    "orario": "12:50",
+    "giocatori": "Frantisek Dvorak - Ondrej Knazik",
+    "quota1": "1.72",
+    "quota2": "2.00",
+    "set": 1
+  },
+  {
+    "orario": "13:15",
+    "giocatori": "Michal Raska - Dominik Pawlik",
+    "quota1": "1.80",
     "quota2": "1.89",
     "set": 1
   },
   {
-    "orario": "19:25",
-    "giocatori": "Martin Stusek - Filip Strejc",
-    "quota1": "1.84",
+    "orario": "14:10",
+    "giocatori": "Jaroslav Sindler - Dominik Stefek",
+    "quota1": "1.85",
     "quota2": "1.84",
     "set": 1
   },
   {
-    "orario": "20:40",
-    "giocatori": "Daniel Branny - Tomas Ogrocki",
-    "quota1": "1.82",
-    "quota2": "1.88",
-    "set": 1
-  },
-  {
-    "orario": "20:50",
-    "giocatori": "Pavel Cibik - Zbynek Vyskocil",
-    "quota1": "1.87",
-    "quota2": "1.83",
-    "set": 1
-  },
-  {
-    "orario": "21:45",
-    "giocatori": "David Osvald - Peter Chvojka",
-    "quota1": "1.82",
-    "quota2": "1.89",
-    "set": 1
-  },
-  {
-    "orario": "22:10",
-    "giocatori": "Tomas Ogrocki - Vojtech Molin",
-    "quota1": "1.89",
-    "quota2": "1.81",
-    "set": 1
-  },
-  {
-    "orario": "22:15",
-    "giocatori": "Richard Jancak - Patrik Jokiel",
-    "quota1": "1.82",
-    "quota2": "1.88",
-    "set": 1
-  },
-  {
-    "orario": "22:55",
-    "giocatori": "Tomas Cerveny Jr - Christian Kratochvil",
-    "quota1": "1.89",
-    "quota2": "1.79",
+    "orario": "14:55",
+    "giocatori": "Jan Vonasek - Ondrej Fiklik",
+    "quota1": "1.80",
+    "quota2": "1.90",
     "set": 1
   }
 ]
