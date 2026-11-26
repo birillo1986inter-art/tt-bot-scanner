@@ -1,58 +1,30 @@
 [
   {
-    "orario": "16:30",
-    "giocatori": "Bartosz Matachowski - Jakub Komorowicz",
-    "quota1": "1.81",
-    "quota2": "1.88",
-    "set": 1
-  },
-  {
-    "orario": "17:05",
-    "giocatori": "Karol Guzy - Bartosz Bilski",
-    "quota1": "1.94",
-    "quota2": "1.78",
-    "set": 1
-  },
-  {
-    "orario": "17:15",
-    "giocatori": "Jan Gembala - Petr Vicherek",
-    "quota1": "1.89",
-    "quota2": "1.82",
-    "set": 1
-  },
-  {
-    "orario": "17:35",
-    "giocatori": "Piotr Odelski - Lukasz Buklat",
-    "quota1": "1.78",
-    "quota2": "1.94",
-    "set": 1
-  },
-  {
-    "orario": "18:15",
-    "giocatori": "Marek Zaskodny - Jan Gembala",
-    "quota1": "1.75",
-    "quota2": "1.94",
-    "set": 1
-  },
-  {
     "orario": "18:55",
     "giocatori": "Ondrej Kadavy - David Bochnak",
-    "quota1": "1.75",
-    "quota2": "1.98",
+    "quota1": "1.79",
+    "quota2": "1.92",
     "set": 1
   },
   {
-    "orario": "19:40",
-    "giocatori": "Jindrich Mayrhofer - Miroslav Dolezal",
-    "quota1": "1.72",
-    "quota2": "2.00",
+    "orario": "19:30",
+    "giocatori": "Rokita Gracjan - Jakub Komorowicz",
+    "quota1": "1.96",
+    "quota2": "1.75",
+    "set": 1
+  },
+  {
+    "orario": "19:35",
+    "giocatori": "Piotr Odelski - Krzysztof Zapala",
+    "quota1": "1.78",
+    "quota2": "1.92",
     "set": 1
   },
   {
     "orario": "20:05",
     "giocatori": "Jan Vidourek - David Hons",
-    "quota1": "1.79",
-    "quota2": "1.91",
+    "quota1": "1.83",
+    "quota2": "1.88",
     "set": 1
   },
   {
@@ -64,16 +36,16 @@
   },
   {
     "orario": "20:35",
-    "giocatori": "Ladislav Vosyka - Tomas Krcil",
-    "quota1": "1.79",
-    "quota2": "1.92",
+    "giocatori": "Krzysztof Zapala - Lukasz Buklat",
+    "quota1": "1.75",
+    "quota2": "1.99",
     "set": 1
   },
   {
     "orario": "20:40",
     "giocatori": "Jindrich Mayrhofer - Jaroslav Neuwirth Jr",
-    "quota1": "1.72",
-    "quota2": "2.00",
+    "quota1": "1.76",
+    "quota2": "1.95",
     "set": 1
   },
   {
@@ -93,14 +65,14 @@
   {
     "orario": "22:25",
     "giocatori": "Tomas Vorisek - Ondrej Kadavy",
-    "quota1": "1.80",
-    "quota2": "1.93",
+    "quota1": "1.86",
+    "quota2": "1.82",
     "set": 1
   },
   {
     "orario": "22:55",
     "giocatori": "Martin Stusek - Ondrej Kadavy",
-    "quota1": "1.86",
+    "quota1": "1.84",
     "quota2": "1.85",
     "set": 1
   }
