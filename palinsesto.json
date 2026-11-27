@@ -1,107 +1,37 @@
 [
   {
-    "orario": "18:50",
-    "giocatori": "Jan Hrncir - Milan Dvorak",
-    "quota1": "1.81",
-    "quota2": "1.90",
+    "orario": "08:55",
+    "giocatori": "Ales Brandtl Jr - Petr Kubat",
+    "quota1": "1.76",
+    "quota2": "1.97",
     "set": 1
   },
   {
-    "orario": "18:55",
-    "giocatori": "Tomas Flicek - Martin Stusek",
-    "quota1": "1.81",
-    "quota2": "1.88",
+    "orario": "09:15",
+    "giocatori": "Radek Benes - Borek Moravec",
+    "quota1": "1.92",
+    "quota2": "1.78",
     "set": 1
   },
   {
-    "orario": "19:25",
-    "giocatori": "David Jicha - Tomas Vorisek",
-    "quota1": "1.79",
-    "quota2": "1.92",
+    "orario": "10:15",
+    "giocatori": "Michal Moravec - Radek Benes",
+    "quota1": "1.97",
+    "quota2": "1.70",
     "set": 1
   },
   {
-    "orario": "20:15",
-    "giocatori": "Jakub Travnicek - Tomas Fojtik",
-    "quota1": "1.81",
-    "quota2": "1.90",
-    "set": 1
-  },
-  {
-    "orario": "20:45",
-    "giocatori": "Daniel Vitasek - Tomas Fojtik",
-    "quota1": "1.88",
-    "quota2": "1.85",
-    "set": 1
-  },
-  {
-    "orario": "20:50",
-    "giocatori": "Pavel Cibik - Zbynek Vyskocil",
-    "quota1": "1.95",
-    "quota2": "1.77",
-    "set": 1
-  },
-  {
-    "orario": "21:05",
-    "giocatori": "Tomas Motacek - Simon Mezlik",
-    "quota1": "1.74",
-    "quota2": "2.00",
-    "set": 1
-  },
-  {
-    "orario": "21:25",
-    "giocatori": "Martin Boltik - Jean-Baptiste Cousin",
-    "quota1": "1.83",
-    "quota2": "1.88",
-    "set": 1
-  },
-  {
-    "orario": "21:40",
-    "giocatori": "Daniel Branny - Laurent Lasota",
-    "quota1": "1.98",
-    "quota2": "1.76",
-    "set": 1
-  },
-  {
-    "orario": "21:45",
-    "giocatori": "Daniel Vitasek - Jakub Travnicek",
-    "quota1": "1.75",
-    "quota2": "1.95",
-    "set": 1
-  },
-  {
-    "orario": "21:50",
-    "giocatori": "Lukas Vich - Pavel Cibik",
-    "quota1": "1.79",
-    "quota2": "1.91",
-    "set": 1
-  },
-  {
-    "orario": "22:10",
-    "giocatori": "Kamil Przeczek - Tomas Ogrocki",
-    "quota1": "1.72",
-    "quota2": "1.99",
-    "set": 1
-  },
-  {
-    "orario": "22:35",
+    "orario": "10:35",
     "giocatori": "Simon Mezlik - Martin Chmelicek",
-    "quota1": "1.90",
-    "quota2": "1.81",
+    "quota1": "1.88",
+    "quota2": "1.82",
     "set": 1
   },
   {
-    "orario": "22:50",
-    "giocatori": "Zbynek Vyskocil - Lukas Vich",
-    "quota1": "1.91",
-    "quota2": "1.77",
-    "set": 1
-  },
-  {
-    "orario": "22:55",
-    "giocatori": "Jaroslav Dohnal - Martin Boltik",
-    "quota1": "1.72",
-    "quota2": "2.00",
+    "orario": "11:25",
+    "giocatori": "Petr Vodal - Petr Kubat",
+    "quota1": "1.77",
+    "quota2": "1.95",
     "set": 1
   }
 ]
