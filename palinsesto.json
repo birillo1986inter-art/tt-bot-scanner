@@ -1,93 +1,114 @@
 [
   {
-    "orario": "08:10",
-    "giocatori": "Patrik Jokiel - Lukas Krupnik Jnr",
-    "quota1": "1.80",
-    "quota2": "1.89",
+    "orario": "16:10",
+    "giocatori": "Dalibor Velky Jnr - Lukas Kantor",
+    "quota1": "1.81",
+    "quota2": "1.90",
     "set": 1
   },
   {
-    "orario": "08:45",
-    "giocatori": "Anton Veliiev - Michal Moravec",
+    "orario": "16:15",
+    "giocatori": "Dominik Pawlik - Kamil Kleprlik",
+    "quota1": "1.98",
+    "quota2": "1.75",
+    "set": 1
+  },
+  {
+    "orario": "16:40",
+    "giocatori": "Tomas Fojtik - Lukas Kantor",
+    "quota1": "1.78",
+    "quota2": "1.95",
+    "set": 1
+  },
+  {
+    "orario": "16:45",
+    "giocatori": "Jan Krupnik - Kamil Kleprlik",
+    "quota1": "1.98",
+    "quota2": "1.74",
+    "set": 1
+  },
+  {
+    "orario": "16:55",
+    "giocatori": "Jonas Kulveit - Ondrej Fiklik",
+    "quota1": "1.94",
+    "quota2": "1.78",
+    "set": 1
+  },
+  {
+    "orario": "17:05",
+    "giocatori": "Karol Guzy - Bartosz Bilski",
+    "quota1": "1.85",
+    "quota2": "1.83",
+    "set": 1
+  },
+  {
+    "orario": "17:10",
+    "giocatori": "Lukas Dzida - Dalibor Velky Jnr",
+    "quota1": "1.88",
+    "quota2": "1.84",
+    "set": 1
+  },
+  {
+    "orario": "17:15",
+    "giocatori": "Frantisek Chaloupka - Dominik Pawlik",
+    "quota1": "1.73",
+    "quota2": "1.99",
+    "set": 1
+  },
+  {
+    "orario": "17:35",
+    "giocatori": "Damian Bucko - Lukasz Buklat",
+    "quota1": "1.77",
+    "quota2": "1.92",
+    "set": 1
+  },
+  {
+    "orario": "18:10",
+    "giocatori": "Lukas Kantor - Lukas Dzida",
+    "quota1": "1.95",
+    "quota2": "1.77",
+    "set": 1
+  },
+  {
+    "orario": "18:15",
+    "giocatori": "Kamil Kleprlik - Frantisek Chaloupka",
+    "quota1": "1.97",
+    "quota2": "1.75",
+    "set": 1
+  },
+  {
+    "orario": "19:40",
+    "giocatori": "Michal Raska - Ivan Heuman",
     "quota1": "1.95",
     "quota2": "1.76",
     "set": 1
   },
   {
-    "orario": "08:55",
-    "giocatori": "Ales Brandtl Jr - Petr Kubat",
-    "quota1": "1.78",
-    "quota2": "1.93",
+    "orario": "20:10",
+    "giocatori": "Dalibor Velky Jnr - Jiri Palat",
+    "quota1": "1.90",
+    "quota2": "1.83",
     "set": 1
   },
   {
-    "orario": "09:05",
-    "giocatori": "Marcin Stepien - Mateusz Galus",
-    "quota1": "1.97",
-    "quota2": "1.74",
-    "set": 1
-  },
-  {
-    "orario": "09:40",
-    "giocatori": "Jaroslav Sindler - Patrik Jokiel",
+    "orario": "20:15",
+    "giocatori": "Daniel Vitasek - Jan Krupnik",
     "quota1": "1.89",
-    "quota2": "1.80",
-    "set": 1
-  },
-  {
-    "orario": "10:15",
-    "giocatori": "Michal Moravec - Radek Benes",
-    "quota1": "1.92",
-    "quota2": "1.77",
-    "set": 1
-  },
-  {
-    "orario": "10:35",
-    "giocatori": "Simon Mezlik - Martin Chmelicek",
-    "quota1": "1.88",
     "quota2": "1.82",
     "set": 1
   },
   {
-    "orario": "11:25",
-    "giocatori": "Petr Vodal - Petr Kubat",
-    "quota1": "1.82",
-    "quota2": "1.88",
-    "set": 1
-  },
-  {
-    "orario": "12:15",
-    "giocatori": "Anton Veliiev - Lukas Slavik",
-    "quota1": "1.80",
-    "quota2": "1.88",
-    "set": 1
-  },
-  {
-    "orario": "12:45",
-    "giocatori": "Dominik Pawlik - Lukas Slavik",
-    "quota1": "1.73",
-    "quota2": "1.98",
-    "set": 1
-  },
-  {
-    "orario": "13:15",
-    "giocatori": "Ales Cizek - Anton Veliiev",
-    "quota1": "1.95",
+    "orario": "20:40",
+    "giocatori": "Michal Raska - Jiri Palat",
+    "quota1": "1.90",
     "quota2": "1.78",
     "set": 1
   },
   {
-    "orario": "13:25",
-    "giocatori": "Zdenek Muhlhauser - Jean-Baptiste Cousin",
-    "quota1": "1.91",
-    "quota2": "1.78",
-    "set": 1
-  },
-  {
-    "orario": "14:25",
-    "giocatori": "Daniel Vojna - Zdenek Muhlhauser",
-    "quota1": "1.91",
-    "quota2": "1.79",
+    "orario": "21:10",
+    "giocatori": "Ivan Heuman - Dalibor Velky Jnr",
+    "quota1": "1.79",
+    "quota2": "1.91",
     "set": 1
   }
 ]
